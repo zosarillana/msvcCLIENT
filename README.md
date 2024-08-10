@@ -1,0 +1,2 @@
+# msvcCLIENT
+Angular and TS practice with RESTFUL API CRUD (SINGLE PAGE APPLICATION)
