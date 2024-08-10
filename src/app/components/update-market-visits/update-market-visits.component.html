@@ -1,0 +1,77 @@
+<div *ngIf="mvisit">
+  <div class="w-full mx-auto mt-12">
+    <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6">
+      <h1 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
+        Visitor name: {{ mvisit.visitor }}
+      </h1>
+      <form>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div class="relative">
+            <label
+              for="datetimepicker"
+              class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+              >Area</label
+            >
+            <input
+              [(ngModel)]="mvisit.area"
+              placeholder="Area"
+              name="area"
+              class="border p-2 text-sm rounded w-full"
+            />
+          </div>
+          <div class="relative">
+            <label
+              for="datetimepicker"
+              class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+              >Name</label
+            >
+            <input
+              [(ngModel)]="mvisit.visitor"
+              placeholder="Visitor Name"
+              name="visitor"
+              class="border p-2 text-sm rounded w-full"
+            />
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="relative">
+            <label
+              for="datetimepicker"
+              class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+              >Date and Time Visited</label
+            >
+            <input
+              [(ngModel)]="mvisit.visitdate"
+              type="datetime-local"
+              id="datetimepicker"
+              name="datetime"
+              class="border p-2 text-sm rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
+            />
+          </div>
+        </div>
+        <button
+          (click)="updateVisit(mvisit)"
+          *ngIf="mvisit.id"
+          class="px-4 py-2 text-sm rounded bg-indigo-500 text-white hover:bg-indigo-600 font-bold focus:outline-none transition-colors"
+        >
+          Confirm edit
+        </button>
+        <button
+          (click)="createVisit(mvisit)"
+          *ngIf="!mvisit.id"
+          class="px-4 py-2 text-sm rounded bg-indigo-500 text-white hover:bg-indigo-600 font-bold focus:outline-none transition-colors"
+        >
+          Create data
+        </button>
+        <button
+          (click)="deleteVisit(mvisit)"
+          *ngIf="mvisit.id"
+          class="px-4 py-2 ml-2 text-sm rounded bg-indigo-500 text-white hover:bg-indigo-600 font-bold focus:outline-none transition-colors"
+        >
+          Delete data
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
