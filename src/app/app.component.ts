@@ -14,5 +14,10 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
       
     }
-  
+    
+    isSidebarOpen = true;
+
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen;
+    }
 }

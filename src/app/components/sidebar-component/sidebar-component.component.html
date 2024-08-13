@@ -1,0 +1,156 @@
+<body class="text-gray-800 font-inter">
+  <!-- start: Sidebar -->
+  <div
+    [ngClass]="{
+      'translate-x-0': isSidebarOpen,
+      '-translate-x-full': !isSidebarOpen
+    }"
+    class="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 sidebar-menu transition-transform"
+  >
+    <a href="#" class="flex items-center pb-4 border-b border-b-gray-800">
+      <img
+        src="https://placehold.co/32x32"
+        alt=""
+        class="w-8 h-8 rounded object-cover"
+      />
+      <span class="text-lg font-bold text-white ml-3">{{ title }}</span>
+    </a>
+    <ul class="mt-4">
+      <li class="mb-1 group active">
+        <a
+          href="#"
+          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+            />
+          </svg>
+
+          <span class="text-sm font-base ml-2">Dashboard</span>
+        </a>
+      </li>
+      <li class="mb-1 group">
+        <a
+          href="#"
+          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+            />
+          </svg>
+
+          <span class="text-sm font-base ml-2">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    *ngIf="isSidebarOpen"
+    class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"
+    (click)="toggleSidebar()"
+  ></div>
+  <!-- end: Sidebar -->
+
+  <!-- start: Main -->
+  <main
+    [ngClass]="{
+      'md:w-[calc(100%-256px)] md:ml-64': isSidebarOpen,
+      'w-full': !isSidebarOpen
+    }"
+    class="bg-gray-50 min-h-screen transition-all main"
+  >
+    <!-- start: Header -->
+    <div
+      class="py-2 px-6 bg-white flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30"
+    >
+      <button
+        type="button"
+        class="text-lg text-gray-600 sidebar-toggle"
+        (click)="toggleSidebar()"
+      >
+        <i class="ri-menu-line"></i>
+      </button>
+      <ul class="flex items-center text-sm ml-4">
+        <li class="mr-2">
+          <a href="#" class="text-gray-400 hover:text-gray-600 font-medium"
+            >Dashboard</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="p-6">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div
+          class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
+        >
+          <div class="flex justify-between mb-6">
+            <div>
+              <div class="text-2xl font-semibold mb-1">
+                <span class="text-base font-normal text-gray-400 align-top"
+                  ></span
+                >Visits
+              </div>
+              <div class="text-sm font-medium text-gray-400">Number of Visits</div>
+            </div>
+          </div>
+          <a
+            href="#"
+            class="text-blue-500 font-medium text-sm hover:text-blue-600"
+            >View details</a
+          >
+        </div>
+
+        <div
+          class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
+        >
+          <div class="flex justify-between mb-6">
+            <div>
+              <div class="text-2xl font-semibold mb-1">
+                <span class="text-base font-normal text-gray-400 align-top"
+                  ></span
+                >Data
+              </div>
+              <div class="text-sm font-medium text-gray-400">Active orders</div>
+            </div>
+          </div>
+          <a
+            href="#"
+            class="text-blue-500 font-medium text-sm hover:text-blue-600"
+            >View details</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- end: Start -->
+    <div class="p-6">
+      <div class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
+        <div
+          class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md"
+        >
+          <app-get-market-visits></app-get-market-visits>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- end: Main -->
+</body>
