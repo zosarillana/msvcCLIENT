@@ -25,6 +25,7 @@ export class ModalEditDialogComponent {
 
   save(): void {
     // Handle save logic here
+    this.marketVisitsService.updateMarketVisits(this.data).subscribe(() => this.fetchMarketVisits());
     this.dialogRef.close(this.data);
   }
 
