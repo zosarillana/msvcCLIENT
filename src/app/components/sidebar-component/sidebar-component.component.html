@@ -217,22 +217,81 @@
         </div>
       </div>
       <div *ngIf="selectedContent === 'content2'">
-        <app-user-add></app-user-add>        
-      </div>
-      <div *ngIf="selectedContent === 'content3'">
-        <app-isr-add></app-isr-add>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+          <div
+            class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
+          >
+            <div class="flex justify-between mb-6">
+              <div>
+                <div class="text-2xl font-semibold mb-1">Users</div>
+                <div class="text-sm font-medium text-gray-400">Number of Visits</div>
+              </div>
+            </div>
+            <a href="#" class="text-blue-500 font-medium text-sm hover:text-blue-600"
+              >View details</a
+            >
+          </div>          
+        </div>
         <div class="grid grid-cols-1 gap-6 mb-6">
           <div
             class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md"
           >
-            <app-get-market-visits></app-get-market-visits>
+           <app-user-add></app-user-add>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedContent === 'content3'">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+          <div
+            class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
+          >
+            <div class="flex justify-between mb-6">
+              <div>
+                <div class="text-2xl font-semibold mb-1">
+                  In Store Requirements +
+                </div>
+                <div class="text-sm font-medium text-gray-400">
+                  Number of Visits
+                </div>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="text-blue-500 font-medium text-sm hover:text-blue-600"
+              >View details</a
+            >
+          </div>
+          <div
+            class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
+          >
+            <div class="flex justify-between mb-6">
+              <div>
+                <div class="text-xl font-semibold mb-1">
+                  In Store Requirements Needs +
+                </div>
+                <div class="text-sm font-medium text-gray-400">
+                  Active orders
+                </div>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="text-blue-500 font-medium text-sm hover:text-blue-600"
+              >View details</a
+            >
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-6 mb-6">
+          <div
+            class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md"
+          >
+           <app-isr-add></app-isr-add>
           </div>
         </div>
       </div>
       <div *ngIf="selectedContent === 'content4'">
         <app-pod-add></app-pod-add>
-        
-      </div>    
+      </div>
     </div>
   </main>
 </body>
