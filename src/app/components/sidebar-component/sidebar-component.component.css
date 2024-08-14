@@ -1,0 +1,4 @@
+.sidebar-menu a.active {
+  background-color: #1f2937; /* Gray-800 */
+  color: #ffffff; /* White */
+}

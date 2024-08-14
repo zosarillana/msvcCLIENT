@@ -1,5 +1,5 @@
 <body class="text-gray-800 font-inter">
-  <!-- start: Sidebar -->
+  <!-- Sidebar -->
   <div
     [ngClass]="{
       'translate-x-0': isSidebarOpen,
@@ -7,6 +7,7 @@
     }"
     class="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 sidebar-menu transition-transform"
   >
+    <!-- Sidebar content -->
     <a href="#" class="flex items-center pb-4 border-b border-b-gray-800">
       <img
         src="https://placehold.co/32x32"
@@ -16,10 +17,12 @@
       <span class="text-lg font-bold text-white ml-3">{{ title }}</span>
     </a>
     <ul class="mt-4">
-      <li class="mb-1 group active">
+      <li class="mb-1">
         <a
           href="#"
-          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
+          [ngClass]="{ 'bg-gray-800 text-white': selectedContent === 'content1' }"
+          (click)="showContent('content1')"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,17 +35,18 @@
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+              d="M3 8.25V18a2.25 2.25 0 0 0 2.25 2.25h13.5A2.25 2.25 0 0 0 21 18V8.25m-18 0V6a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6ZM7.5 6h.008v.008H7.5V6Zm2.25 0h.008v.008H9.75V6Z"
             />
           </svg>
-
           <span class="text-sm font-base ml-2">Dashboard</span>
         </a>
       </li>
-      <li class="mb-1 group">
+      <li class="mb-1">
         <a
           href="#"
-          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100"
+          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
+          [ngClass]="{ 'bg-gray-800 text-white': selectedContent === 'content2' }"
+          (click)="showContent('content2')"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -55,23 +59,24 @@
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+              d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
             />
           </svg>
-
-          <span class="text-sm font-base ml-2">Logout</span>
+          <span class="text-sm font-base ml-2">Add users</span>
         </a>
       </li>
+      <!-- other menu items -->
     </ul>
   </div>
+
+  <!-- Overlay -->
   <div
     *ngIf="isSidebarOpen"
-    class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"
+    class="fixed inset-0 bg-black opacity-50 z-40 md:hidden"
     (click)="toggleSidebar()"
   ></div>
-  <!-- end: Sidebar -->
 
-  <!-- start: Main -->
+  <!-- Main content -->
   <main
     [ngClass]="{
       'md:w-[calc(100%-256px)] md:ml-64': isSidebarOpen,
@@ -91,66 +96,76 @@
         <i class="ri-menu-line"></i>
       </button>
       <ul class="flex items-center text-sm ml-4">
-        <li class="mr-2">
+        <!-- <li class="mr-2">
           <a href="#" class="text-gray-400 hover:text-gray-600 font-medium"
             >Dashboard</a
           >
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="p-6">
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div
-          class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
-        >
-          <div class="flex justify-between mb-6">
-            <div>
-              <div class="text-2xl font-semibold mb-1">
-                <span class="text-base font-normal text-gray-400 align-top"
-                  ></span
-                >Visits
-              </div>
-              <div class="text-sm font-medium text-gray-400">Number of Visits</div>
-            </div>
-          </div>
-          <a
-            href="#"
-            class="text-blue-500 font-medium text-sm hover:text-blue-600"
-            >View details</a
+      <!-- Conditionally display content based on selectedContent -->
+      <div
+        *ngIf="selectedContent === 'content1'"
+        class="grid grid-cols-1 lg:grid-cols-1 gap-6"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div
+            class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
           >
+            <div class="flex justify-between mb-6">
+              <div>
+                <div class="text-2xl font-semibold mb-1">Visits</div>
+                <div class="text-sm font-medium text-gray-400">
+                  Number of Visits
+                </div>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="text-blue-500 font-medium text-sm hover:text-blue-600"
+              >View details</a
+            >
+          </div>
+          <div
+            class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
+          >
+            <div class="flex justify-between mb-6">
+              <div>
+                <div class="text-2xl font-semibold mb-1">Data</div>
+                <div class="text-sm font-medium text-gray-400">
+                  Active orders
+                </div>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="text-blue-500 font-medium text-sm hover:text-blue-600"
+              >View details</a
+            >
+          </div>
         </div>
 
-        <div
-          class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
-        >
-          <div class="flex justify-between mb-6">
-            <div>
-              <div class="text-2xl font-semibold mb-1">
-                <span class="text-base font-normal text-gray-400 align-top"
-                  ></span
-                >Data
-              </div>
-              <div class="text-sm font-medium text-gray-400">Active orders</div>
-            </div>
-          </div>
-          <a
-            href="#"
-            class="text-blue-500 font-medium text-sm hover:text-blue-600"
-            >View details</a
+        <!-- Table or additional content placed below the cards -->
+        <div class="grid grid-cols-1 gap-6 mb-6">
+          <div
+            class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md"
           >
+            <app-get-market-visits></app-get-market-visits>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- end: Start -->
-    <div class="p-6">
-      <div class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
+
+      <div
+        *ngIf="selectedContent === 'content2'"
+        class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6"
+      >
         <div
           class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md"
         >
-          <app-get-market-visits></app-get-market-visits>
+          Content 2
         </div>
       </div>
     </div>
   </main>
-  <!-- end: Main -->
 </body>
