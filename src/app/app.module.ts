@@ -17,6 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ModalEditDialogComponent } from './components/get-market-visits/modal-edit-dialog/modal-edit-dialog.component';
 import { ModalCreateDialogComponent } from './components/get-market-visits/modal-create-dialog/modal-create-dialog.component';
 import { ModalDeleteDialogComponent } from './components/get-market-visits/modal-delete-dialog/modal-delete-dialog.component';
+import { UserAddComponent } from './components/admin/user-add/user-add.component';
+import { IsrAddComponent } from './components/admin/isr-add/isr-add.component';
+import { PodAddComponent } from './components/admin/pod-add/pod-add.component';
 
 
 @NgModule({
@@ -29,6 +32,9 @@ import { ModalDeleteDialogComponent } from './components/get-market-visits/modal
     ModalEditDialogComponent,
     ModalCreateDialogComponent,
     ModalDeleteDialogComponent,
+    UserAddComponent,
+    IsrAddComponent,
+    PodAddComponent,
   ],
   imports: [
     BrowserModule,
