@@ -14,9 +14,9 @@ import { SidebarComponentComponent } from './components/sidebar-component/sideba
 import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { ModalEditDialogComponent } from './components/get-market-visits/modal-edit-dialog/modal-edit-dialog/modal-edit-dialog.component';
-import { ModalCreateDialogComponent } from './components/get-market-visits/modal-edit-dialog/modal-create-dialog/modal-create-dialog.component';
-import { ModalDeleteDialogComponent } from './components/get-market-visits/modal-edit-dialog/modal-delete-dialog/modal-delete-dialog.component';
+import { ModalEditDialogComponent } from './components/get-market-visits/modal-edit-dialog/modal-edit-dialog.component';
+import { ModalCreateDialogComponent } from './components/get-market-visits/modal-create-dialog/modal-create-dialog.component';
+import { ModalDeleteDialogComponent } from './components/get-market-visits/modal-delete-dialog/modal-delete-dialog.component';
 
 
 @NgModule({

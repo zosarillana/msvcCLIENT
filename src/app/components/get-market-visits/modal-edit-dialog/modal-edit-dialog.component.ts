@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MarketVisits } from '../../../../models/market-visits';
-import { MarketVisitsService } from '../../../../services/market-visits.service';
+import { MarketVisits } from '../../../models/market-visits';
+import { MarketVisitsService } from '../../../services/market-visits.service';
 
 @Component({
   selector: 'app-modal-edit-dialog',
