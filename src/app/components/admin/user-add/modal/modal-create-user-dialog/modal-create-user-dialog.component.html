@@ -1,0 +1,116 @@
+<!-- modal.component.html -->
+<h1 mat-dialog-title>Register user: {{data.fname}} {{data.mname}} {{data.lname}}</h1>
+<div *ngIf="data" mat-dialog-content>
+  <form>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
+      <div class="relative">
+        <label
+        [(ngModel)]="data.fname"
+          for="Firstname"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >First name</label
+        >
+        <input
+          placeholder="Firstname"
+          name="Firstname"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+      <div class="relative">
+        <label
+          for="Middlename"
+          class="block text-gray-700 text-xs dark:text-gray-300 font-medium mb-3"
+          >Middle Name (Optional)</label
+        >
+
+        <input
+        [(ngModel)]="data.mname"
+          placeholder="Middle Name"
+          name="Middlename"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+      <div class="relative">
+        <label
+          for="Lastname"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Last Name</label
+        >
+        <input
+        [(ngModel)]="data.lname"
+          placeholder="Last Name"
+          name="Lastname"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <div class="relative">
+        <label
+        
+          for="Emailadd"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Email Address</label
+        >
+        <input
+        [(ngModel)]="data.email_add"
+          placeholder="Email Address"
+          name="Emailadd"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+      <div class="relative">
+        <div class="grid grid-cols-2">
+          <div class="relative">
+            <label
+              for="Contactnum"
+              class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+              >Contact Number</label
+            >
+          </div>
+        </div>
+        <input
+        [(ngModel)]="data.contact_num"
+          placeholder="Contact Number"
+          name="Contactnum"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+    </div>
+    <div class="grid grid-cols- gap-2 mt-2">
+      <div class="relative">
+        <label
+          for="Username"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Username</label
+        >
+        <input
+        [(ngModel)]="data.username"
+          placeholder="Username"
+          name="Username"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+      <div class="relative">
+        <label
+          for="Password"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Password</label
+        >
+
+        <input
+        [(ngModel)]="data.password"
+          placeholder="Password"
+          name="Password"
+          type="password"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button (click)="save()">Save</button>
+</div>

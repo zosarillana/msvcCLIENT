@@ -3,9 +3,9 @@
   <div class="rounded-t mb-0 border-0 mb-4">
     <div class="flex flex-wrap items-center">
       <div class="relative w-full max-w-full flex-grow flex-1">
-        <h1 class="font-semibold text-2xl text-blueGray-700">User details</h1>
+        <h1 class="font-semibold text-2xl text-blueGray-700">Market Visits</h1>
       </div>
-      <button mat-icon-button class="icon-button">
+      <button mat-icon-button class="icon-button" (click)="openAddDialog()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -25,7 +25,7 @@
   <div class="block w-full overflow-x-auto">
     <table
       mat-table
-    
+      [dataSource]="dataSource"
       class="items-center bg-transparent w-full border-collapse"
     >
       <!-- Column Definitions -->
@@ -39,14 +39,14 @@
         </th>
         <td
           mat-cell
-          *matCellDef="let mvisit"
+          *matCellDef="let user"
           class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
         >
-          {{ mvisit.id }}
+          {{ user.id }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="area">
+      <ng-container matColumnDef="username">
         <th
           mat-header-cell
           *matHeaderCellDef
@@ -56,44 +56,76 @@
         </th>
         <td
           mat-cell
-          *matCellDef="let mvisit"
+          *matCellDef="let user"
           class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
         >
-          {{ mvisit.area }}
+          {{ user.username }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="visitor">
+      <ng-container matColumnDef="email_add">
         <th
           mat-header-cell
           *matHeaderCellDef
           class="bg-white-imp uppercase text-xs"
         >
-          Visitor
+          Email Address
         </th>
         <td
           mat-cell
-          *matCellDef="let mvisit"
+          *matCellDef="let user"
           class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
         >
-          {{ mvisit.visitor }}
+          {{ user.email_add }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="visitdate">
+      <ng-container matColumnDef="contact_num">
         <th
           mat-header-cell
           *matHeaderCellDef
           class="bg-white-imp uppercase text-xs"
         >
-          Visit Date and Time
+          Contact number
         </th>
         <td
           mat-cell
-          *matCellDef="let mvisit"
+          *matCellDef="let user"
           class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
         >
-          {{ mvisit.visitdate | date : "short" }}
+          {{ user.contact_num  }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="date_created">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="bg-white-imp uppercase text-xs"
+        >
+          Date created
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let user"
+          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+        >
+          {{ user.date_created  | date : "short" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="date_updated">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="bg-white-imp uppercase text-xs"
+        >
+          Date updated
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let user"
+          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+        >
+          {{ user.date_updated | date : "short" }}
         </td>
       </ng-container>
 
@@ -114,7 +146,7 @@
             <button
               mat-icon-button
               class="icon-button-edit"
-            
+              (click)="openEditDialog(mvisit)"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +162,7 @@
             <button
               mat-icon-button
               class="icon-button-edit"
-        
+              (click)="openDeleteDialog(mvisit)"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -151,14 +183,14 @@
         </td>
       </ng-container>
       <!-- Table Header and Rows -->
-      <tr mat-header-row *matHeaderRowDef=""></tr>
-      <tr mat-row *matRowDef="let row; columns:"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
   <div>
     <mat-paginator
       class="bg-white-imp"
-      [length]=""
+      [length]="dataSource.data.length"
       [pageSize]="5"
       [pageSizeOptions]="[5, 10, 25, 100]"
       aria-label="Select page"
@@ -167,8 +199,8 @@
   </div>
 </div>
 <!-- </div> -->
-
-<!-- <app-update-market-visits
+<!-- 
+<app-update-market-visits
   [mvisit]="mvisitsToEdit"
   (marketVisitsUpdated)="updateVisitList($event)"
 ></app-update-market-visits> -->
