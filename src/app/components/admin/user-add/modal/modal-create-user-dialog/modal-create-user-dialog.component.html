@@ -5,12 +5,44 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
       <div class="relative">
         <label
-        [(ngModel)]="data.fname"
+    
+          for="Firstname"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Annas Breeder Inc Id</label
+        >
+        <input
+        [(ngModel)]="data.abfi_id"
+          placeholder="abfi_id"
+          name="abfi_id"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>      
+      <div class="relative">
+        <label
+    
+          for="Firstname"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Role</label
+        >
+        <input
+        [(ngModel)]="data.role"
+          placeholder="role"
+          name="role"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>      
+    </div>  
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
+      <div class="relative">
+        <label
+    
           for="Firstname"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >First name</label
         >
         <input
+        [(ngModel)]="data.fname"
           placeholder="Firstname"
           name="Firstname"
           class="border p-2 text-sm rounded w-full"
@@ -43,7 +75,7 @@
           class="border p-2 text-sm rounded w-full"
         />
       </div>
-    </div>
+    </div>  
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
       <div class="relative">
         <label
@@ -99,7 +131,7 @@
         >
 
         <input
-        [(ngModel)]="data.password"
+        [(ngModel)]="data.user_password"
           placeholder="Password"
           name="Password"
           type="password"

@@ -1,5 +1,7 @@
 export class User{
     id?: number;
+    abfi_id = "";
+    role = "";
     fname = "";
     mname = "";   
     lname = "";
