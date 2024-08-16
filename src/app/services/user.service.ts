@@ -1,39 +1,59 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
   private url = 'User';
 
   constructor(private http: HttpClient) {}
 
-  public getMarketVisits(): Observable<User[]> {
+  public getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}/${this.url}`);
   }
 
-  public updateMarketVisits(mvisit: User): Observable<User> {
-    return this.http.put<User>(
-      `${environment.apiUrl}/${this.url}`,
-      mvisit
+  public updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${environment.apiUrl}/${this.url}`, user).pipe(
+      catchError(this.handleError) // Use catchError inside pipe
     );
   }
 
-  public createMarketVisits(mvisit: User): Observable<User> {
-    return this.http.post<User>(
-      `${environment.apiUrl}/${this.url}`,
-      mvisit
+  public createUser(user: User): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/${this.url}`, user).pipe(
+      catchError(this.handleError) // Use catchError inside pipe
     );
   }
 
-  public deleteMarketVisits(mvisit: User): Observable<User[]> {
+  public deleteMarketVisits(user: User): Observable<User[]> {
     return this.http.delete<User[]>(
-      `${environment.apiUrl}/${this.url}/${mvisit.id}`
+      `${environment.apiUrl}/${this.url}/${user.id}`
+    ).pipe(
+      catchError(this.handleError) // Use catchError inside pipe
     );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage: any = {
+      message: 'An unknown error occurred!',
+    };
+
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage.message = `Error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      if (error.error && typeof error.error === 'object') {
+        errorMessage = error.error;
+      } else {
+        errorMessage.message = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      }
+    }
+
+    return throwError(errorMessage);
   }
 }

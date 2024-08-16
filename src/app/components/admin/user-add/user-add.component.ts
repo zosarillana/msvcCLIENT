@@ -10,6 +10,7 @@ import { ModalEditDialogComponent } from '../../get-market-visits/modal/modal-ed
 import { ModalCreateUserDialogComponent } from './modal/modal-create-user-dialog/modal-create-user-dialog.component';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
+import { ModalEditUserDialogComponent } from './modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
 
 @Component({
   selector: 'app-user-add',
@@ -17,31 +18,33 @@ import { UserService } from '../../../services/user.service';
   styleUrl: './user-add.component.css',
 })
 export class UserAddComponent {
-  displayedColumns: string[] = ['id', 'username', 'email_add', 'contact_num', 'date_created', 'date_updated', 'action'];
+  displayedColumns: string[] = [
+    'id',
+    'fullname',
+    'username',
+    'email_add',
+    'contact_num',
+    'date_created',
+    'date_updated',
+    'action',
+  ];
   dataSource = new MatTableDataSource<User>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   userToEdit?: User;
 
-  constructor(
-    private userService: UserService,
-    public dialog: MatDialog
-  ) {}
+  constructor(private userService: UserService, public dialog: MatDialog) {}
   // Inject MatDialog
 
   ngOnInit(): void {
-    this.userService
-      .getMarketVisits()
-      .subscribe((result: User[]) => {
-        this.dataSource.data = result;
-      });
+    this.userService.getUsers().subscribe((result: User[]) => {
+      this.dataSource.data = result;
+    });
   }
 
   loadMarketVisits(): void {
-    this.userService
-      .getMarketVisits()
-      .subscribe((result: User[]) => {
-        this.dataSource.data = result;
-      });
+    this.userService.getUsers().subscribe((result: User[]) => {
+      this.dataSource.data = result;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -61,7 +64,7 @@ export class UserAddComponent {
   }
 
   openEditDialog(user: User): void {
-    const dialogRef = this.dialog.open(ModalEditDialogComponent, {
+    const dialogRef = this.dialog.open(ModalEditUserDialogComponent, {
       width: '500px',
       data: user, // Pass the data to the dialog
     });
@@ -74,8 +77,8 @@ export class UserAddComponent {
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(ModalCreateUserDialogComponent, {
-      width: '90%',
-      height: '50%',
+      width: '500px',
+      height: '55%',
       data: {},
     });
 
