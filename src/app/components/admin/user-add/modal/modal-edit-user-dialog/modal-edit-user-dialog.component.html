@@ -1,5 +1,6 @@
 <!-- modal.component.html -->
-<h1 mat-dialog-title>Edit user details: {{data.fname}} {{data.mname}} {{data.lname}}</h1>
+<!-- <h1 mat-dialog-title>Edit - {{data.fname}} {{data.mname}} {{data.lname}}</h1> -->
+<h1 mat-dialog-title>Edit</h1>
 <div *ngIf="errorMessages['general']" class="bg-red-100 text-red-700 p-2 rounded mb-4">
   <ul>
     <li *ngFor="let errorMsg of errorMessages['general']">{{ errorMsg }}</li>
@@ -7,6 +8,27 @@
 </div>
 <div *ngIf="data" mat-dialog-content>
   <form>
+    <div class="grid grid-cols- gap-2 mb-2">
+      <div class="relative">
+        <label
+          for="Username"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Username</label
+        >
+        <input
+        [(ngModel)]="data.username"
+          placeholder="Username"
+          name="Username"
+          class="border p-2 text-sm rounded w-full"
+          
+        />
+        <div *ngIf="errorMessages['username']" class="text-red-700 text-xs mt-1">
+          <ul>
+            <li *ngFor="let errorMsg of errorMessages['username']">{{ errorMsg }}</li>
+          </ul>
+        </div>
+      </div>     
+    </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
       <div class="relative">
         <label
@@ -151,45 +173,7 @@
         </div>
       </div>
     </div>
-    <div class="grid grid-cols- gap-2 mt-2">
-      <div class="relative">
-        <label
-          for="Username"
-          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-          >Username</label
-        >
-        <input
-        [(ngModel)]="data.username"
-          placeholder="Username"
-          name="Username"
-          class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['username']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['username']">{{ errorMsg }}</li>
-          </ul>
-        </div>
-      </div>
-      <div class="relative">
-        <label
-          for="Password"
-          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-          >Password</label
-        >
-        <input
-        [(ngModel)]="data.user_password"
-          placeholder="Password"
-          name="Password"
-          type="password"
-          class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['user_password']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['user_password']">{{ errorMsg }}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    
   </form>
 </div>
 

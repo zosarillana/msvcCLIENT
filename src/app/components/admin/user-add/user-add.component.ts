@@ -11,6 +11,7 @@ import { ModalCreateUserDialogComponent } from './modal/modal-create-user-dialog
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { ModalEditUserDialogComponent } from './modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
+import { ModalDeleteUserDialogComponent } from './modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
 
 @Component({
   selector: 'app-user-add',
@@ -41,7 +42,7 @@ export class UserAddComponent {
     });
   }
 
-  loadMarketVisits(): void {
+  loadUsers(): void {
     this.userService.getUsers().subscribe((result: User[]) => {
       this.dataSource.data = result;
     });
@@ -84,13 +85,13 @@ export class UserAddComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.loadMarketVisits(); // Reload data after dialog is closed
+        this.loadUsers(); // Reload data after dialog is closed
       }
     });
   }
 
   openDeleteDialog(user: User): void {
-    const dialogRef = this.dialog.open(ModalDeleteDialogComponent, {
+    const dialogRef = this.dialog.open(ModalDeleteUserDialogComponent, {
       width: '500px',
       data: user, // Pass the data to the dialog
     });
@@ -98,7 +99,7 @@ export class UserAddComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result) {
-        this.loadMarketVisits(); // Reload data after dialog is closed
+        this.loadUsers(); // Reload data after dialog is closed
       }
     });
   }

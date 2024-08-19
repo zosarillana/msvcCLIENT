@@ -13,12 +13,18 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  
   public getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}/${this.url}`);
   }
 
+ getUserCount(): Observable<number> {
+  return this.http.get<number>(`${environment.apiUrl}/${this.url}/count`);
+}
+
+
   public updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${environment.apiUrl}/${this.url}`, user).pipe(
+    return this.http.put<User>(`${environment.apiUrl}/${this.url}/${user.id}`, user).pipe(
       catchError(this.handleError) // Use catchError inside pipe
     );
   }
@@ -29,7 +35,7 @@ export class UserService {
     );
   }
 
-  public deleteMarketVisits(user: User): Observable<User[]> {
+  public deleteUser(user: User): Observable<User[]> {
     return this.http.delete<User[]>(
       `${environment.apiUrl}/${this.url}/${user.id}`
     ).pipe(

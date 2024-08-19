@@ -24,7 +24,7 @@ export class ModalEditUserDialogComponent {
     this.dialogRef.close();
   }
   save(): void {
-    this.userService.createUser(this.data).subscribe({
+    this.userService.updateUser(this.data).subscribe({
       next: (response) => {
         this.dialogRef.close(this.data);
       },
@@ -60,8 +60,8 @@ export class ModalEditUserDialogComponent {
   }
   //for editing and updating
   private fetchMarketVisits() {
-    this.userService.getUsers().subscribe((visits: User[]) => {
-      this.userUpdated.emit(visits);
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.userUpdated.emit(users);
     });
   }
 }
