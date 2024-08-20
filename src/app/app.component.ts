@@ -14,14 +14,14 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        console.log('Navigation started to:', event.url);
-      }
-      if (event instanceof NavigationEnd) {
-        console.log('Navigation ended to:', event.url);
-      }
-    });
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationStart) {
+    //     console.log('Navigation started to:', event.url);
+    //   }
+    //   if (event instanceof NavigationEnd) {
+    //     console.log('Navigation ended to:', event.url);
+    //   }
+    // });
   }
 
   isSidebarOpen = true;

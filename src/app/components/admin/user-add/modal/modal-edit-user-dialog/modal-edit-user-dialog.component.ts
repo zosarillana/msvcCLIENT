@@ -11,7 +11,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class ModalEditUserDialogComponent {
   @Input() user?: User;
   @Output() userUpdated = new EventEmitter<User[]>();
+  isPasswordEnabled = false; // Default is disabled
 
+  // Method to toggle password field enabled state
+  togglePasswordField(event: any) {
+    this.isPasswordEnabled = event.target.checked;
+  }
+  
   errorMessages: { [key: string]: string[] } = {};
 
   constructor(

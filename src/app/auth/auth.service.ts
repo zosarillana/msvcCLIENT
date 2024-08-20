@@ -12,15 +12,20 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(username: string, user_password: string): Observable<{ token: string }> {
+  login(username: string, user_password: string): Observable<{ token: string, user: any }> {
     const loginData = { username, user_password };
-    return this.http.post<{ token: string }>(this.apiUrl, loginData).pipe(
+    return this.http.post<{ token: string, user: any }>(this.apiUrl, loginData).pipe(
       catchError(this.handleError)
     );
   }
   
   isLoggedIn(): boolean {
     return !!localStorage.getItem('jwtToken');
+  }
+
+  logout(): void {
+    localStorage.removeItem('jwtToken');
+    this.router.navigate(['/login']); // Redirect to login page after logout
   }
 
   private handleError(error: HttpErrorResponse) {

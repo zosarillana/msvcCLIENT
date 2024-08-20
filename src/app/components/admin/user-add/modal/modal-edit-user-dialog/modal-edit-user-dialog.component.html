@@ -16,6 +16,7 @@
           >Username</label
         >
         <input
+        id="Username"
         [(ngModel)]="data.username"
           placeholder="Username"
           name="Username"
@@ -27,17 +28,61 @@
             <li *ngFor="let errorMsg of errorMessages['username']">{{ errorMsg }}</li>
           </ul>
         </div>
-      </div>     
+      </div>  
+      <!-- password -->
+      <div class="relative">
+        <!-- Password Input -->
+        <label
+          for="user_password"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+        >
+          Password
+        </label>
+        <input
+        id="user_password"
+          [(ngModel)]="data.user_password"
+          placeholder="user_password"
+          name="user_password"
+          type="password"
+          class="border p-2 text-sm rounded w-full"
+          [attr.disabled]="!isPasswordEnabled ? true : null"
+          disabled
+        />
+        <div *ngIf="errorMessages['user_password']" class="text-red-700 text-xs mt-1">
+          <ul>
+            <li *ngFor="let errorMsg of errorMessages['user_password']">{{ errorMsg }}</li>
+          </ul>
+        </div>
+        
+        <!-- Enable Checkbox -->
+        <div class="mt-4">
+          <input
+            id="enable_password"
+            type="checkbox"
+            [checked]="isPasswordEnabled"
+            (change)="togglePasswordField($event)"
+            class="mr-2"
+          />
+          <label for="enable_password" class="text-gray-700 text-sm dark:text-gray-300">
+            Enable Password Input
+          </label>
+        </div>
+      </div>
+            
+      
+      
+         
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
       <div class="relative">
         <label
     
-          for="Firstname"
+          for="abfi_id"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Annas Breeder INC ID</label
         >
         <input
+        id="abfi_id"
         [(ngModel)]="data.abfi_id"
           placeholder="XXX-XXX"
           name="abfi_id"
@@ -52,23 +97,30 @@
       
       <div class="relative">
         <label
-    
           for="role"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Role</label
         >
-        <input
-        [(ngModel)]="data.role"
-          placeholder="Role"
+        <select
+          id="role"
+          [(ngModel)]="data.role"
           name="role"
           class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['abfi_id']" class="text-red-700 text-xs mt-1">
+        >
+          <option value="" selected disabled>Select a role</option>
+          <option value="user">user</option>
+          <option value="admin">admin</option>
+        </select>
+
+        <div *ngIf="errorMessages['role']" class="text-red-700 text-xs mt-1">
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['abfi_id']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['role']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
+    
     </div>  
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
@@ -80,6 +132,7 @@
           >First name</label
         >
         <input
+        id="Firstname"
         [(ngModel)]="data.fname"
           placeholder="Firstname"
           name="Firstname"
@@ -100,6 +153,7 @@
         >
 
         <input
+        id="Middlename"
         [(ngModel)]="data.mname"
           placeholder="Middle Name"
           name="Middlename"
@@ -118,6 +172,7 @@
           >Last Name</label
         >
         <input
+        id="Lastname"
         [(ngModel)]="data.lname"
           placeholder="Last Name"
           name="Lastname"
@@ -139,6 +194,7 @@
           >Email Address</label
         >
         <input
+        id="Emailadd"
         [(ngModel)]="data.email_add"
           placeholder="Email Address"
           name="Emailadd"
@@ -161,6 +217,7 @@
           </div>
         </div>
         <input
+        id="Contactnum"
         [(ngModel)]="data.contact_num"
           placeholder="Contact Number"
           name="Contactnum"

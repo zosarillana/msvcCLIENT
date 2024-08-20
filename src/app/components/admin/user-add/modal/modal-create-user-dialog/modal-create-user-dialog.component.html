@@ -1,6 +1,11 @@
 <!-- modal.component.html -->
-<h1 mat-dialog-title>Register user: {{data.fname}} {{data.mname}} {{data.lname}}</h1>
-<div *ngIf="errorMessages['general']" class="bg-red-100 text-red-700 p-2 rounded mb-4">
+<h1 mat-dialog-title>
+  Register user: {{ data.fname }} {{ data.mname }} {{ data.lname }}
+</h1>
+<div
+  *ngIf="errorMessages['general']"
+  class="bg-red-100 text-red-700 p-2 rounded mb-4"
+>
   <ul>
     <li *ngFor="let errorMsg of errorMessages['general']">{{ errorMsg }}</li>
   </ul>
@@ -10,62 +15,72 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
       <div class="relative">
         <label
-    
-          for="Firstname"
+          for="abfi_id"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Annas Breeder INC ID</label
         >
         <input
-        [(ngModel)]="data.abfi_id"
+          id="abfi_id"
+          [(ngModel)]="data.abfi_id"
           placeholder="XXX-XXX"
           name="abfi_id"
           class="border p-2 text-sm rounded w-full"
         />
         <div *ngIf="errorMessages['abfi_id']" class="text-red-700 text-xs mt-1">
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['abfi_id']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['abfi_id']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
-      </div>      
-      
+      </div>
+
       <div class="relative">
         <label
-    
           for="role"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Role</label
         >
-        <input
-        [(ngModel)]="data.role"
-          placeholder="Role"
+        <select
+          id="role"
+          [(ngModel)]="data.role"
           name="role"
           class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['abfi_id']" class="text-red-700 text-xs mt-1">
+        >
+          <option value="" selected disabled>Select a role</option>
+          <option value="user">user</option>
+          <option value="admin">admin</option>
+        </select>
+
+        <div *ngIf="errorMessages['role']" class="text-red-700 text-xs mt-1">
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['abfi_id']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['role']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
-    </div>  
+    </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
       <div class="relative">
         <label
-    
           for="Firstname"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >First name</label
         >
         <input
-        [(ngModel)]="data.fname"
+          id="Firstname"
+          [(ngModel)]="data.fname"
           placeholder="Firstname"
           name="Firstname"
           class="border p-2 text-sm rounded w-full"
         />
         <div *ngIf="errorMessages['fname']" class="text-red-700 text-xs mt-1">
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['fname']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['fname']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
@@ -76,16 +91,18 @@
           class="block text-gray-700 text-xs dark:text-gray-300 font-medium mb-3"
           >Middle Name (Optional)</label
         >
-
         <input
-        [(ngModel)]="data.mname"
+          id="Middlename"
+          [(ngModel)]="data.mname"
           placeholder="Middle Name"
           name="Middlename"
           class="border p-2 text-sm rounded w-full"
         />
         <div *ngIf="errorMessages['mname']" class="text-red-700 text-xs mt-1">
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['mname']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['mname']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
@@ -96,35 +113,43 @@
           >Last Name</label
         >
         <input
-        [(ngModel)]="data.lname"
+          id="Lastname"
+          [(ngModel)]="data.lname"
           placeholder="Last Name"
           name="Lastname"
           class="border p-2 text-sm rounded w-full"
         />
         <div *ngIf="errorMessages['lname']" class="text-red-700 text-xs mt-1">
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['lname']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['lname']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
-    </div>  
+    </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
       <div class="relative">
         <label
-        
           for="Emailadd"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Email Address</label
         >
         <input
-        [(ngModel)]="data.email_add"
+          id="Emailadd"
+          [(ngModel)]="data.email_add"
           placeholder="Email Address"
           name="Emailadd"
           class="border p-2 text-sm rounded w-full"
         />
-        <div *ngIf="errorMessages['email_add']" class="text-red-700 text-xs mt-1">
+        <div
+          *ngIf="errorMessages['email_add']"
+          class="text-red-700 text-xs mt-1"
+        >
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['email_add']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['email_add']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
@@ -139,14 +164,20 @@
           </div>
         </div>
         <input
-        [(ngModel)]="data.contact_num"
+          id="Contactnum"
+          [(ngModel)]="data.contact_num"
           placeholder="Contact Number"
           name="Contactnum"
           class="border p-2 text-sm rounded w-full"
         />
-        <div *ngIf="errorMessages['contact_num']" class="text-red-700 text-xs mt-1">
+        <div
+          *ngIf="errorMessages['contact_num']"
+          class="text-red-700 text-xs mt-1"
+        >
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['contact_num']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['contact_num']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
@@ -159,14 +190,20 @@
           >Username</label
         >
         <input
-        [(ngModel)]="data.username"
+          id="Username"
+          [(ngModel)]="data.username"
           placeholder="Username"
           name="Username"
           class="border p-2 text-sm rounded w-full"
         />
-        <div *ngIf="errorMessages['username']" class="text-red-700 text-xs mt-1">
+        <div
+          *ngIf="errorMessages['username']"
+          class="text-red-700 text-xs mt-1"
+        >
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['username']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['username']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
@@ -177,15 +214,21 @@
           >Password</label
         >
         <input
-        [(ngModel)]="data.user_password"
+          id="Password"
+          [(ngModel)]="data.user_password"
           placeholder="Password"
           name="Password"
           type="password"
           class="border p-2 text-sm rounded w-full"
         />
-        <div *ngIf="errorMessages['user_password']" class="text-red-700 text-xs mt-1">
+        <div
+          *ngIf="errorMessages['user_password']"
+          class="text-red-700 text-xs mt-1"
+        >
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['user_password']">{{ errorMsg }}</li>
+            <li *ngFor="let errorMsg of errorMessages['user_password']">
+              {{ errorMsg }}
+            </li>
           </ul>
         </div>
       </div>
