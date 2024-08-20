@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MarketVisits } from './models/market-visits';
-
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +10,23 @@ import { MarketVisits } from './models/market-visits';
 export class AppComponent implements OnInit {
   title = 'msvcREST';
   mvisits: MarketVisits[] = [];
- 
-    ngOnInit(): void {
-      
-    }
-    
-    isSidebarOpen = true;
 
-    toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen;
-    }
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        console.log('Navigation started to:', event.url);
+      }
+      if (event instanceof NavigationEnd) {
+        console.log('Navigation ended to:', event.url);
+      }
+    });
+  }
+
+  isSidebarOpen = true;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 }

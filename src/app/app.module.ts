@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy } from '@angu
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -27,6 +27,7 @@ import { ModalCreateUserDialogComponent } from './components/admin/user-add/moda
 import { ModalEditUserDialogComponent } from './components/admin/user-add/modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
 import { ModalDeleteUserDialogComponent } from './components/admin/user-add/modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
 import { LoginComponent } from './components/authentication/login/login.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -59,10 +60,11 @@ import { LoginComponent } from './components/authentication/login/login.componen
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    AppRoutingModule
   ],
 
-  providers: [], // Remove provideAnimationsAsync() if not needed
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }], // Remove provideAnimationsAsync() if not needed
   bootstrap: [AppComponent]
 })
 export class AppModule {}
