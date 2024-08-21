@@ -13,6 +13,9 @@
           class="ml-4"
           (click)="openAddDialog()"
           matTooltip="Click to add a user"
+          aria-modal="true"
+          aria-hidden="false"
+          aria-label="Button that displays a tooltip when focused or hovered over"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -195,7 +198,10 @@
         >
           <div class="flex space-x-2">
             <button
-            matTooltip="Click to edit a user"
+            aria-modal="true"
+            aria-hidden="false"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+              matTooltip="Click to edit a user"
               mat-icon-button
               class="icon-button-edit"
               (click)="openEditDialog(user)"
@@ -212,7 +218,10 @@
               </svg>
             </button>
             <button
-            matTooltip="Click to view a user's information"
+            aria-modal="true"
+            aria-hidden="false"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+              matTooltip="Click to view a user's information"
               mat-icon-button
               class="icon-button-edit"
               (click)="openViewDialog(user)"
@@ -232,7 +241,10 @@
               </svg>
             </button>
             <button
-            matTooltip="Click to delete a user"
+            aria-modal="true"
+            aria-hidden="false"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+              matTooltip="Click to delete a user"
               mat-icon-button
               class="icon-button-edit"
               (click)="openDeleteDialog(user)"

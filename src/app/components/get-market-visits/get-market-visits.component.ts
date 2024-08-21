@@ -15,7 +15,23 @@ import { ModalDeleteDialogComponent } from './modal/modal-delete-dialog/modal-de
   styleUrls: ['./get-market-visits.component.css'],
 })
 export class GetMarketVisitsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'area', 'visitor', 'visitdate', 'action'];
+  displayedColumns: string[] = [
+    'id',
+    'visit_area',
+    'visit_date',
+    'visit_accountName',
+    'visit_distributor',
+    'visit_salesPersonnel',
+    'visit_accountType',
+    'visit_isr',
+    'visit_isrNeed',
+    'visit_payolaMerchandiser',
+    'visit_averageOffTakePd',
+    'visit_pod',
+    'visit_competitorsCheck',
+    'visit_pap',
+    'action'
+  ];
   dataSource = new MatTableDataSource<MarketVisits>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   mvisitsToEdit?: MarketVisits;
@@ -83,7 +99,6 @@ export class GetMarketVisitsComponent implements AfterViewInit {
     });
   }
 
-  
   openDeleteDialog(mvisit: MarketVisits): void {
     const dialogRef = this.dialog.open(ModalDeleteDialogComponent, {
       width: '500px',
