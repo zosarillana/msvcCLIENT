@@ -33,14 +33,14 @@ export class LoginComponent {
     this.authService.login(username, user_password).subscribe(
       (response) => {
         if (response && response.token) {
-          console.log('Login successful, token received:', response.token);
+          //console.log('Login successful, token received:', response.token);
           localStorage.setItem('jwtToken', response.token);
           localStorage.setItem('user', JSON.stringify(response.user)); // Store user info
 
           this.router
             .navigate(['/dashboard'])
             .then(() => {
-              console.log('Navigation to dashboard complete.');
+            //  console.log('Navigation to dashboard complete.');
               this.loading = false;
             })
             .catch((error) => {

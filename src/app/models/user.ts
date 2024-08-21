@@ -1,4 +1,4 @@
-export class User{
+export class User {
     id?: number;
     abfi_id = "";
     role = "";
@@ -9,4 +9,7 @@ export class User{
     contact_num = "";
     username = "";
     password = "";
-}
+    date_created?: Date; // Add this line
+    date_updated?: Date; // Add this line
+  }
+  

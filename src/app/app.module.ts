@@ -28,6 +28,8 @@ import { ModalEditUserDialogComponent } from './components/admin/user-add/modal/
 import { ModalDeleteUserDialogComponent } from './components/admin/user-add/modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }], // Remove provideAnimationsAsync() if not needed

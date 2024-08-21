@@ -12,6 +12,8 @@ import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { ModalEditUserDialogComponent } from './modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
 import { ModalDeleteUserDialogComponent } from './modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import moment from 'moment';
 
 @Component({
   selector: 'app-user-add',
@@ -32,47 +34,60 @@ export class UserAddComponent {
   dataSource = new MatTableDataSource<User>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   userToEdit?: User;
+  startDate: Date | null = null;
+  endDate: Date | null = null;
 
   constructor(private userService: UserService, public dialog: MatDialog) {}
-  // Inject MatDialog
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe((result: User[]) => {
-      this.dataSource.data = result;
-    });
+    this.loadUsers();
   }
 
   loadUsers(): void {
     this.userService.getUsers().subscribe((result: User[]) => {
       this.dataSource.data = result;
+      this.dataSource.paginator = this.paginator;
     });
   }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+  
+  applyFilter(event: Event, filterType: string): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+  
+    if (filterType === 'username') {
+      this.dataSource.filterPredicate = (data: User) => {
+        return data.username.toLowerCase().includes(value.trim().toLowerCase());
+      };
+      this.dataSource.filter = value.trim().toLowerCase(); // Apply the filter
+    }
   }
 
-  updateVisitList(user: User[]) {
-    this.dataSource.data = user;
-  }
-
-  initNewMvisits() {
-    this.userToEdit = new User();
-  }
-
-  editMvisits(user: User): void {
-    this.userToEdit = user;
+  applyDateFilter(type: string, event: MatDatepickerInputEvent<Date>): void {
+    const date = event.value;
+  
+    if (type === 'start') {
+      this.startDate = date;
+    } else {
+      this.endDate = date;
+    }
+  
+    this.dataSource.filterPredicate = (data: User) => {
+      const createdDate = moment(data.date_created);
+      const withinStart = this.startDate ? createdDate.isSameOrAfter(this.startDate) : true;
+      const withinEnd = this.endDate ? createdDate.isSameOrBefore(this.endDate) : true;
+      return withinStart && withinEnd;
+    };
+    this.dataSource.filter = '' + Math.random(); // Trigger filtering
   }
 
   openEditDialog(user: User): void {
     const dialogRef = this.dialog.open(ModalEditUserDialogComponent, {
       width: '500px',
-      data: user, // Pass the data to the dialog
+      data: user,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      // Handle any result here
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadUsers();
     });
   }
 
@@ -85,7 +100,7 @@ export class UserAddComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.loadUsers(); // Reload data after dialog is closed
+        this.loadUsers();
       }
     });
   }
@@ -93,14 +108,11 @@ export class UserAddComponent {
   openDeleteDialog(user: User): void {
     const dialogRef = this.dialog.open(ModalDeleteUserDialogComponent, {
       width: '500px',
-      data: user, // Pass the data to the dialog
+      data: user,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      if (result) {
-        this.loadUsers(); // Reload data after dialog is closed
-      }
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadUsers();
     });
   }
 }
