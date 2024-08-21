@@ -29,16 +29,18 @@ export class AuthService {
   }
 
   private handleError(error: HttpErrorResponse) {
+    // Format the error message without logging to the console
     let errorMessage = 'An unknown error occurred!';
-    if (error.error instanceof ErrorEvent) {
+    if (error.error.errors) {
+      // Detailed error messages from the API
+      errorMessage = Object.values(error.error.errors).flat().join(' ');
+    } else if (error.error instanceof ErrorEvent) {
       // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else {
       // Server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
 }
-

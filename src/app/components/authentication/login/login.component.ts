@@ -1,8 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +10,10 @@ import { of } from 'rxjs';
 })
 export class LoginComponent {
   errorMessage: string | null = null;
-  loading = false; // Add this line
+  loading = false;
+  hide = true;
 
   constructor(private authService: AuthService, private router: Router) {}
-
-  hide = true;
 
   togglePasswordVisibility() {
     this.hide = !this.hide;
@@ -30,32 +27,30 @@ export class LoginComponent {
 
   onSubmit(username: string, user_password: string): void {
     if (this.loading) return;
+    this.loading = true;
     this.authService.login(username, user_password).subscribe(
       (response) => {
         if (response && response.token) {
-          //console.log('Login successful, token received:', response.token);
           localStorage.setItem('jwtToken', response.token);
           localStorage.setItem('user', JSON.stringify(response.user)); // Store user info
 
           this.router
             .navigate(['/dashboard'])
             .then(() => {
-            //  console.log('Navigation to dashboard complete.');
               this.loading = false;
             })
-            .catch((error) => {
-              console.error('Navigation error:', error);
+            .catch(() => {
+              this.errorMessage = 'An error occurred during navigation.';
               this.loading = false;
             });
         } else {
-          console.log('No token received in the response:', response);
           this.errorMessage = 'Login failed. Please check your username and password.';
           this.loading = false;
         }
       },
       (error) => {
-        console.log('Login error:', error);
-        this.errorMessage = 'Login failed. Please check your username and password.';
+        // Display error messages from the API response without logging additional details
+        this.errorMessage = error.message || 'Login failed. Please check your username and password.';
         this.loading = false;
       }
     );

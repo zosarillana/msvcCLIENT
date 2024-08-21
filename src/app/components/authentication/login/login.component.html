@@ -12,8 +12,20 @@
         <form (ngSubmit)="onSubmit(username.value, password.value)" #loginForm="ngForm" class="space-y-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label>Username</mat-label>
-            <input matInput #username="ngModel" ngModel name="username" required />
+            <input
+              matInput
+              #username="ngModel"
+              ngModel
+              name="username"
+              required
+              placeholder="Enter your username"
+            />
             <mat-icon matSuffix>supervised_user_circle</mat-icon>
+            <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
+              <ng-container *ngIf="username.errors?.['required']">
+                Username is required
+              </ng-container>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="w-full">
@@ -26,6 +38,7 @@
               name="password"
               required
               (keydown.enter)="onEnter($event)"
+              placeholder="Enter your password"
             />
             <button
               mat-icon-button
@@ -34,15 +47,21 @@
               [attr.aria-label]="hide ? 'Show password' : 'Hide password'"
               [attr.aria-pressed]="!hide"
             >
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
+            <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+              <ng-container *ngIf="password.errors?.['required']">
+                Password is required
+              </ng-container>
+            </mat-error>
           </mat-form-field>
+          
           
 
           <div *ngIf="errorMessage" class="text-red-500 text-center">
             {{ errorMessage }}
           </div>
-
+          
           <div>
             <button
               type="submit"

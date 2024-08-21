@@ -1,65 +1,24 @@
 <div class="w-full mx-auto">
   <!-- <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6"> -->
-    <div class="rounded-t mb-4 border-0">
-      <div class="flex flex-wrap items-center justify-between">
-        <!-- Header -->
-        <h1 class="font-semibold text-2xl text-blueGray-700 mb-5 flex-grow">
+  <div class="rounded-t mb-4 border-0">
+    <div class="flex flex-wrap items-center justify-between">
+      <!-- Header -->
+      <div class="flex items-center mb-5">
+        <h1 class="font-semibold text-2xl text-blueGray-700 flex-grow">
           User's Table
         </h1>
-    
-        <!-- Filters -->
-        <div class="flex gap-2">
-          <mat-form-field appearance="fill" style="height: 70px; min-width: 200px;">
-            <mat-label class="text-base">Filter by username</mat-label>
-            <input
-              matInput            
-              (input)="applyFilter($event, 'username')"
-              class="text-xs"
-            />
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
-    
-          <mat-form-field style="height: 70px; min-width: 150px;">
-            <mat-label class="text-base">Filter by (Start Date)</mat-label>
-            <input
-              matInput
-              
-              [matDatepicker]="startPicker"
-              placeholder="Start Date"
-              (dateChange)="applyDateFilter('start', $event)"
-              class="text-xs"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="startPicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #startPicker></mat-datepicker>
-          </mat-form-field>
-    
-          <mat-form-field style="height: 70px; min-width: 150px;">
-            <mat-label class="text-base">Filter by (End Date)</mat-label>
-            <input
-              matInput
-              [matDatepicker]="endPicker"
-              placeholder="End Date"
-              (dateChange)="applyDateFilter('end', $event)"
-              class="text-sm"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="endPicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #endPicker></mat-datepicker>
-          </mat-form-field>
-        </div>
-        
         <!-- Add button -->
-        <button mat-icon-button class="ml-4 mb-5" (click)="openAddDialog()">
+        <button
+          mat-icon-button
+          class="ml-4"
+          (click)="openAddDialog()"
+          matTooltip="Click to add a user"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="size-6"
+            class="w-6 h-6"
           >
             <path
               fill-rule="evenodd"
@@ -69,8 +28,52 @@
           </svg>
         </button>
       </div>
+      <!-- Filters -->
+      <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+        <mat-form-field appearance="fill" class="sm:min-w-[200px] sm:h-[70px]">
+          <mat-label class="text-base">Filter by username</mat-label>
+          <input
+            matInput
+            (input)="applyFilter($event, 'username')"
+            class="text-xs"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="sm:min-w-[150px] sm:h-[70px]">
+          <mat-label class="text-base">Filter by (Start Date)</mat-label>
+          <input
+            matInput
+            [matDatepicker]="startPicker"
+            placeholder="Start Date"
+            (dateChange)="applyDateFilter('start', $event)"
+            class="text-xs"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="startPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="sm:min-w-[150px] sm:h-[70px]">
+          <mat-label class="text-base">Filter by (End Date)</mat-label>
+          <input
+            matInput
+            [matDatepicker]="endPicker"
+            placeholder="End Date"
+            (dateChange)="applyDateFilter('end', $event)"
+            class="text-xs"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="endPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
-    
+  </div>
 
   <div class="block w-full overflow-x-auto">
     <table
@@ -177,23 +180,6 @@
           {{ user.date_created | date : "short" }}
         </td>
       </ng-container>
-      <ng-container matColumnDef="date_updated">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="bg-white-imp uppercase text-xs"
-        >
-          Date updated
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let user"
-          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
-        >
-          {{ user.date_updated | date : "short" }}
-        </td>
-      </ng-container>
-
       <ng-container matColumnDef="action">
         <th
           mat-header-cell
@@ -209,6 +195,7 @@
         >
           <div class="flex space-x-2">
             <button
+            matTooltip="Click to edit a user"
               mat-icon-button
               class="icon-button-edit"
               (click)="openEditDialog(user)"
@@ -225,6 +212,27 @@
               </svg>
             </button>
             <button
+            matTooltip="Click to view a user's information"
+              mat-icon-button
+              class="icon-button-edit"
+              (click)="openViewDialog(user)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+              >
+                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <button
+            matTooltip="Click to delete a user"
               mat-icon-button
               class="icon-button-edit"
               (click)="openDeleteDialog(user)"

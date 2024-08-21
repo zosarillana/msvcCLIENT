@@ -1,11 +1,6 @@
 <!-- modal.component.html -->
 <!-- <h1 mat-dialog-title>Edit - {{data.fname}} {{data.mname}} {{data.lname}}</h1> -->
-<h1 mat-dialog-title>Edit</h1>
-<div *ngIf="errorMessages['general']" class="bg-red-100 text-red-700 p-2 rounded mb-4">
-  <ul>
-    <li *ngFor="let errorMsg of errorMessages['general']">{{ errorMsg }}</li>
-  </ul>
-</div>
+<h1 mat-dialog-title class="uppercase">{{data.username}}'s complete details.</h1>
 <div *ngIf="data" mat-dialog-content>
   <form>
     <div class="grid grid-cols- gap-2 mb-2">
@@ -16,62 +11,15 @@
           >Username</label
         >
         <input
+        disabled
         id="Username"
         [(ngModel)]="data.username"
           placeholder="Username"
           name="Username"
           class="border p-2 text-sm rounded w-full"
           
-        />
-        <div *ngIf="errorMessages['username']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['username']">{{ errorMsg }}</li>
-          </ul>
-        </div>
-      </div>  
-      <!-- password -->
-      <div class="relative">
-        <!-- Password Input -->
-        <label
-          for="user_password"
-          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-        >
-          Password
-        </label>
-        <input
-        id="user_password"
-          [(ngModel)]="data.user_password"
-          placeholder="user_password"
-          name="user_password"
-          type="password"
-          class="border p-2 text-sm rounded w-full"
-          [attr.disabled]="!isPasswordEnabled ? true : null"
-          disabled
-        />
-        <div *ngIf="errorMessages['user_password']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['user_password']">{{ errorMsg }}</li>
-          </ul>
-        </div>
-        
-        <!-- Enable Checkbox -->
-        <div class="mt-4">
-          <input
-            id="enable_password"
-            type="checkbox"
-            [checked]="isPasswordEnabled"
-            (change)="togglePasswordField($event)"
-            class="mr-2"
-          />
-          <label for="enable_password" class="text-gray-700 text-sm dark:text-gray-300">
-            Enable Password Input
-          </label>
-        </div>
-      </div>
-            
-      
-      
-         
+        />        
+      </div>                                 
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
       <div class="relative">
@@ -82,17 +30,13 @@
           >Annas Breeder INC ID</label
         >
         <input
+        disabled
         id="abfi_id"
         [(ngModel)]="data.abfi_id"
           placeholder="XXX-XXX"
           name="abfi_id"
           class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['abfi_id']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['abfi_id']">{{ errorMsg }}</li>
-          </ul>
-        </div>
+        />        
       </div>      
       
       <div class="relative">
@@ -102,6 +46,7 @@
           >Role</label
         >
         <select
+        disabled
           id="role"
           [(ngModel)]="data.role"
           name="role"
@@ -110,15 +55,7 @@
           <option value="" selected disabled>Select a role</option>
           <option value="user">user</option>
           <option value="admin">admin</option>
-        </select>
-
-        <div *ngIf="errorMessages['role']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['role']">
-              {{ errorMsg }}
-            </li>
-          </ul>
-        </div>
+        </select>        
       </div>
     
     </div>  
@@ -132,17 +69,13 @@
           >First name</label
         >
         <input
+        disabled
         id="Firstname"
         [(ngModel)]="data.fname"
           placeholder="Firstname"
           name="Firstname"
           class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['fname']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['fname']">{{ errorMsg }}</li>
-          </ul>
-        </div>
+        />       
       </div>
 
       <div class="relative">
@@ -153,17 +86,13 @@
         >
 
         <input
+        disabled
         id="Middlename"
         [(ngModel)]="data.mname"
           placeholder="Middle Name"
           name="Middlename"
           class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['mname']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['mname']">{{ errorMsg }}</li>
-          </ul>
-        </div>
+        />       
       </div>
       <div class="relative">
         <label
@@ -172,20 +101,16 @@
           >Last Name</label
         >
         <input
+        disabled
         id="Lastname"
         [(ngModel)]="data.lname"
           placeholder="Last Name"
           name="Lastname"
           class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['lname']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['lname']">{{ errorMsg }}</li>
-          </ul>
-        </div>
+        />       
       </div>
     </div>  
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-3">
       <div class="relative">
         <label
         
@@ -194,17 +119,13 @@
           >Email Address</label
         >
         <input
+        disabled
         id="Emailadd"
         [(ngModel)]="data.email_add"
           placeholder="Email Address"
           name="Emailadd"
           class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['email_add']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['email_add']">{{ errorMsg }}</li>
-          </ul>
-        </div>
+        />        
       </div>
       <div class="relative">
         <div class="grid grid-cols-2">
@@ -217,17 +138,50 @@
           </div>
         </div>
         <input
+        disabled
         id="Contactnum"
         [(ngModel)]="data.contact_num"
           placeholder="Contact Number"
           name="Contactnum"
           class="border p-2 text-sm rounded w-full"
-        />
-        <div *ngIf="errorMessages['contact_num']" class="text-red-700 text-xs mt-1">
-          <ul>
-            <li *ngFor="let errorMsg of errorMessages['contact_num']">{{ errorMsg }}</li>
-          </ul>
+        />        
+      </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <div class="relative">
+        <label
+        
+          for="date_created"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Date Created</label
+        >
+        <input
+        disabled
+        id="date_created"
+        [(ngModel)]="formattedDate"
+          placeholder="Date Created"
+          name="date_created"
+          class="border p-2 text-sm rounded w-full"
+        />        
+      </div>
+      <div class="relative">
+        <div class="grid grid-cols-2">
+          <div class="relative">
+            <label
+              for="date_updated"
+              class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+              >Date Updated</label
+            >
+          </div>
         </div>
+        <input
+        disabled
+        id="date_updated"
+        [(ngModel)]="formattedDateUpdated"
+          placeholder="Date Updated"
+          name="date_updated"
+          class="border p-2 text-sm rounded w-full"
+        />        
       </div>
     </div>
     
@@ -236,5 +190,4 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button (click)="openConfirmationDialog()">Save</button>
 </div>

@@ -14,6 +14,7 @@ import { ModalEditUserDialogComponent } from './modal/modal-edit-user-dialog/mod
 import { ModalDeleteUserDialogComponent } from './modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import moment from 'moment';
+import { ModalViewUserDialogComponent } from './modal/modal-view-user-dialog/modal-view-user-dialog.component';
 
 @Component({
   selector: 'app-user-add',
@@ -27,8 +28,7 @@ export class UserAddComponent {
     'username',
     'email_add',
     'contact_num',
-    'date_created',
-    'date_updated',
+    'date_created',  
     'action',
   ];
   dataSource = new MatTableDataSource<User>();
@@ -107,6 +107,17 @@ export class UserAddComponent {
 
   openDeleteDialog(user: User): void {
     const dialogRef = this.dialog.open(ModalDeleteUserDialogComponent, {
+      width: '500px',
+      data: user,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadUsers();
+    });
+  }
+
+  openViewDialog(user: User): void {
+    const dialogRef = this.dialog.open(ModalViewUserDialogComponent, {
       width: '500px',
       data: user,
     });
