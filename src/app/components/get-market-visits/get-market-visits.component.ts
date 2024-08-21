@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import * as ExcelJS from 'exceljs';
+import * as FileSaver from 'file-saver';
 import { MarketVisits } from '../../models/market-visits';
 import { MarketVisitsService } from '../../services/market-visits.service';
-import { ModalComponent } from '../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalEditDialogComponent } from './modal/modal-edit-dialog/modal-edit-dialog.component';
 import { ModalCreateDialogComponent } from './modal/modal-create-dialog/modal-create-dialog.component';
@@ -40,7 +41,6 @@ export class GetMarketVisitsComponent implements AfterViewInit {
     private marketVisitsService: MarketVisitsService,
     public dialog: MatDialog
   ) {}
-  // Inject MatDialog
 
   ngOnInit(): void {
     this.marketVisitsService
@@ -77,12 +77,11 @@ export class GetMarketVisitsComponent implements AfterViewInit {
   openEditDialog(mvisit: MarketVisits): void {
     const dialogRef = this.dialog.open(ModalEditDialogComponent, {
       width: '500px',
-      data: mvisit, // Pass the data to the dialog
+      data: mvisit,
     });
 
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
-      // Handle any result here
     });
   }
 
@@ -94,7 +93,7 @@ export class GetMarketVisitsComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.loadMarketVisits(); // Reload data after dialog is closed
+        this.loadMarketVisits();
       }
     });
   }
@@ -102,14 +101,50 @@ export class GetMarketVisitsComponent implements AfterViewInit {
   openDeleteDialog(mvisit: MarketVisits): void {
     const dialogRef = this.dialog.open(ModalDeleteDialogComponent, {
       width: '500px',
-      data: mvisit, // Pass the data to the dialog
+      data: mvisit,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result) {
-        this.loadMarketVisits(); // Reload data after dialog is closed
+        this.loadMarketVisits();
       }
+    });
+  }
+
+  exportToExcel(): void {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Market Visits');
+  
+    // Add column headers
+    worksheet.columns = [
+      { header: 'ID', key: 'id', width: 10 },
+      { header: 'Visit Area', key: 'visit_area', width: 20 },
+      { header: 'Visit Date', key: 'visit_date', width: 20 },
+      { header: 'Account Name', key: 'visit_accountName', width: 30 },
+      { header: 'Distributor', key: 'visit_distributor', width: 20 },
+      { header: 'Sales Personnel', key: 'visit_salesPersonnel', width: 20 },
+      { header: 'Account Type', key: 'visit_accountType', width: 20 },
+      { header: 'ISR', key: 'visit_isr', width: 15 },
+      { header: 'ISR Need', key: 'visit_isrNeed', width: 15 },
+      { header: 'Payola Merchandiser', key: 'visit_payolaMerchandiser', width: 25 },
+      { header: 'Average Off Take PD', key: 'visit_averageOffTakePd', width: 25 },
+      { header: 'POD', key: 'visit_pod', width: 15 },
+      { header: 'Competitors Check', key: 'visit_competitorsCheck', width: 25 },
+      { header: 'PAP', key: 'visit_pap', width: 15 }
+    ];
+  
+    // Add rows
+    this.dataSource.data.forEach(item => {
+      worksheet.addRow(item);
+    });
+  
+    // Generate Excel file
+    workbook.xlsx.writeBuffer().then((buffer: ArrayBuffer) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      FileSaver.saveAs(blob, 'market-visits.xlsx');
+    }).catch(error => {
+      console.error('Error generating Excel file:', error);
     });
   }
 }

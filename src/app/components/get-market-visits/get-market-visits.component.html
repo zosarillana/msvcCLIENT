@@ -1,25 +1,31 @@
 <div class="w-full mx-auto">
   <!-- <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6"> -->
   <div class="rounded-t mb-0 border-0 mb-4">
-    <div class="flex flex-wrap items-center">
-      <div class="relative w-full max-w-full flex-grow flex-1">
+    <div class="flex items-center justify-between flex-wrap">
+      <div class="flex items-center">
         <h1 class="font-semibold text-2xl text-blueGray-700">Market Visits</h1>
+        <!-- Your existing button -->
+        <button mat-icon-button class="icon-button ml-4" (click)="openAddDialog()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="size-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
       </div>
-      <button mat-icon-button class="icon-button" (click)="openAddDialog()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="size-6"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </button>
+      <!-- Add the Export to Excel button here -->
+      <button mat-raised-button color="primary" (click)="exportToExcel()" class="mb-5">
+        Export to Excel
+      </button>     
     </div>
+    
   </div>
 
   <div class="block w-full overflow-x-auto">
@@ -308,6 +314,7 @@
                 />
               </svg>
             </button>
+            
           </div>
         </td>
       </ng-container>
