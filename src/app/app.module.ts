@@ -33,6 +33,7 @@ import { LoginComponent } from './components/authentication/login/login.componen
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ModalViewUserDialogComponent } from './components/admin/user-add/modal/modal-view-user-dialog/modal-view-user-dialog.component';
 import { ConfirmDialogComponent } from './components/admin/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ConfirmDialogComponent } from './components/admin/user-add/modal/modal-
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule, // Fixed import
+    MatTooltipModule,
+    MatExpansionModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

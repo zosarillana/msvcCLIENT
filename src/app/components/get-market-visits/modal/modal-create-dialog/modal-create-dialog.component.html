@@ -1,42 +1,17 @@
 <!-- modal.component.html -->
-<h1 mat-dialog-title>Visitor name: {{ data.visitor }}</h1>
+<h1 mat-dialog-title>Add market visit</h1>
 <div *ngIf="data" mat-dialog-content>
   <form>
-    <div class="grid grid-cols-1 gap-4 mb-4">
+    <div class="grid grid-cols-2 gap-2 mb-4">
       <div class="relative">
         <label
-          for="area"
+          for="dateOfVisit"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-        >Area</label>
+          >Date of visit
+        </label>
         <input
-          [(ngModel)]="data.area"
-          placeholder="Area"
-          name="area"
-          class="border p-2 text-sm rounded w-full"
-        />
-      </div>
-      <div class="relative">
-        <label
-          for="visitor"
-          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-        >Name</label>
-        <input
-          [(ngModel)]="data.visitor"
-          placeholder="Visitor Name"
-          name="visitor"
-          class="border p-2 text-sm rounded w-full"
-        />
-      </div>
-    </div>
-
-    <div class="mb-4">
-      <div class="relative">
-        <label
-          for="datetimepicker"
-          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-        >Date and Time Visited</label>
-        <input
-          [(ngModel)]="data.visitdate"
+          id="dateOfVisit"
+          [(ngModel)]="data.visit_date"
           placeholder="Date and Time"
           type="datetime-local"
           id="datetimepicker"
@@ -44,6 +19,433 @@
           class="border p-2 text-sm rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
         />
       </div>
+      <div class="relative">
+        <label
+          for="area"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Area</label
+        >
+        <input
+          id="area"
+          [(ngModel)]="data.visit_area"
+          placeholder="Area"
+          name="area"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-2 mb-4">
+      <div class="relative">
+        <label
+          for="accountName"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Account Name</label
+        >
+        <input
+          id="accountName"
+          [(ngModel)]="data.visit_accountName"
+          placeholder="Account name"
+          name="accountName"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+      <div class="relative">
+        <label
+          for="distributor"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Distributor</label
+        >
+        <input
+          id="distributor"
+          [(ngModel)]="data.visit_distributor"
+          placeholder="Distributor"
+          name="distributor"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+      <div class="relative">
+        <label
+          for="salesPeronnel"
+          class="block text-gray-700 text-xs dark:text-gray-300 font-medium mb-3"
+          >Sales Personnel in Charge</label
+        >
+        <input
+          id="salesPeronnel"
+          [(ngModel)]="data.visit_salesPersonnel"
+          placeholder="Distributor"
+          name="salesPeronnel"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2 mb-3">
+      <div class="relative">
+        <label
+          for="visit_accountType"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+          >Account type</label
+        >
+        <select
+          id="visit_accountType"
+          [(ngModel)]="data.visit_accountType"
+          name="visit_accountType"
+          class="border p-2 text-sm rounded w-full"
+          (change)="onAccountTypeChange($event)"
+        >
+          <option value="" selected disabled>Select account type</option>
+          <option value="General Trade">General Trade</option>
+          <option value="Modern Trade">Modern Trade</option>
+          <option value="Local Key Account">Local Key Account</option>
+          <option value="Others">Others...</option>
+        </select>
+      </div>
+      <div class="relative">
+        <label
+          for="visit_accountTypeOthers"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+          >Others</label
+        >
+        <input
+          id="visit_accountTypeOthers"
+          [(ngModel)]="data.visit_accountTypeOthers"
+          placeholder="Others..."
+          name="visit_accountTypeOthers"
+          class="border p-2 text-sm rounded w-full"
+          [disabled]="!isAccountTypeOthersSelected"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-2 mb-4">
+      <div class="relative">
+        <label
+          for="visit_payolaMerchandiser"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Payola Merchandiser</label
+        >
+        <input
+          id="visit_payolaMerchandiser"
+          [(ngModel)]="data.visit_payolaMerchandiser"
+          placeholder="Payola Merchandiser"
+          name="visit_payolaMerchandiser"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+
+      <div class="relative">
+        <label
+          for="salesPeronnel"
+          class="block text-gray-700 text-xs dark:text-gray-300 font-medium mb-3"
+          >Payola Supervisor</label
+        >
+        <input
+          id="salesPeronnel"
+          [(ngModel)]="data.visit_salesPersonnel"
+          placeholder="Distributor"
+          name="salesPeronnel"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+
+      <div class="relative">
+        <label
+          for="visit_averageOffTakePd"
+          class="block text-gray-700 text-xs dark:text-gray-300 font-medium mb-3"
+          >Average Off Take</label
+        >
+        <input
+          id="visit_averageOffTakePd"
+          [(ngModel)]="data.visit_averageOffTakePd"
+          placeholder="Average Off Take Per Day"
+          name="visit_averageOffTakePd"
+          class="border p-2 text-sm rounded w-full"
+        />
+      </div>
+    </div>
+    <div class="mb-5">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState.set(true)"
+          (closed)="panelOpenState.set(false)"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title> Store requirment's section </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="grid grid-cols-2 gap-2 mb-2">
+            <div class="relative">
+              <label
+                for="visit_isr"
+                class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
+                >In-Store Requirements</label
+              >
+              <select
+                id="visit_isr"
+                [(ngModel)]="data.visit_isr"
+                name="visit_isr"
+                class="border p-2 text-sm rounded w-full"
+                (change)="OnIsrChange($event)"
+              >
+                <option value="" selected disabled>Select account type</option>
+                <option value="General Trade">General Trade</option>
+                <option value="Modern Trade">Modern Trade</option>
+                <option value="Local Key Account">Local Key Account</option>
+                <option value="Others">Others...</option>
+              </select>
+            </div>
+            <div class="relative">
+              <label
+                for="visit_isrOthers"
+                class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
+                >Others</label
+              >
+              <input
+                id="visit_isrOthers"
+                [(ngModel)]="data.visit_isrOthers"
+                placeholder="Others..."
+                name="visit_isrOthers"
+                class="border p-2 text-sm rounded w-full"
+                [disabled]="!isIsrOthersSelected"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 mb-2">
+            <div class="relative">
+              <label
+                for="visit_isrNeed"
+                class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
+                >In-Store Requirements Needs</label
+              >
+              <select
+                id="visit_isrNeed"
+                [(ngModel)]="data.visit_isrNeed"
+                name="visit_isrNeed"
+                class="border p-2 text-sm rounded w-full"
+                (change)="OnIsrNeedChange($event)"
+              >
+                <option value="" selected disabled>Select account type</option>
+                <option value="General Trade">General Trade</option>
+                <option value="Modern Trade">Modern Trade</option>
+                <option value="Local Key Account">Local Key Account</option>
+                <option value="Others">Others...</option>
+              </select>
+            </div>
+            <div class="relative">
+              <label
+                for="visit_isrOthersNeeds"
+                class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
+                >Others</label
+              >
+              <input
+                id="visit_isrOthersNeeds"
+                [(ngModel)]="data.visit_isrOthersNeeds"
+                placeholder="Others..."
+                name="visit_isrOthersNeeds"
+                class="border p-2 text-sm rounded w-full"
+                [disabled]="!isIsrNeedOthersSelected"
+              />
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel
+          (opened)="panelOpenState.set(true)"
+          (closed)="panelOpenState.set(false)"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title> Product on display </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="grid grid-cols-1 gap-2 mb-2">
+            <div class="relative">
+              <label class="block font-medium mb-4">Canned</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2">
+                <div class="flex items-center">
+                  <input
+                    id="item1"
+                    type="checkbox"
+                    name="items"
+                    value="item1"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item1" class="ml-2 text-xs text-gray-700"
+                    >Item 1</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item2"
+                    type="checkbox"
+                    name="items"
+                    value="item2"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item2" class="ml-2 text-xs text-gray-700"
+                    >Item 2</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item3"
+                    type="checkbox"
+                    name="items"
+                    value="item3"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item3" class="ml-2 text-xs text-gray-700"
+                    >Item 3</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item4"
+                    type="checkbox"
+                    name="items"
+                    value="item4"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item4" class="ml-2 text-xs text-gray-700"
+                    >Item 4</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item1"
+                    type="checkbox"
+                    name="items"
+                    value="item1"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item1" class="ml-2 text-xs text-gray-700"
+                    >Item 1</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item2"
+                    type="checkbox"
+                    name="items"
+                    value="item2"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item2" class="ml-2 text-xs text-gray-700"
+                    >Item 2</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item3"
+                    type="checkbox"
+                    name="items"
+                    value="item3"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item3" class="ml-2 text-xs text-gray-700"
+                    >Item 3</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item4"
+                    type="checkbox"
+                    name="items"
+                    value="item4"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item4" class="ml-2 text-xs text-gray-700"
+                    >Item 4</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item1"
+                    type="checkbox"
+                    name="items"
+                    value="item1"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item1" class="ml-2 text-xs text-gray-700"
+                    >Item 1</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item2"
+                    type="checkbox"
+                    name="items"
+                    value="item2"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item2" class="ml-2 text-xs text-gray-700"
+                    >Item 2</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item3"
+                    type="checkbox"
+                    name="items"
+                    value="item3"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item3" class="ml-2 text-xs text-gray-700"
+                    >Item 3</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item4"
+                    type="checkbox"
+                    name="items"
+                    value="item4"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item4" class="ml-2 text-xs text-gray-700"
+                    >Item 4</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item1"
+                    type="checkbox"
+                    name="items"
+                    value="item1"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item1" class="ml-2 text-xs text-gray-700"
+                    >Item 1</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item2"
+                    type="checkbox"
+                    name="items"
+                    value="item2"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item2" class="ml-2 text-xs text-gray-700"
+                    >Item 2</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="item3"
+                    type="checkbox"
+                    name="items"
+                    value="item3"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="item3" class="ml-2 text-xs text-gray-700"
+                    >Item 3</label
+                  >
+                </div>
+                <div class="separator"></div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </form>
 </div>
