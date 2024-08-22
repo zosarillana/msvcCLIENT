@@ -87,7 +87,8 @@ export class GetMarketVisitsComponent implements AfterViewInit {
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(ModalCreateDialogComponent, {
-      width: '90%',
+      width: '900px', // Set the width of the dialog
+      height: '600px', // Set the height of the dialog
       data: {},
     });
 

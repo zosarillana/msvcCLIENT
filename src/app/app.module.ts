@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
@@ -34,6 +34,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { ModalViewUserDialogComponent } from './components/admin/user-add/modal/modal-view-user-dialog/modal-view-user-dialog.component';
 import { ConfirmDialogComponent } from './components/admin/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule  
+    
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

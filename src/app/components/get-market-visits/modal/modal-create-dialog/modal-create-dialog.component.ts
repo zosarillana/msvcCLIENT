@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Inject, Input, Output, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, signal, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MarketVisits } from '../../../../models/market-visits';
 import { MarketVisitsService } from '../../../../services/market-visits.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-create-dialog',
@@ -18,12 +19,31 @@ export class ModalCreateDialogComponent {
   isIsrOthersSelected = false;
   isIsrNeedOthersSelected = false;
 
+  
+  private _formBuilder = inject(FormBuilder);
+
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+  fourthFormGroup = this._formBuilder.group({
+    fourthCtrl: ['', Validators.required],
+  });
+  isLinear = false;
+  
+
   constructor(
     private marketVisitsService: MarketVisitsService,
     public dialogRef: MatDialogRef<ModalCreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
+  
   onAccountTypeChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const value = selectElement.value; // Extract the value from the event

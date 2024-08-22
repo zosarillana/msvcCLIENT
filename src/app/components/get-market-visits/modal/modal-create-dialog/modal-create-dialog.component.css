@@ -1,0 +1,9 @@
+/* modal-create-dialog.component.css */
+.dialog-content {
+    max-width: 800px; /* Adjust the max-width as needed */
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }

@@ -2,10 +2,10 @@
 <h1 mat-dialog-title>Add market visit</h1>
 <div *ngIf="data" mat-dialog-content>
   <form>
-    <div class="grid grid-cols-2 gap-2 mb-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
       <div class="relative">
         <label
-          for="dateOfVisit"
+        
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Date of visit
         </label>
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-2 mb-4">
+    <div class="grid grid-cols-1 :grid-cols-3 gap-2 mb-4">
       <div class="relative">
         <label
           for="accountName"
@@ -70,17 +70,16 @@
           class="block text-gray-700 text-xs dark:text-gray-300 font-medium mb-3"
           >Sales Personnel in Charge</label
         >
-        <input
-          id="salesPeronnel"
+        <input        
           [(ngModel)]="data.visit_salesPersonnel"
-          placeholder="Distributor"
+          placeholder="Sales Personnel in Charge"
           name="salesPeronnel"
           class="border p-2 text-sm rounded w-full"
         />
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-2 mb-3">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-3">
       <div class="relative">
         <label
           for="visit_accountType"
@@ -118,7 +117,7 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-2 mb-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
       <div class="relative">
         <label
           for="visit_payolaMerchandiser"
@@ -142,8 +141,8 @@
         >
         <input
           id="salesPeronnel"
-          [(ngModel)]="data.visit_salesPersonnel"
-          placeholder="Distributor"
+          [(ngModel)]="data.visit_payolaSupervisor"
+          placeholder="Payola Supervisor"
           name="salesPeronnel"
           class="border p-2 text-sm rounded w-full"
         />
@@ -164,91 +163,84 @@
         />
       </div>
     </div>
-    <div class="mb-5">
-      <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState.set(true)"
-          (closed)="panelOpenState.set(false)"
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+      <div class="relative">
+        <label
+          for="visit_isr"
+          class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
+          >In-Store Requirements</label
         >
-          <mat-expansion-panel-header>
-            <mat-panel-title> Store requirment's section </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="grid grid-cols-2 gap-2 mb-2">
-            <div class="relative">
-              <label
-                for="visit_isr"
-                class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
-                >In-Store Requirements</label
-              >
-              <select
-                id="visit_isr"
-                [(ngModel)]="data.visit_isr"
-                name="visit_isr"
-                class="border p-2 text-sm rounded w-full"
-                (change)="OnIsrChange($event)"
-              >
-                <option value="" selected disabled>Select account type</option>
-                <option value="General Trade">General Trade</option>
-                <option value="Modern Trade">Modern Trade</option>
-                <option value="Local Key Account">Local Key Account</option>
-                <option value="Others">Others...</option>
-              </select>
-            </div>
-            <div class="relative">
-              <label
-                for="visit_isrOthers"
-                class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
-                >Others</label
-              >
-              <input
-                id="visit_isrOthers"
-                [(ngModel)]="data.visit_isrOthers"
-                placeholder="Others..."
-                name="visit_isrOthers"
-                class="border p-2 text-sm rounded w-full"
-                [disabled]="!isIsrOthersSelected"
-              />
-            </div>
-          </div>
+        <select
+          id="visit_isr"
+          [(ngModel)]="data.visit_isr"
+          name="visit_isr"
+          class="border p-2 text-sm rounded w-full"
+          (change)="OnIsrChange($event)"
+        >
+          <option value="" selected disabled>Select account type</option>
+          <option value="General Trade">General Trade</option>
+          <option value="Modern Trade">Modern Trade</option>
+          <option value="Local Key Account">Local Key Account</option>
+          <option value="Others">Others...</option>
+        </select>
+      </div>
+      <div class="relative">
+        <label
+          for="visit_isrOthers"
+          class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
+          >Others</label
+        >
+        <input
+          id="visit_isrOthers"
+          [(ngModel)]="data.visit_isrOthers"
+          placeholder="Others..."
+          name="visit_isrOthers"
+          class="border p-2 text-sm rounded w-full"
+          [disabled]="!isIsrOthersSelected"
+        />
+      </div>
+    </div>
 
-          <div class="grid grid-cols-2 gap-2 mb-2">
-            <div class="relative">
-              <label
-                for="visit_isrNeed"
-                class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
-                >In-Store Requirements Needs</label
-              >
-              <select
-                id="visit_isrNeed"
-                [(ngModel)]="data.visit_isrNeed"
-                name="visit_isrNeed"
-                class="border p-2 text-sm rounded w-full"
-                (change)="OnIsrNeedChange($event)"
-              >
-                <option value="" selected disabled>Select account type</option>
-                <option value="General Trade">General Trade</option>
-                <option value="Modern Trade">Modern Trade</option>
-                <option value="Local Key Account">Local Key Account</option>
-                <option value="Others">Others...</option>
-              </select>
-            </div>
-            <div class="relative">
-              <label
-                for="visit_isrOthersNeeds"
-                class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
-                >Others</label
-              >
-              <input
-                id="visit_isrOthersNeeds"
-                [(ngModel)]="data.visit_isrOthersNeeds"
-                placeholder="Others..."
-                name="visit_isrOthersNeeds"
-                class="border p-2 text-sm rounded w-full"
-                [disabled]="!isIsrNeedOthersSelected"
-              />
-            </div>
-          </div>
-        </mat-expansion-panel>
+    <div class="grid gird-cols-1 lg:grid-cols-2 gap-2 mb-2">
+      <div class="relative">
+        <label
+          for="visit_isrNeed"
+          class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
+          >In-Store Requirements Needs</label
+        >
+        <select
+          id="visit_isrNeed"
+          [(ngModel)]="data.visit_isrNeed"
+          name="visit_isrNeed"
+          class="border p-2 text-sm rounded w-full"
+          (change)="OnIsrNeedChange($event)"
+        >
+          <option value="" selected disabled>Select account type</option>
+          <option value="General Trade">General Trade</option>
+          <option value="Modern Trade">Modern Trade</option>
+          <option value="Local Key Account">Local Key Account</option>
+          <option value="Others">Others...</option>
+        </select>
+      </div>
+      <div class="relative">
+        <label
+          for="visit_isrOthersNeeds"
+          class="block text-gray-700 text-sm dark:text-gray-300 font-medium mb-3"
+          >Others</label
+        >
+        <input
+          id="visit_isrOthersNeeds"
+          [(ngModel)]="data.visit_isrOthersNeeds"
+          placeholder="Others..."
+          name="visit_isrOthersNeeds"
+          class="border p-2 text-sm rounded w-full"
+          [disabled]="!isIsrNeedOthersSelected"
+        />
+      </div>
+    </div>
+
+    <div class="mt-4 mb-5">
+      <mat-accordion>
         <mat-expansion-panel
           (opened)="panelOpenState.set(true)"
           (closed)="panelOpenState.set(false)"
@@ -259,193 +251,378 @@
           <div class="grid grid-cols-1 gap-2 mb-2">
             <div class="relative">
               <label class="block font-medium mb-4">Canned</label>
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2">
+              <div class="grid lg:grid-cols-5 grid-cols-2 gap-2">
                 <div class="flex items-center">
                   <input
-                    id="item1"
+                    id="cml"
                     type="checkbox"
-                    name="items"
-                    value="item1"
+                    name="cml"
+                    value="CML"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item1" class="ml-2 text-xs text-gray-700"
-                    >Item 1</label
+                  <label for="cml" class="ml-2 text-xs text-gray-700"
+                    >CML</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item2"
+                    id="clo"
                     type="checkbox"
-                    name="items"
-                    value="item2"
+                    name="clo"
+                    value="CLO"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item2" class="ml-2 text-xs text-gray-700"
-                    >Item 2</label
+                  <label for="clo" class="ml-2 text-xs text-gray-700"
+                    >CLO 2</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item3"
+                    id="cls"
                     type="checkbox"
-                    name="items"
-                    value="item3"
+                    name="cls"
+                    value="CLS"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item3" class="ml-2 text-xs text-gray-700"
-                    >Item 3</label
+                  <label  class="ml-2 text-xs text-gray-700"
+                    >CLS</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item4"
+                    id="cdlPastel"
                     type="checkbox"
-                    name="items"
-                    value="item4"
+                    name="cdlPastel"
+                    value="CDL PASTIL"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item4" class="ml-2 text-xs text-gray-700"
-                    >Item 4</label
+                  <label for="cdlPastel" class="ml-2 text-xs text-gray-700"
+                    >CDL PASTIL</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item1"
+                    id="cdlGiniling"
                     type="checkbox"
-                    name="items"
-                    value="item1"
+                    name="cdlGiniling"
+                    value="CDL GINILING"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item1" class="ml-2 text-xs text-gray-700"
-                    >Item 1</label
+                  <label for="cdlGiniling" class="ml-2 text-xs text-gray-700"
+                    >CDL GINILING</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item2"
+                    id="cdlSisig"
                     type="checkbox"
-                    name="items"
-                    value="item2"
+                    name="cdlSisig"
+                    value="CDL SISIG"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item2" class="ml-2 text-xs text-gray-700"
-                    >Item 2</label
+                  <label for="cdlSisig" class="ml-2 text-xs text-gray-700"
+                    >CDL SISIG</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item3"
+                    id="cscInBrine"
                     type="checkbox"
-                    name="items"
-                    value="item3"
+                    name="cscInBrine"
+                    value="CHEF SERIES CHICKEN in BRINE"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item3" class="ml-2 text-xs text-gray-700"
-                    >Item 3</label
+                  <label for="cscInBrine" class="ml-2 text-xs text-gray-700"
+                    >CHEF SERIES CHICKEN in BRINE</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item4"
+                    id="cscInOil"
                     type="checkbox"
-                    name="items"
-                    value="item4"
+                    name="cscInOil"
+                    value="CHEF SERIES CHUNKS in OIL"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item4" class="ml-2 text-xs text-gray-700"
-                    >Item 4</label
+                  <label for="cscInOil" class="ml-2 text-xs text-gray-700"
+                    >CHEF SERIES CHUNKS in OIL</label
+                  >
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="msLuncheonMeat"
+                    type="checkbox"
+                    name="msLuncheonMeat"
+                    value="MEATLOAF SERIES - LUNCHEON MEAT"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="msLuncheonMeat" class="ml-2 text-xs text-gray-700"
+                    >MEATLOAF SERIES - LUNCHEON MEAT</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item1"
+                    id="msViennaLoaf"
                     type="checkbox"
-                    name="items"
-                    value="item1"
+                    name="msViennaLoaf"
+                    value="MEATLOAF SERIES - VIENNA LOAF"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item1" class="ml-2 text-xs text-gray-700"
-                    >Item 1</label
+                  <label for="msViennaLoaf" class="ml-2 text-xs text-gray-700"
+                    >MEATLOAF SERIES - VIENNA LOAF</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item2"
+                    id="ifChickenAndMushroom"
                     type="checkbox"
-                    name="items"
-                    value="item2"
+                    name="ifChickenAndMushroom"
+                    value="IF - Chicken and Mushroom"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item2" class="ml-2 text-xs text-gray-700"
-                    >Item 2</label
+                  <label
+                    for="ifChickenAndMushroom"
+                    class="ml-2 text-xs text-gray-700"
+                    >IF - Chicken and Mushroom</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item3"
+                    id="ifChickenMasala"
                     type="checkbox"
-                    name="items"
-                    value="item3"
+                    name="ifChickenMasala"
+                    value="IF - Chicken Masala"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item3" class="ml-2 text-xs text-gray-700"
-                    >Item 3</label
+                  <label
+                    for="ifChickenMasala"
+                    class="ml-2 text-xs text-gray-700"
+                    >IF - Chicken Masala</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item4"
+                    id="ifCornedChicken"
                     type="checkbox"
-                    name="items"
-                    value="item4"
+                    name="ifCornedChicken"
+                    value="IF - Corned Chicken
+                    "
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item4" class="ml-2 text-xs text-gray-700"
-                    >Item 4</label
+                  <label
+                    for="ifCornedChicken"
+                    class="ml-2 text-xs text-gray-700"
+                    >IF - Corned Chicken
+                  </label>
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="ifBicolExpress"
+                    type="checkbox"
+                    name="ifBicolExpress"
+                    value="IF - Bicol Express"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="ifBicolExpress" class="ml-2 text-xs text-gray-700"
+                    >IF - Bicol Express</label
+                  >
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="ifTeriyaki"
+                    type="checkbox"
+                    name="ifTeriyaki"
+                    value="IF - Teriyaki"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="ifTeriyaki" class="ml-2 text-xs text-gray-700"
+                    >IF - Teriyaki</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="relative">
+              <label class="block font-medium mb-4">MPP</label>
+              <div class="grid lg:grid-cols-5 grid-cols-2 gap-2">
+                <div class="flex items-center">
+                  <input
+                    id="pNuggets"
+                    type="checkbox"
+                    name="pNuggets"
+                    value="PREMIUM - Nuggets"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="pNuggets" class="ml-2 text-xs text-gray-700"
+                    >PREMIUM - Nuggets</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item1"
+                    id="pBacon"
                     type="checkbox"
-                    name="items"
-                    value="item1"
+                    name="pBacon"
+                    value="PREMIUM - BACON"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item1" class="ml-2 text-xs text-gray-700"
-                    >Item 1</label
+                  <label for="pBacon" class="ml-2 text-xs text-gray-700"
+                    >PREMIUM - BACON</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item2"
+                    id="mChickenTocinoOriginal"
                     type="checkbox"
-                    name="items"
-                    value="item2"
+                    name="mChickenTocinoOriginal"
+                    value="MARINATES - Chicken Tocino Original"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item2" class="ml-2 text-xs text-gray-700"
-                    >Item 2</label
+                  <label
+                    for="mChickenTocinoOriginal"
+                    class="ml-2 text-xs text-gray-700"
+                    >MARINATES - Chicken Tocino Original</label
                   >
                 </div>
                 <div class="flex items-center">
                   <input
-                    id="item3"
+                    id="mChickenTocinoSpicy"
                     type="checkbox"
-                    name="items"
-                    value="item3"
+                    name="mChickenTocinoSpicy"
+                    value="MARINATES - Chicken Tocino Spicy"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label for="item3" class="ml-2 text-xs text-gray-700"
-                    >Item 3</label
+                  <label
+                    for="mChickenTocinoSpicy"
+                    class="ml-2 text-xs text-gray-700"
+                    >MARINATES - Chicken Tocino Spicy</label
                   >
                 </div>
-                <div class="separator"></div>
+                <div class="flex items-center">
+                  <input
+                    id="mCHickenTocinoTeriyaki"
+                    type="checkbox"
+                    name="mCHickenTocinoTeriyaki"
+                    value="MARINATES - Chicken Tocino Teriyaki"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label
+                    for="mCHickenTocinoTeriyaki"
+                    class="ml-2 text-xs text-gray-700"
+                    >MARINATES - Chicken Tocino Teriyaki</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="mChickenTocinoCurry"
+                    type="checkbox"
+                    name="mChickenTocinoCurry"
+                    value="MARINATES - Chicken Tocino Curry"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label
+                    for="mChickenTocinoCurry"
+                    class="ml-2 text-xs text-gray-700"
+                    >MARINATES - Chicken Tocino Curry</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="lSkinlessOriginal"
+                    type="checkbox"
+                    name="lSkinlessOriginal"
+                    value="LONGGANISA - Skinless Original"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label
+                    for="lSkinlessOriginal"
+                    class="ml-2 text-xs text-gray-700"
+                    >LONGGANISA - Skinless Original</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="lSpanishStyle"
+                    type="checkbox"
+                    name="lSpanishStyle"
+                    value="LONGGANISA - Smoked Original"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="lSpanishStyle" class="ml-2 text-xs text-gray-700"
+                    >LONGGANISA - Smoked Original</label
+                  >
+                </div>
+                <div class="flex items-center">
+                  <input
+                    id="lCurry"
+                    type="checkbox"
+                    name="lCurry"
+                    value="LONGGANISA - Curry"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label for="lCurry" class="ml-2 text-xs text-gray-700"
+                    >LONGGANISA - Curry</label
+                  >
+                </div>
               </div>
             </div>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
+      <div class="grid grid-cols-1 gap-2 mt-4 mb-4">
+        <div class="relative">
+          <label
+            for="visit_competitorsCheck"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Competitors Check (existing SKU in-store)
+          </label>
+          <input
+            id="visit_competitorsCheck"
+            [(ngModel)]="data.visit_competitorsCheck"
+            placeholder="Area"
+            name="visit_competitorsCheck"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-3">
+        <div class="relative">
+          <label
+            for="visit_pap"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+            >Proposed Action Plan</label
+          >
+          <select
+            id="visit_pap"
+            [(ngModel)]="data.visit_pap"
+            name="visit_pap"
+            class="border p-2 text-sm rounded w-full"
+            (change)="onAccountTypeChange($event)"
+          >
+            <option value="" selected disabled>Select account type</option>
+            <option value="General Trade">General Trade</option>
+            <option value="Modern Trade">Modern Trade</option>
+            <option value="Local Key Account">Local Key Account</option>
+            <option value="Others">Others...</option>
+          </select>
+        </div>
+        <div class="relative">
+          <label
+            for="visit_papOthers"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+            >Others</label
+          >
+          <input
+            id="visit_papOthers"
+            [(ngModel)]="data.visit_papOthers"
+            placeholder="Others..."
+            name="visit_papOthers"
+            class="border p-2 text-sm rounded w-full"
+            [disabled]="!isAccountTypeOthersSelected"
+          />
+        </div>
+      </div>
     </div>
   </form>
 </div>
