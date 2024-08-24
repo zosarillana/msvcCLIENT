@@ -15,6 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { UpdateMarketVisitsComponent } from './components/update-market-visits/update-market-visits.component';
 import { GetMarketVisitsComponent } from './components/get-market-visits/get-market-visits.component';
@@ -33,9 +36,8 @@ import { LoginComponent } from './components/authentication/login/login.componen
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ModalViewUserDialogComponent } from './components/admin/user-add/modal/modal-view-user-dialog/modal-view-user-dialog.component';
 import { ConfirmDialogComponent } from './components/admin/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TokenService } from './services/token.service'; // Import TokenService
+import { AuthService } from './auth/auth.service'; // Import AuthService
 
 @NgModule({
   declarations: [
@@ -44,8 +46,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     GetMarketVisitsComponent,
     SidebarComponentComponent,
     ModalComponent,
-    ModalEditDialogComponent,
     ModalCreateDialogComponent,
+    ModalEditDialogComponent,
     ModalDeleteDialogComponent,
     UserAddComponent,
     IsrAddComponent,
@@ -55,7 +57,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ModalDeleteUserDialogComponent,
     LoginComponent,
     ModalViewUserDialogComponent,
-    ConfirmDialogComponent,    
+    ConfirmDialogComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -64,6 +66,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatPaginatorModule,
     MatTableModule,
     MatButtonModule,
@@ -76,11 +79,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTooltipModule,
     MatExpansionModule,
     MatStepperModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule  
-    
+    MatProgressSpinnerModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [
+    TokenService, // Add TokenService to providers
+    AuthService, // Add AuthService to providers
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

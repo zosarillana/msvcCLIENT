@@ -36,6 +36,7 @@ export class UserAddComponent {
   userToEdit?: User;
   startDate: Date | null = null;
   endDate: Date | null = null;
+  userCount: number = 0;
 
   constructor(private userService: UserService, public dialog: MatDialog) {}
 
@@ -47,9 +48,25 @@ export class UserAddComponent {
     this.userService.getUsers().subscribe((result: User[]) => {
       this.dataSource.data = result;
       this.dataSource.paginator = this.paginator;
+
+      this.fetchUserCount();
+
+      // Set up polling every 3 seconds
+      setInterval(() => this.fetchUserCount(), 3000);
     });
   }
-  
+
+  private fetchUserCount(): void {
+    this.userService.getUserCount().subscribe(
+      (count: number) => {
+        this.userCount = count;
+      },
+      (error) => {
+        console.error('Error fetching user count:', error);
+      }
+    );
+  }
+
   applyFilter(event: Event, filterType: string): void {
     const input = event.target as HTMLInputElement;
     const value = input.value;

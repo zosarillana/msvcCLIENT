@@ -31,8 +31,7 @@ export class LoginComponent {
     this.authService.login(username, user_password).subscribe(
       (response) => {
         if (response && response.token) {
-          localStorage.setItem('jwtToken', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user)); // Store user info
+          localStorage.setItem('jwtToken', response.token);         
 
           this.router
             .navigate(['/dashboard'])

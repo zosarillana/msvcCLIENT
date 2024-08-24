@@ -12,13 +12,16 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(username: string, user_password: string): Observable<{ token: string, user: any }> {
+  login(
+    username: string,
+    user_password: string
+  ): Observable<{ token: string; }> {
     const loginData = { username, user_password };
-    return this.http.post<{ token: string, user: any }>(this.apiUrl, loginData).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<{ token: string; }>(this.apiUrl, loginData)
+      .pipe(catchError(this.handleError));
   }
-  
+
   isLoggedIn(): boolean {
     return !!localStorage.getItem('jwtToken');
   }
@@ -26,6 +29,17 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('jwtToken');
     this.router.navigate(['/login']); // Redirect to login page after logout
+  }
+
+  decodeToken(token: string): any {
+    try {
+      const payload = token.split('.')[1]; // Get the payload part of the token
+      const decodedPayload = atob(payload); // Decode the base64 string
+      return JSON.parse(decodedPayload); // Parse it into a JSON object
+    } catch (error) {
+      console.error('Token decoding failed', error);
+      return null;
+    }
   }
 
   private handleError(error: HttpErrorResponse) {

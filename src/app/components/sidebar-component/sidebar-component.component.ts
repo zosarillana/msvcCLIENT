@@ -1,13 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  Renderer2,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ElementRef, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../auth/auth.service';
-
+import { TokenService } from '../../services/token.service';
+import { SharedService } from '../../services/shared.service';
 @Component({
   selector: 'app-sidebar-component',
   templateUrl: './sidebar-component.component.html',
@@ -27,13 +22,15 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
     private elRef: ElementRef,
     private renderer: Renderer2,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private tokenService: TokenService,
+    private sharedService: SharedService // Inject SharedService
   ) {}
 
   logout(): void {
     this.authService.logout();
   }
-
+  
   ngOnInit(): void {
     // Bind the click event listener using Renderer2
     this.clickListener = this.renderer.listen(
@@ -46,14 +43,18 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
 
     this.fetchUserCount();
 
-    // Set up polling every 10 seconds (10000 milliseconds)
+    // Set up polling every 3 seconds
     setInterval(() => this.fetchUserCount(), 3000);
 
-    const userData = localStorage.getItem('user');
-    this.user = userData ? JSON.parse(userData) : null;
-    // console.log('User from localStorage:', this.user);
+    // Decode token and set user information
+    this.tokenService.decodeTokenAndSetUser();
+    this.user = this.tokenService.getUser();
+    this.username = this.user ? this.user.sub : null; // Update username based on 'sub'
 
-    this.username = localStorage.getItem('username');
+    // Subscribe to content changes from SharedService
+    this.sharedService.selectedContent$.subscribe(content => {
+      this.selectedContent = content;
+    });
   }
 
   private fetchUserCount(): void {
@@ -79,7 +80,8 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
   }
 
   showContent(content: string): void {
-    this.selectedContent = content;
+    // Use SharedService to change content
+    this.sharedService.setSelectedContent(content);
   }
 
   private onDocumentClick(event: MouseEvent): void {

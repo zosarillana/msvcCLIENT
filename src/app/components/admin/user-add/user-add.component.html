@@ -1,210 +1,52 @@
-<div class="w-full mx-auto">
-  <!-- <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6"> -->
-  <div class="rounded-t mb-4 border-0">
-    <div class="flex flex-wrap items-center justify-between">
-      <!-- Header -->
-      <div class="flex items-center mb-5">
-        <h1 class="font-semibold text-2xl text-blueGray-700 flex-grow">
-          User's Table
-        </h1>
-        <!-- Add button -->
-        <button
-          mat-icon-button
-          class="ml-4"
-          (click)="openAddDialog()"
-          matTooltip="Click to add a user"
-          aria-modal="true"
-          aria-hidden="false"
-          aria-label="Button that displays a tooltip when focused or hovered over"
-        >
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+  <div
+    class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
+  >
+    <div class="flex justify-between mb-6">
+      <div>
+        <div class="flex items-center text-2xl font-semibold mb-1">
+          <!-- SVG icon -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-6 h-6"
+            class="size-6 mr-2"
           >
             <path
               fill-rule="evenodd"
-              d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+              d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
               clip-rule="evenodd"
             />
           </svg>
-        </button>
-      </div>
-      <!-- Filters -->
-      <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
-        <mat-form-field appearance="fill" class="sm:min-w-[200px] sm:h-[70px]">
-          <mat-label class="text-base">Filter by username</mat-label>
-          <input
-            matInput
-            (input)="applyFilter($event, 'username')"
-            class="text-xs"
-          />
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field class="sm:min-w-[150px] sm:h-[70px]">
-          <mat-label class="text-base">Filter by (Start Date)</mat-label>
-          <input
-            matInput
-            [matDatepicker]="startPicker"
-            placeholder="Start Date"
-            (dateChange)="applyDateFilter('start', $event)"
-            class="text-xs"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="startPicker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #startPicker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field class="sm:min-w-[150px] sm:h-[70px]">
-          <mat-label class="text-base">Filter by (End Date)</mat-label>
-          <input
-            matInput
-            [matDatepicker]="endPicker"
-            placeholder="End Date"
-            (dateChange)="applyDateFilter('end', $event)"
-            class="text-xs"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="endPicker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #endPicker></mat-datepicker>
-        </mat-form-field>
+          <span>{{ userCount }}</span>
+        </div>
+        <div class="text-sm font-medium text-gray-400">Number of Users</div>
       </div>
     </div>
   </div>
-
-  <div class="block w-full overflow-x-auto">
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      class="items-center bg-transparent w-full border-collapse"
-    >
-      <!-- Column Definitions -->
-      <ng-container matColumnDef="id">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="bg-white-imp uppercase text-xs"
-        >
-          Abfi Id
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let user"
-          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
-        >
-          {{ user.abfi_id }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="fullname">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="bg-white-imp uppercase text-xs"
-        >
-          Name
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let user"
-          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
-        >
-          {{ user.fname }} {{ user.mname }} {{ user.lname }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="username">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="bg-white-imp uppercase text-xs"
-        >
-          Username
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let user"
-          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
-        >
-          {{ user.username }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="email_add">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="bg-white-imp uppercase text-xs"
-        >
-          Email Address
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let user"
-          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
-        >
-          {{ user.email_add }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="contact_num">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="bg-white-imp uppercase text-xs"
-        >
-          Contact number
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let user"
-          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
-        >
-          {{ user.contact_num }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="date_created">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="bg-white-imp uppercase text-xs"
-        >
-          Date created
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let user"
-          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
-        >
-          {{ user.date_created | date : "short" }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="action">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="bg-white-imp uppercase text-xs"
-        >
-          Action
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let user"
-          class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
-        >
-          <div class="flex space-x-2">
+</div>
+<div class="grid grid-cols-1 gap-6 mb-6">
+  <div
+    class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md"
+  >
+    <div class="w-full mx-auto">
+      <!-- <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6"> -->
+      <div class="rounded-t mb-4 border-0">
+        <div class="flex flex-wrap items-center justify-between">
+          <!-- Header -->
+          <div class="flex items-center mb-5">
+            <h1 class="font-semibold text-2xl text-blueGray-700 flex-grow">
+              User's Table
+            </h1>
+            <!-- Add button -->
             <button
-            aria-modal="true"
-            aria-hidden="false"
-            aria-label="Button that displays a tooltip when focused or hovered over"
-              matTooltip="Click to edit a user"
               mat-icon-button
-              class="icon-button-edit"
-              (click)="openEditDialog(user)"
+              class="ml-4"
+              (click)="openAddDialog()"
+              matTooltip="Click to add a user"
+              aria-modal="true"
+              aria-hidden="false"
+              aria-label="Button that displays a tooltip when focused or hovered over"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -213,76 +55,271 @@
                 class="w-6 h-6"
               >
                 <path
-                  d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z"
-                />
-              </svg>
-            </button>
-            <button
-            aria-modal="true"
-            aria-hidden="false"
-            aria-label="Button that displays a tooltip when focused or hovered over"
-              matTooltip="Click to view a user's information"
-              mat-icon-button
-              class="icon-button-edit"
-              (click)="openViewDialog(user)"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="size-6"
-              >
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                <path
                   fill-rule="evenodd"
-                  d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
+                  d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
                   clip-rule="evenodd"
                 />
               </svg>
             </button>
-            <button
-            aria-modal="true"
-            aria-hidden="false"
-            aria-label="Button that displays a tooltip when focused or hovered over"
-              matTooltip="Click to delete a user"
-              mat-icon-button
-              class="icon-button-edit"
-              (click)="openDeleteDialog(user)"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                />
-              </svg>
-            </button>
           </div>
-        </td>
-      </ng-container>
-      <!-- Table Header and Rows -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-  </div>
-  <div>
-    <mat-paginator
-      class="bg-white-imp"
-      [length]="dataSource.data.length"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 100]"
-      aria-label="Select page"
-    >
-    </mat-paginator>
+          <!-- Filters -->
+          <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+            <mat-form-field
+              appearance="fill"
+              class="sm:min-w-[200px] sm:h-[70px]"
+            >
+              <mat-label class="text-base">Filter by username</mat-label>
+              <input
+                matInput
+                (input)="applyFilter($event, 'username')"
+                class="text-xs"
+              />
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="sm:min-w-[150px] sm:h-[70px]">
+              <mat-label class="text-base">Filter by (Start Date)</mat-label>
+              <input
+                matInput
+                [matDatepicker]="startPicker"
+                placeholder="Start Date"
+                (dateChange)="applyDateFilter('start', $event)"
+                class="text-xs"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="startPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="sm:min-w-[150px] sm:h-[70px]">
+              <mat-label class="text-base">Filter by (End Date)</mat-label>
+              <input
+                matInput
+                [matDatepicker]="endPicker"
+                placeholder="End Date"
+                (dateChange)="applyDateFilter('end', $event)"
+                class="text-xs"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="endPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="block w-full overflow-x-auto">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="items-center bg-transparent w-full border-collapse"
+        >
+          <!-- Column Definitions -->
+          <ng-container matColumnDef="id">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Abfi Id
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let user"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              {{ user.abfi_id }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="fullname">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Name
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let user"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              {{ user.fname }} {{ user.mname }} {{ user.lname }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="username">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Username
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let user"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              {{ user.username }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email_add">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Email Address
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let user"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              {{ user.email_add }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="contact_num">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Contact number
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let user"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              {{ user.contact_num }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="date_created">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Date created
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let user"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              {{ user.date_created | date : "short" }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Action
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let user"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              <div class="flex space-x-2">
+                <button
+                  aria-modal="true"
+                  aria-hidden="false"
+                  aria-label="Button that displays a tooltip when focused or hovered over"
+                  matTooltip="Click to edit a user"
+                  mat-icon-button
+                  class="icon-button-edit"
+                  (click)="openEditDialog(user)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  aria-modal="true"
+                  aria-hidden="false"
+                  aria-label="Button that displays a tooltip when focused or hovered over"
+                  matTooltip="Click to view a user's information"
+                  mat-icon-button
+                  class="icon-button-edit"
+                  (click)="openViewDialog(user)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="size-6"
+                  >
+                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <button
+                  aria-modal="true"
+                  aria-hidden="false"
+                  aria-label="Button that displays a tooltip when focused or hovered over"
+                  matTooltip="Click to delete a user"
+                  mat-icon-button
+                  class="icon-button-edit"
+                  (click)="openDeleteDialog(user)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+          <!-- Table Header and Rows -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div>
+        <mat-paginator
+          class="bg-white-imp"
+          [length]="dataSource.data.length"
+          [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page"
+        >
+        </mat-paginator>
+      </div>
+    </div>
   </div>
 </div>
+
 <!-- </div> -->
 <!-- 
 <app-update-market-visits

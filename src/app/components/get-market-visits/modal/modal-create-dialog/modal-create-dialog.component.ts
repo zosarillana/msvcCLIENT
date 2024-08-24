@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MarketVisits } from '../../../../models/market-visits';
 import { MarketVisitsService } from '../../../../services/market-visits.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { TokenService } from '../../../../services/token.service';
 
 @Component({
   selector: 'app-modal-create-dialog',
@@ -18,7 +19,6 @@ export class ModalCreateDialogComponent {
   isAccountTypeOthersSelected = false;
   isIsrOthersSelected = false;
   isIsrNeedOthersSelected = false;
-
   
   private _formBuilder = inject(FormBuilder);
 
@@ -35,10 +35,10 @@ export class ModalCreateDialogComponent {
     fourthCtrl: ['', Validators.required],
   });
   isLinear = false;
-  
-
+    
   constructor(
     private marketVisitsService: MarketVisitsService,
+    private tokenService: TokenService,
     public dialogRef: MatDialogRef<ModalCreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}

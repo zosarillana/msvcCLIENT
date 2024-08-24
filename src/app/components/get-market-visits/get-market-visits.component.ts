@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as ExcelJS from 'exceljs';
@@ -9,28 +9,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalEditDialogComponent } from './modal/modal-edit-dialog/modal-edit-dialog.component';
 import { ModalCreateDialogComponent } from './modal/modal-create-dialog/modal-create-dialog.component';
 import { ModalDeleteDialogComponent } from './modal/modal-delete-dialog/modal-delete-dialog.component';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-get-market-visits',
   templateUrl: './get-market-visits.component.html',
   styleUrls: ['./get-market-visits.component.css'],
 })
-export class GetMarketVisitsComponent implements AfterViewInit {
+export class GetMarketVisitsComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
-    'id',
     'visit_area',
     'visit_date',
     'visit_accountName',
     'visit_distributor',
     'visit_salesPersonnel',
     'visit_accountType',
-    'visit_isr',
-    'visit_isrNeed',
-    'visit_payolaMerchandiser',
-    'visit_averageOffTakePd',
-    'visit_pod',
-    'visit_competitorsCheck',
-    'visit_pap',
     'action'
   ];
   dataSource = new MatTableDataSource<MarketVisits>();
@@ -39,7 +32,8 @@ export class GetMarketVisitsComponent implements AfterViewInit {
 
   constructor(
     private marketVisitsService: MarketVisitsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private sharedService: SharedService // Inject SharedService
   ) {}
 
   ngOnInit(): void {
@@ -87,8 +81,9 @@ export class GetMarketVisitsComponent implements AfterViewInit {
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(ModalCreateDialogComponent, {
-      width: '900px', // Set the width of the dialog
-      height: '600px', // Set the height of the dialog
+      panelClass: 'custom-dialog',
+      width: '2000px',
+      height: '1000px',
       data: {},
     });
 
@@ -147,5 +142,10 @@ export class GetMarketVisitsComponent implements AfterViewInit {
     }).catch(error => {
       console.error('Error generating Excel file:', error);
     });
+  }
+
+  showContent(content: string): void {
+    // Use SharedService to change content
+    this.sharedService.setSelectedContent(content);
   }
 }
