@@ -141,7 +141,7 @@
       'md:w-[calc(100%-256px)] md:ml-64': isSidebarOpen,
       'w-full': !isSidebarOpen
     }"
-    class="bg-gray-50 min-h-screen transition-all main"
+    class="bg-[#fdfbff] min-h-screen transition-all main"
   >
     <!-- start: Header -->
     <div
@@ -173,9 +173,7 @@
     </div>
 
     <div class="p-6">
-      <div
-        *ngIf="selectedContent === 'content1'"       
-      >
+      <div *ngIf="selectedContent === 'content1'">
         <app-get-market-visits></app-get-market-visits>
       </div>
 
@@ -229,7 +227,7 @@
         <app-pod-add></app-pod-add>
       </div>
       <div *ngIf="selectedContent === 'content5'">
-        add shit
+        <app-add-visits></app-add-visits>
       </div>
     </div>
   </main>

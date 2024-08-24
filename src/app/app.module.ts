@@ -19,6 +19,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+
 import { UpdateMarketVisitsComponent } from './components/update-market-visits/update-market-visits.component';
 import { GetMarketVisitsComponent } from './components/get-market-visits/get-market-visits.component';
 import { SidebarComponentComponent } from './components/sidebar-component/sidebar-component.component';
@@ -37,7 +38,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { ModalViewUserDialogComponent } from './components/admin/user-add/modal/modal-view-user-dialog/modal-view-user-dialog.component';
 import { ConfirmDialogComponent } from './components/admin/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
 import { TokenService } from './services/token.service'; // Import TokenService
-import { AuthService } from './auth/auth.service'; // Import AuthService
+import { AuthService } from './auth/auth.service';
+import { AddVisitsComponent } from './components/get-market-visits/views/add-visits/add-visits.component'; // Import AuthService
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { AuthService } from './auth/auth.service'; // Import AuthService
     LoginComponent,
     ModalViewUserDialogComponent,
     ConfirmDialogComponent,
+    AddVisitsComponent,
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -79,7 +83,8 @@ import { AuthService } from './auth/auth.service'; // Import AuthService
     MatTooltipModule,
     MatExpansionModule,
     MatStepperModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+   
   ],
   providers: [
     TokenService, // Add TokenService to providers

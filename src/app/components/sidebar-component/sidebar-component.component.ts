@@ -1,8 +1,9 @@
-import { Component, ElementRef, Renderer2, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Renderer2, OnInit, OnDestroy, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../auth/auth.service';
 import { TokenService } from '../../services/token.service';
 import { SharedService } from '../../services/shared.service';
+import {FormBuilder, Validators} from '@angular/forms';
 @Component({
   selector: 'app-sidebar-component',
   templateUrl: './sidebar-component.component.html',
@@ -15,6 +16,25 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
   userCount: number = 0;
   username: string | null = null;
   user: any = null;
+  
+  private _formBuilder = inject(FormBuilder);
+
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+  fourthFormGroup = this._formBuilder.group({
+    fourthCtrl: ['', Validators.required],
+  });
+  fifthFormGroup = this._formBuilder.group({
+    fifthCtrl: ['', Validators.required],
+  });
+  isLinear = false
 
   private clickListener!: () => void;
 
