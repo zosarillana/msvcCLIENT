@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from '../../../../../models/user';
-import { UserService } from '../../../../../services/user.service';
+import { User } from '../../../../../../../models/user';
+import { UserService } from '../../../../../../../services/user.service';
 import { ModalEditUserDialogComponent } from '../modal-edit-user-dialog/modal-edit-user-dialog.component';
 import { formatDate } from '@angular/common';
 

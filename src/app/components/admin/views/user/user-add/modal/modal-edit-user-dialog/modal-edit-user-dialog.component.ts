@@ -1,32 +1,44 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from '../../../../../models/user';
-import { UserService } from '../../../../../services/user.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User } from '../../../../../../../models/user';
+import { UserService } from '../../../../../../../services/user.service'; 
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'app-modal-create-user-dialog',
-  templateUrl: './modal-create-user-dialog.component.html',
-  styleUrls: ['./modal-create-user-dialog.component.css']
+  selector: 'app-modal-edit-user-dialog',
+  templateUrl: './modal-edit-user-dialog.component.html',
+  styleUrls: ['./modal-edit-user-dialog.component.css'],
 })
-export class ModalCreateUserDialogComponent {
+export class ModalEditUserDialogComponent {
   @Input() user?: User;
   @Output() userUpdated = new EventEmitter<User[]>();
+  isPasswordEnabled = false; // Default is disabled
 
-  // Object to hold field-specific error messages
   errorMessages: { [key: string]: string[] } = {};
 
   constructor(
     private userService: UserService,
-    public dialogRef: MatDialogRef<ModalCreateUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    public dialogRef: MatDialogRef<ModalEditUserDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog // Inject MatDialog service
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  openConfirmationDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.save(); // Proceed with saving if the user confirmed
+      }
+    });
+  }
+
   save(): void {
-    this.userService.createUser(this.data).subscribe({
+    this.userService.updateUser(this.data).subscribe({
       next: (response) => {
         this.dialogRef.close(this.data);
       },
@@ -57,7 +69,19 @@ export class ModalCreateUserDialogComponent {
         } else {
           this.errorMessages['general'] = ['An unknown error occurred.'];
         }
-      }
+      },
+    });
+  }
+
+  // Method to toggle password field enabled state
+  togglePasswordField(event: any) {
+    this.isPasswordEnabled = event.target.checked;
+  }
+
+  //for editing and updating
+  private fetchMarketVisits() {
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.userUpdated.emit(users);
     });
   }
 }

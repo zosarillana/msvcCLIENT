@@ -1,14 +1,11 @@
 <div class="min-h-screen flex flex-col items-center justify-center bg-[#021526]">
-  <div class="flex flex-col bg-white shadow-lg px-4 sm:px-6 md:px-8 lg:px-6 py-8 rounded-md w-full max-w-md">
+  <div class="flex flex-col bg-white shadow-lg px-4 sm:px-6 md:px-8 lg:px-3 py-8 rounded-md w-full max-w-sm"> <!-- Adjust max-w-sm for a slimmer width -->
     <div class="flex min-h-full flex-col justify-center lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img class="mx-auto h-24 w-auto" src="msvc_logo.png" alt="Your Company" />
-        <h2 class="mt-3 text-center text-xl font-extrabold leading-9 tracking-tight text-gray-900">
-          Login to MSVC
-        </h2>
+        <img class="mx-auto h-48 w-auto" src="new_logo1.png" alt="Your Company" />           
       </div>
 
-      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <form (ngSubmit)="onSubmit(username.value, password.value)" #loginForm="ngForm" class="space-y-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label>Username</mat-label>
@@ -55,8 +52,6 @@
               </ng-container>
             </mat-error>
           </mat-form-field>
-          
-          
 
           <div *ngIf="errorMessage" class="text-red-500 text-center">
             {{ errorMessage }}

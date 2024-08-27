@@ -1,132 +1,132 @@
 <body class="text-gray-800 font-inter">
   <!-- Sidebar -->
-  <div
-    [ngClass]="{
-      'translate-x-0': isSidebarOpen,
-      '-translate-x-full': !isSidebarOpen
-    }"
-    class="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 sidebar-menu transition-transform"
-  >
-    <!-- Sidebar content -->
-    <a href="#" class="flex items-center pb-4 border-b border-b-gray-800">
-      <img
-        class="mx-auto h-auto w-auto"
-        src="blu_logo.png"
-        alt="Your Company"
-      />
-      <!-- <span class="text-lg font-bold text-white ml-3">{{ title }}</span> -->
-    </a>
-    <ul class="mt-4">
-      <li class="mb-1">
-        <a
-          routerLink="/dashboard"
-          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
-          [ngClass]="{
-            'bg-gray-800 text-white': selectedContent === 'content1'
-          }"
-          (click)="showContent('content1')"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 8.25V18a2.25 2.25 0 0 0 2.25 2.25h13.5A2.25 2.25 0 0 0 21 18V8.25m-18 0V6a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6ZM7.5 6h.008v.008H7.5V6Zm2.25 0h.008v.008H9.75V6Z"
-            />
-          </svg>
+  <body class="text-gray-800 font-inter">
+    <!-- Sidebar -->
+    <div
+      [ngClass]="{
+        'translate-x-0': isSidebarOpen,
+        '-translate-x-full': !isSidebarOpen
+      }"
+      class="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 sidebar-menu transition-transform"
+    >
+      <!-- Sidebar content -->
+      <a href="#" class="flex items-center pb-4 border-b border-b-gray-800">
+        <img
+          class="mx-auto h-auto w-auto"
+          src="new_logo2.png"
+          alt="Your Company"
+        />
+        <!-- <span class="text-lg font-bold text-white ml-3">{{ title }}</span> -->
+      </a>
 
-          <p class="ml-2 text-sm">Dashboard</p>
-        </a>
-      </li>
-      <li *ngIf="user.role !== 'user'" class="mb-1">
-        <a
-          routerLink="/dashboard"
-          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
-          [ngClass]="{
-            'bg-gray-800 text-white': selectedContent === 'content2'
-          }"
-          (click)="showContent('content2')"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
-            />
-          </svg>
-          <p class="ml-2 text-sm">Add users</p>
-        </a>
-      </li>
-      <li *ngIf="user.role !== 'user'" class="mb-1">
-        <a
-          routerLink="/dashboard"
-          class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
-          [ngClass]="{
-            'bg-gray-800 text-white': selectedContent === 'content3'
-          }"
-          (click)="showContent('content3')"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"
-            />
-          </svg>
+      <!-- Main Menu Label -->
+      <div class="mt-4 mb-2 text-gray-500 uppercase text-xs tracking-wider">
+        Main Menu
+      </div>
 
-          <p class="ml-2 text-sm">In store requirements</p>
-        </a>
-      </li>
+      <!-- Main Menu Items -->
+      <ul>
+        <li class="mb-1">
+          <a
+            routerLink="/dashboard"
+            class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
+            [ngClass]="{
+              'bg-gray-800 text-white': selectedContent === 'content1'
+            }"
+            (click)="showContent('content1')"
+          >
+            <mat-icon>dashboard</mat-icon>
+
+            <p class="ml-2 text-sm">Dashboard</p>
+          </a>
+        </li>
+        <!-- Add other main menu items here -->
+      </ul>
+
+      <!-- Admin Options Label -->
+      <div class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
+        Admin Options
+      </div>
+
+      <!-- Admin Options Items -->
+      <ul>
+        <li *ngIf="user.role !== 'user'" class="mb-1">
+          <a
+            routerLink="/dashboard"
+            class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
+            [ngClass]="{
+              'bg-gray-800 text-white': selectedContent === 'content2'
+            }"
+            (click)="showContent('content2')"
+          >
+            <mat-icon>person_add</mat-icon>
+            <p class="ml-2 text-sm">Users</p>
+          </a>
+        </li>
+        <!-- Admin Options Label -->
+        <div class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
+          Master Data
+        </div>
+        <li class="mb-1">
+          <a
+            routerLink="/dashboard"
+            class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
+            [ngClass]="{
+              'bg-gray-800 text-white': selectedContent === 'addTable'
+            }"
+            (click)="showContent('addTable')"
+          >
+          <mat-icon>add_location</mat-icon>
+            <p class="ml-2 text-sm">Add area</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a
+            routerLink="/dashboard"
+            class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
+            [ngClass]="{
+              'bg-gray-800 text-white': selectedContent === 'content3'
+            }"
+            (click)="showContent('content3')"
+          >
+           <mat-icon>store</mat-icon>
+            <p class="ml-2 text-sm">In store requirements</p>
+          </a>
+        </li>
+        <li *ngIf="user.role !== 'user'" class="mb-1">
+          <a
+            routerLink="/dashboard"
+            class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
+            [ngClass]="{
+              'bg-gray-800 text-white': selectedContent === 'content4'
+            }"
+            (click)="showContent('content4')"
+          >
+           <mat-icon>inventory</mat-icon>
+            <p class="ml-2 text-sm">Product on display</p>
+          </a>
+        </li>
+        <!-- Add other admin menu items here -->
+      </ul>
+      <!-- Admin Options Label -->
+      <div class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
+        Session Logout
+      </div>
       <li *ngIf="user.role !== 'user'" class="mb-1">
         <a
           routerLink="/dashboard"
           class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
           [ngClass]="{
-            'bg-gray-800 text-white': selectedContent === 'content4'
+            'bg-gray-800 text-white': selectedContent === 'content10'
           }"
           (click)="showContent('content4')"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-            />
-          </svg>
-
-          <p class="ml-2 text-sm">Product on display</p>
+          <mat-icon>logout</mat-icon>
+          <p class="ml-2 text-sm">Session Logout</p>
         </a>
       </li>
-      <!-- other menu items -->
-    </ul>
-  </div>
+    </div>
+  </body>
 
   <!-- Overlay -->
   <div
@@ -228,6 +228,9 @@
       </div>
       <div *ngIf="selectedContent === 'content5'">
         <app-add-visits></app-add-visits>
+      </div>
+      <div *ngIf="selectedContent === 'addTable'">
+        <app-area-add></app-area-add>
       </div>
     </div>
   </main>

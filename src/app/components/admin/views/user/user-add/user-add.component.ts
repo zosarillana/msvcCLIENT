@@ -1,20 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
-import { MarketVisits } from '../../../models/market-visits';
+import { MarketVisits } from '../../../../../models/market-visits';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MarketVisitsService } from '../../../services/market-visits.service';
-import { ModalCreateDialogComponent } from '../../get-market-visits/modal/modal-create-dialog/modal-create-dialog.component';
-import { ModalDeleteDialogComponent } from '../../get-market-visits/modal/modal-delete-dialog/modal-delete-dialog.component';
-import { ModalEditDialogComponent } from '../../get-market-visits/modal/modal-edit-dialog/modal-edit-dialog.component';
+import { MarketVisitsService } from '../../../../../services/market-visits.service';
+
 import { ModalCreateUserDialogComponent } from './modal/modal-create-user-dialog/modal-create-user-dialog.component';
-import { User } from '../../../models/user';
-import { UserService } from '../../../services/user.service';
+
 import { ModalEditUserDialogComponent } from './modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
 import { ModalDeleteUserDialogComponent } from './modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import moment from 'moment';
 import { ModalViewUserDialogComponent } from './modal/modal-view-user-dialog/modal-view-user-dialog.component';
+import { User } from '../../../../../models/user';
+import { UserService } from '../../../../../services/user.service';
 
 @Component({
   selector: 'app-user-add',

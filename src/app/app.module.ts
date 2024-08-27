@@ -27,19 +27,20 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ModalCreateDialogComponent } from './components/get-market-visits/modal/modal-create-dialog/modal-create-dialog.component';
 import { ModalEditDialogComponent } from './components/get-market-visits/modal/modal-edit-dialog/modal-edit-dialog.component';
 import { ModalDeleteDialogComponent } from './components/get-market-visits/modal/modal-delete-dialog/modal-delete-dialog.component';
-import { UserAddComponent } from './components/admin/user-add/user-add.component';
+import { UserAddComponent } from './components/admin/views/user/user-add/user-add.component';
 import { IsrAddComponent } from './components/admin/isr-add/isr-add.component';
 import { PodAddComponent } from './components/admin/pod-add/pod-add.component';
-import { ModalCreateUserDialogComponent } from './components/admin/user-add/modal/modal-create-user-dialog/modal-create-user-dialog.component';
-import { ModalEditUserDialogComponent } from './components/admin/user-add/modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
-import { ModalDeleteUserDialogComponent } from './components/admin/user-add/modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
+import { ModalCreateUserDialogComponent } from './components/admin/views/user/user-add/modal/modal-create-user-dialog/modal-create-user-dialog.component';
+import { ModalEditUserDialogComponent } from './components/admin/views/user/user-add/modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
+import { ModalDeleteUserDialogComponent } from './components/admin/views/user/user-add/modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { ModalViewUserDialogComponent } from './components/admin/user-add/modal/modal-view-user-dialog/modal-view-user-dialog.component';
-import { ConfirmDialogComponent } from './components/admin/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
+import { ModalViewUserDialogComponent } from './components/admin/views/user/user-add/modal/modal-view-user-dialog/modal-view-user-dialog.component';
+import { ConfirmDialogComponent } from './components/admin/views/user/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
 import { TokenService } from './services/token.service'; // Import TokenService
 import { AuthService } from './auth/auth.service';
-import { AddVisitsComponent } from './components/get-market-visits/views/add-visits/add-visits.component'; // Import AuthService
+import { AddVisitsComponent } from './components/get-market-visits/views/add-visits/add-visits.component';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { AddVisitsComponent } from './components/get-market-visits/views/add-vis
     ModalViewUserDialogComponent,
     ConfirmDialogComponent,
     AddVisitsComponent,
+  
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

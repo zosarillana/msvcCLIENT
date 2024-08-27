@@ -1,672 +1,648 @@
 <div class="text-2xl font-semibold mb-1">Add visits</div>
-        <!-- <button
+<!-- <button
           mat-raised-button
           (click)="isLinear = !isLinear"
           id="toggle-linear"
         >
           {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
         </button> -->
-        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-          <mat-step [stepControl]="firstFormGroup">
-            <form [formGroup]="firstFormGroup">
-              <ng-template matStepLabel
-                >Fill out time and date of visit</ng-template
-              >
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
-                <div class="relative">
-                  <label
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Date of visit
-                  </label>
-                  <input
-                    id="dateOfVisit"
-                    placeholder="Date and Time"
-                    type="datetime-local"
-                    id="datetimepicker"
-                    name="datetime"
-                    class="border p-2 text-sm rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
-                  />
-                </div>
+<mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill out time and date of visit</ng-template>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
+        <div class="relative">
+          <label
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Date of visit
+          </label>
+          <input
+            id="dateOfVisit"
+            placeholder="Date and Time"
+            type="datetime-local"
+            id="datetimepicker"
+            name="datetime"
+            class="border p-2 text-sm rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
+          />
+        </div>
 
-                <div class="relative">
-                  <label
-                    for="area"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Area</label
-                  >
-                  <input
-                    id="area"
-                    placeholder="Area"
-                    name="area"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-              </div>
+        <div class="relative">
+          <label
+            for="area"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Area</label
+          >
+          <input
+            id="area"
+            placeholder="Area"
+            name="area"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+      </div>
 
-              <div>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel
-                >Fill out account information</ng-template
-              >
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
-                <div class="relative">
-                  <label
-                    for="accountName"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Account Name</label
-                  >
-                  <input
-                    id="accountName"
-                    placeholder="Account name"
-                    name="accountName"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-                <div class="relative">
-                  <label
-                    for="distributor"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Distributor</label
-                  >
-                  <input
-                    id="distributor"
-                    placeholder="Distributor"
-                    name="distributor"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-                <div class="relative">
-                  <label
-                    for="salesPeronnel"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Sales Personnel in Charge</label
-                  >
-                  <input
-                    placeholder="Sales Personnel in Charge"
-                    name="salesPeronnel"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-              </div>
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-3">
-                <div class="relative">
-                  <label
-                    for="visit_accountType"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-                    >Account type</label
-                  >
-                  <select
-                    id="visit_accountType"
-                    name="visit_accountType"
-                    class="border p-2 text-sm rounded w-full"
-                  >
-                    <option value="" selected disabled>
-                      Select account type
-                    </option>
-                    <option value="General Trade">General Trade</option>
-                    <option value="Modern Trade">Modern Trade</option>
-                    <option value="Local Key Account">Local Key Account</option>
-                    <option value="Others">Others...</option>
-                  </select>
-                </div>
-                <div class="relative">
-                  <label
-                    for="visit_accountTypeOthers"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-                    >Others</label
-                  >
-                  <input
-                    id="visit_accountTypeOthers"
-                    placeholder="Others..."
-                    name="visit_accountTypeOthers"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-              </div>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step [stepControl]="thirdFormGroup">
-            <form [formGroup]="thirdFormGroup">
-              <ng-template matStepLabel
-                >Fill out account information</ng-template
-              >
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                <div class="relative">
-                  <label
-                    for="visit_isr"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-                    >In-Store Requirements</label
-                  >
-                  <select
-                    id="visit_isr"
-                    name="visit_isr"
-                    class="border p-2 text-sm rounded w-full"
-                  >
-                    <option value="" selected disabled>
-                      Select account type
-                    </option>
-                    <option value="General Trade">General Trade</option>
-                    <option value="Modern Trade">Modern Trade</option>
-                    <option value="Local Key Account">Local Key Account</option>
-                    <option value="Others">Others...</option>
-                  </select>
-                </div>
-                <div class="relative">
-                  <label
-                    for="visit_isrOthers"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-                    >Others</label
-                  >
-                  <input
-                    id="visit_isrOthers"
-                    placeholder="Others..."
-                    name="visit_isrOthers"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-                <div class="relative">
-                  <label
-                    for="salesPeronnel"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Payola Supervisor</label
-                  >
-                  <input
-                    id="salesPeronnel"
-                    placeholder="Payola Supervisor"
-                    name="salesPeronnel"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fill out account information</ng-template>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
+        <div class="relative">
+          <label
+            for="accountName"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Account Name</label
+          >
+          <input
+            id="accountName"
+            placeholder="Account name"
+            name="accountName"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+        <div class="relative">
+          <label
+            for="distributor"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Distributor</label
+          >
+          <input
+            id="distributor"
+            placeholder="Distributor"
+            name="distributor"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+        <div class="relative">
+          <label
+            for="salesPeronnel"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Sales Personnel in Charge</label
+          >
+          <input
+            placeholder="Sales Personnel in Charge"
+            name="salesPeronnel"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-3">
+        <div class="relative">
+          <label
+            for="visit_accountType"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+            >Account type</label
+          >
+          <select
+            id="visit_accountType"
+            name="visit_accountType"
+            class="border p-2 text-sm rounded w-full"
+          >
+            <option value="" selected disabled>Select account type</option>
+            <option value="General Trade">General Trade</option>
+            <option value="Modern Trade">Modern Trade</option>
+            <option value="Local Key Account">Local Key Account</option>
+            <option value="Others">Others...</option>
+          </select>
+        </div>
+        <div class="relative">
+          <label
+            for="visit_accountTypeOthers"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+            >Others</label
+          >
+          <input
+            id="visit_accountTypeOthers"
+            placeholder="Others..."
+            name="visit_accountTypeOthers"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Fill out account information</ng-template>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+        <div class="relative">
+          <label
+            for="visit_isr"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+            >In-Store Requirements</label
+          >
+          <select
+            id="visit_isr"
+            name="visit_isr"
+            class="border p-2 text-sm rounded w-full"
+          >
+            <option value="" selected disabled>Select account type</option>
+            <option value="General Trade">General Trade</option>
+            <option value="Modern Trade">Modern Trade</option>
+            <option value="Local Key Account">Local Key Account</option>
+            <option value="Others">Others...</option>
+          </select>
+        </div>
+        <div class="relative">
+          <label
+            for="visit_isrOthers"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+            >Others</label
+          >
+          <input
+            id="visit_isrOthers"
+            placeholder="Others..."
+            name="visit_isrOthers"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+        <div class="relative">
+          <label
+            for="salesPeronnel"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Payola Supervisor</label
+          >
+          <input
+            id="salesPeronnel"
+            placeholder="Payola Supervisor"
+            name="salesPeronnel"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
 
-                <div class="relative">
-                  <label
-                    for="visit_averageOffTakePd"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Average Off Take</label
-                  >
-                  <input
-                    id="visit_averageOffTakePd"
-                    placeholder="Average Off Take Per Day"
-                    name="visit_averageOffTakePd"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-              </div>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step [stepControl]="fourthFormGroup">
-            <form [formGroup]="fourthFormGroup">
-              <ng-template matStepLabel>Fill out payola infomation</ng-template>
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
-                <div class="relative">
-                  <label
-                    for="visit_payolaMerchandiser"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Payola Merchandiser</label
-                  >
-                  <input
-                    id="visit_payolaMerchandiser"
-                    placeholder="Payola Merchandiser"
-                    name="visit_payolaMerchandiser"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
+        <div class="relative">
+          <label
+            for="visit_averageOffTakePd"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Average Off Take</label
+          >
+          <input
+            id="visit_averageOffTakePd"
+            placeholder="Average Off Take Per Day"
+            name="visit_averageOffTakePd"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fourthFormGroup">
+    <form [formGroup]="fourthFormGroup">
+      <ng-template matStepLabel>Fill out payola infomation</ng-template>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
+        <div class="relative">
+          <label
+            for="visit_payolaMerchandiser"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Payola Merchandiser</label
+          >
+          <input
+            id="visit_payolaMerchandiser"
+            placeholder="Payola Merchandiser"
+            name="visit_payolaMerchandiser"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
 
-                <div class="relative">
-                  <label
-                    for="salesPeronnel"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Payola Supervisor</label
-                  >
-                  <input
-                    id="salesPeronnel"
-                    placeholder="Payola Supervisor"
-                    name="salesPeronnel"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
+        <div class="relative">
+          <label
+            for="salesPeronnel"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Payola Supervisor</label
+          >
+          <input
+            id="salesPeronnel"
+            placeholder="Payola Supervisor"
+            name="salesPeronnel"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
 
-                <div class="relative">
-                  <label
-                    for="visit_averageOffTakePd"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Average Off Take</label
-                  >
-                  <input
-                    id="visit_averageOffTakePd"
-                    placeholder="Average Off Take Per Day"
-                    name="visit_averageOffTakePd"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-              </div>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step [stepControl]="fifthFormGroup">
-            <form [formGroup]="fifthFormGroup">
-              <ng-template matStepLabel>Fill out checklist</ng-template>
+        <div class="relative">
+          <label
+            for="visit_averageOffTakePd"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Average Off Take</label
+          >
+          <input
+            id="visit_averageOffTakePd"
+            placeholder="Average Off Take Per Day"
+            name="visit_averageOffTakePd"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fifthFormGroup">
+    <form [formGroup]="fifthFormGroup">
+      <ng-template matStepLabel>Fill out checklist</ng-template>
 
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                <div class="relative">
-                  <label class="block font-medium mb-4">Canned</label>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+        <div class="relative">
+          <label class="block font-medium mb-4">Canned</label>
 
-                  <div class="grid grid-cols-1 gap-2">
-                    <div class="flex items-center">
-                      <input
-                        id="cml"
-                        type="checkbox"
-                        name="cml"
-                        value="CML"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="cml" class="ml-2 text-xs text-gray-700"
-                        >CML</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="clo"
-                        type="checkbox"
-                        name="clo"
-                        value="CLO"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="clo" class="ml-2 text-xs text-gray-700"
-                        >CLO 2</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="cls"
-                        type="checkbox"
-                        name="cls"
-                        value="CLS"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label class="ml-2 text-xs text-gray-700">CLS</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="cdlPastel"
-                        type="checkbox"
-                        name="cdlPastel"
-                        value="CDL PASTIL"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="cdlPastel" class="ml-2 text-xs text-gray-700"
-                        >CDL PASTIL</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="cdlGiniling"
-                        type="checkbox"
-                        name="cdlGiniling"
-                        value="CDL GINILING"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="cdlGiniling"
-                        class="ml-2 text-xs text-gray-700"
-                        >CDL GINILING</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="cdlSisig"
-                        type="checkbox"
-                        name="cdlSisig"
-                        value="CDL SISIG"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="cdlSisig" class="ml-2 text-xs text-gray-700"
-                        >CDL SISIG</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="cscInBrine"
-                        type="checkbox"
-                        name="cscInBrine"
-                        value="CHEF SERIES CHICKEN in BRINE"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="cscInBrine" class="ml-2 text-xs text-gray-700"
-                        >CHEF SERIES CHICKEN in BRINE</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="cscInOil"
-                        type="checkbox"
-                        name="cscInOil"
-                        value="CHEF SERIES CHUNKS in OIL"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="cscInOil" class="ml-2 text-xs text-gray-700"
-                        >CHEF SERIES CHUNKS in OIL</label
-                      >
-                    </div>
-
-                    <div class="flex items-center">
-                      <input
-                        id="msLuncheonMeat"
-                        type="checkbox"
-                        name="msLuncheonMeat"
-                        value="MEATLOAF SERIES - LUNCHEON MEAT"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="msLuncheonMeat"
-                        class="ml-2 text-xs text-gray-700"
-                        >MEATLOAF SERIES - LUNCHEON MEAT</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="msViennaLoaf"
-                        type="checkbox"
-                        name="msViennaLoaf"
-                        value="MEATLOAF SERIES - VIENNA LOAF"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="msViennaLoaf"
-                        class="ml-2 text-xs text-gray-700"
-                        >MEATLOAF SERIES - VIENNA LOAF</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="ifChickenAndMushroom"
-                        type="checkbox"
-                        name="ifChickenAndMushroom"
-                        value="IF - Chicken and Mushroom"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="ifChickenAndMushroom"
-                        class="ml-2 text-xs text-gray-700"
-                        >IF - Chicken and Mushroom</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="ifChickenMasala"
-                        type="checkbox"
-                        name="ifChickenMasala"
-                        value="IF - Chicken Masala"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="ifChickenMasala"
-                        class="ml-2 text-xs text-gray-700"
-                        >IF - Chicken Masala</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="ifCornedChicken"
-                        type="checkbox"
-                        name="ifCornedChicken"
-                        value="IF - Corned Chicken
-                          "
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="ifCornedChicken"
-                        class="ml-2 text-xs text-gray-700"
-                        >IF - Corned Chicken
-                      </label>
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="ifBicolExpress"
-                        type="checkbox"
-                        name="ifBicolExpress"
-                        value="IF - Bicol Express"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="ifBicolExpress"
-                        class="ml-2 text-xs text-gray-700"
-                        >IF - Bicol Express</label
-                      >
-                    </div>
-
-                    <div class="flex items-center">
-                      <input
-                        id="ifTeriyaki"
-                        type="checkbox"
-                        name="ifTeriyaki"
-                        value="IF - Teriyaki"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="ifTeriyaki" class="ml-2 text-xs text-gray-700"
-                        >IF - Teriyaki</label
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="relative">
-                  <label class="block font-medium mb-4">MPP</label>
-                  <div class="grid grid-cols-1 gap-2">
-                    <div class="flex items-center">
-                      <input
-                        id="pNuggets"
-                        type="checkbox"
-                        name="pNuggets"
-                        value="PREMIUM - Nuggets"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="pNuggets" class="ml-2 text-xs text-gray-700"
-                        >PREMIUM - Nuggets</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="pBacon"
-                        type="checkbox"
-                        name="pBacon"
-                        value="PREMIUM - BACON"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="pBacon" class="ml-2 text-xs text-gray-700"
-                        >PREMIUM - BACON</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="mChickenTocinoOriginal"
-                        type="checkbox"
-                        name="mChickenTocinoOriginal"
-                        value="MARINATES - Chicken Tocino Original"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="mChickenTocinoOriginal"
-                        class="ml-2 text-xs text-gray-700"
-                        >MARINATES - Chicken Tocino Original</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="mChickenTocinoSpicy"
-                        type="checkbox"
-                        name="mChickenTocinoSpicy"
-                        value="MARINATES - Chicken Tocino Spicy"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="mChickenTocinoSpicy"
-                        class="ml-2 text-xs text-gray-700"
-                        >MARINATES - Chicken Tocino Spicy</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="mCHickenTocinoTeriyaki"
-                        type="checkbox"
-                        name="mCHickenTocinoTeriyaki"
-                        value="MARINATES - Chicken Tocino Teriyaki"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="mCHickenTocinoTeriyaki"
-                        class="ml-2 text-xs text-gray-700"
-                        >MARINATES - Chicken Tocino Teriyaki</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="mChickenTocinoCurry"
-                        type="checkbox"
-                        name="mChickenTocinoCurry"
-                        value="MARINATES - Chicken Tocino Curry"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="mChickenTocinoCurry"
-                        class="ml-2 text-xs text-gray-700"
-                        >MARINATES - Chicken Tocino Curry</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="lSkinlessOriginal"
-                        type="checkbox"
-                        name="lSkinlessOriginal"
-                        value="LONGGANISA - Skinless Original"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="lSkinlessOriginal"
-                        class="ml-2 text-xs text-gray-700"
-                        >LONGGANISA - Skinless Original</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="lSpanishStyle"
-                        type="checkbox"
-                        name="lSpanishStyle"
-                        value="LONGGANISA - Smoked Original"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label
-                        for="lSpanishStyle"
-                        class="ml-2 text-xs text-gray-700"
-                        >LONGGANISA - Smoked Original</label
-                      >
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="lCurry"
-                        type="checkbox"
-                        name="lCurry"
-                        value="LONGGANISA - Curry"
-                        class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label for="lCurry" class="ml-2 text-xs text-gray-700"
-                        >LONGGANISA - Curry</label
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step [stepControl]="firstFormGroup">
-            <form [formGroup]="firstFormGroup">
-              <ng-template matStepLabel
-                >Fill out Competitors Check and Action plan</ng-template
-              >
-              <div class="grid grid-cols-1 gap-2 mt-4 mb-4">
-                <div class="relative">
-                  <label
-                    for="visit_competitorsCheck"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-                    >Competitors Check (existing SKU in-store)
-                  </label>
-                  <input
-                    id="visit_competitorsCheck"
-                    placeholder="Area"
-                    name="visit_competitorsCheck"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-3">
-                <div class="relative">
-                  <label
-                    for="visit_pap"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-                    >Proposed Action Plan</label
-                  >
-                  <select
-                    id="visit_pap"
-                    name="visit_pap"
-                    class="border p-2 text-sm rounded w-full"
-                  >
-                    <option value="" selected disabled>
-                      Select account type
-                    </option>
-                    <option value="General Trade">General Trade</option>
-                    <option value="Modern Trade">Modern Trade</option>
-                    <option value="Local Key Account">Local Key Account</option>
-                    <option value="Others">Others...</option>
-                  </select>
-                </div>
-                <div class="relative">
-                  <label
-                    for="visit_papOthers"
-                    class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-                    >Others</label
-                  >
-                  <input
-                    id="visit_papOthers"
-                    placeholder="Others..."
-                    name="visit_papOthers"
-                    class="border p-2 text-sm rounded w-full"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done. Proceed to submit checklist.</p>
-            <div class="mt-4">
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button >Submit</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
+          <div class="grid grid-cols-1 gap-2">
+            <div class="flex items-center">
+              <input
+                id="cml"
+                type="checkbox"
+                name="cml"
+                value="CML"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="cml" class="ml-2 text-xs text-gray-700">CML</label>
             </div>
-          </mat-step>
-        </mat-stepper>
+            <div class="flex items-center">
+              <input
+                id="clo"
+                type="checkbox"
+                name="clo"
+                value="CLO"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="clo" class="ml-2 text-xs text-gray-700">CLO 2</label>
+            </div>
+            <div class="flex items-center">
+              <input
+                id="cls"
+                type="checkbox"
+                name="cls"
+                value="CLS"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label class="ml-2 text-xs text-gray-700">CLS</label>
+            </div>
+            <div class="flex items-center">
+              <input
+                id="cdlPastel"
+                type="checkbox"
+                name="cdlPastel"
+                value="CDL PASTIL"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="cdlPastel" class="ml-2 text-xs text-gray-700"
+                >CDL PASTIL</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="cdlGiniling"
+                type="checkbox"
+                name="cdlGiniling"
+                value="CDL GINILING"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="cdlGiniling" class="ml-2 text-xs text-gray-700"
+                >CDL GINILING</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="cdlSisig"
+                type="checkbox"
+                name="cdlSisig"
+                value="CDL SISIG"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="cdlSisig" class="ml-2 text-xs text-gray-700"
+                >CDL SISIG</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="cscInBrine"
+                type="checkbox"
+                name="cscInBrine"
+                value="CHEF SERIES CHICKEN in BRINE"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="cscInBrine" class="ml-2 text-xs text-gray-700"
+                >CHEF SERIES CHICKEN in BRINE</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="cscInOil"
+                type="checkbox"
+                name="cscInOil"
+                value="CHEF SERIES CHUNKS in OIL"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="cscInOil" class="ml-2 text-xs text-gray-700"
+                >CHEF SERIES CHUNKS in OIL</label
+              >
+            </div>
+
+            <div class="flex items-center">
+              <input
+                id="msLuncheonMeat"
+                type="checkbox"
+                name="msLuncheonMeat"
+                value="MEATLOAF SERIES - LUNCHEON MEAT"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="msLuncheonMeat" class="ml-2 text-xs text-gray-700"
+                >MEATLOAF SERIES - LUNCHEON MEAT</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="msViennaLoaf"
+                type="checkbox"
+                name="msViennaLoaf"
+                value="MEATLOAF SERIES - VIENNA LOAF"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="msViennaLoaf" class="ml-2 text-xs text-gray-700"
+                >MEATLOAF SERIES - VIENNA LOAF</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="ifChickenAndMushroom"
+                type="checkbox"
+                name="ifChickenAndMushroom"
+                value="IF - Chicken and Mushroom"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label
+                for="ifChickenAndMushroom"
+                class="ml-2 text-xs text-gray-700"
+                >IF - Chicken and Mushroom</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="ifChickenMasala"
+                type="checkbox"
+                name="ifChickenMasala"
+                value="IF - Chicken Masala"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="ifChickenMasala" class="ml-2 text-xs text-gray-700"
+                >IF - Chicken Masala</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="ifCornedChicken"
+                type="checkbox"
+                name="ifCornedChicken"
+                value="IF - Corned Chicken
+                          "
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="ifCornedChicken" class="ml-2 text-xs text-gray-700"
+                >IF - Corned Chicken
+              </label>
+            </div>
+            <div class="flex items-center">
+              <input
+                id="ifBicolExpress"
+                type="checkbox"
+                name="ifBicolExpress"
+                value="IF - Bicol Express"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="ifBicolExpress" class="ml-2 text-xs text-gray-700"
+                >IF - Bicol Express</label
+              >
+            </div>
+
+            <div class="flex items-center">
+              <input
+                id="ifTeriyaki"
+                type="checkbox"
+                name="ifTeriyaki"
+                value="IF - Teriyaki"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="ifTeriyaki" class="ml-2 text-xs text-gray-700"
+                >IF - Teriyaki</label
+              >
+            </div>
+            <div class="w-12">
+              <input
+                id="Others"
+                placeholder="Others..."
+                name="Others"
+                class="border-b border-gray-400 p-2 text-sm w-full"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <label class="block font-medium mb-4">MPP</label>
+          <div class="grid grid-cols-1 gap-2">
+            <div class="flex items-center">
+              <input
+                id="pNuggets"
+                type="checkbox"
+                name="pNuggets"
+                value="PREMIUM - Nuggets"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="pNuggets" class="ml-2 text-xs text-gray-700"
+                >PREMIUM - Nuggets</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="pBacon"
+                type="checkbox"
+                name="pBacon"
+                value="PREMIUM - BACON"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="pBacon" class="ml-2 text-xs text-gray-700"
+                >PREMIUM - BACON</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="mChickenTocinoOriginal"
+                type="checkbox"
+                name="mChickenTocinoOriginal"
+                value="MARINATES - Chicken Tocino Original"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label
+                for="mChickenTocinoOriginal"
+                class="ml-2 text-xs text-gray-700"
+                >MARINATES - Chicken Tocino Original</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="mChickenTocinoSpicy"
+                type="checkbox"
+                name="mChickenTocinoSpicy"
+                value="MARINATES - Chicken Tocino Spicy"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label
+                for="mChickenTocinoSpicy"
+                class="ml-2 text-xs text-gray-700"
+                >MARINATES - Chicken Tocino Spicy</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="mCHickenTocinoTeriyaki"
+                type="checkbox"
+                name="mCHickenTocinoTeriyaki"
+                value="MARINATES - Chicken Tocino Teriyaki"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label
+                for="mCHickenTocinoTeriyaki"
+                class="ml-2 text-xs text-gray-700"
+                >MARINATES - Chicken Tocino Teriyaki</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="mChickenTocinoCurry"
+                type="checkbox"
+                name="mChickenTocinoCurry"
+                value="MARINATES - Chicken Tocino Curry"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label
+                for="mChickenTocinoCurry"
+                class="ml-2 text-xs text-gray-700"
+                >MARINATES - Chicken Tocino Curry</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="lSkinlessOriginal"
+                type="checkbox"
+                name="lSkinlessOriginal"
+                value="LONGGANISA - Skinless Original"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="lSkinlessOriginal" class="ml-2 text-xs text-gray-700"
+                >LONGGANISA - Skinless Original</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="lSpanishStyle"
+                type="checkbox"
+                name="lSpanishStyle"
+                value="LONGGANISA - Smoked Original"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="lSpanishStyle" class="ml-2 text-xs text-gray-700"
+                >LONGGANISA - Smoked Original</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="lCurry"
+                type="checkbox"
+                name="lCurry"
+                value="LONGGANISA - Curry"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="lCurry" class="ml-2 text-xs text-gray-700"
+                >LONGGANISA - Curry</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel
+        >Fill out Competitors Check and Action plan</ng-template
+      >
+      <div class="grid grid-cols-1 gap-2 mt-4 mb-4">
+        <div class="relative">
+          <label
+            for="visit_competitorsCheck"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Competitors Check (existing SKU in-store)
+          </label>
+          <input
+            id="visit_competitorsCheck"
+            placeholder="Area"
+            name="visit_competitorsCheck"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-3">
+        <div class="relative">
+          <label
+            for="visit_pap"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+            >Proposed Action Plan</label
+          >
+          <select
+            id="visit_pap"
+            name="visit_pap"
+            class="border p-2 text-sm rounded w-full"
+          >
+            <option value="" selected disabled>Select account type</option>
+            <option value="General Trade">General Trade</option>
+            <option value="Modern Trade">Modern Trade</option>
+            <option value="Local Key Account">Local Key Account</option>
+            <option value="Others">Others...</option>
+          </select>
+        </div>
+        <div class="relative">
+          <label
+            for="visit_papOthers"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
+            >Others</label
+          >
+          <input
+            id="visit_papOthers"
+            placeholder="Others..."
+            name="visit_papOthers"
+            class="border p-2 text-sm rounded w-full"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done. Proceed to submit checklist.</p>
+    <div class="mt-4">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button>Submit</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
