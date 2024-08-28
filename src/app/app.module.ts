@@ -45,6 +45,7 @@ import { ModalCreateAreaComponent } from './components/admin/views/master-data/a
 import { ModalViewAreaComponent } from './components/admin/views/master-data/area-add/modal/modal-view-area/modal-view-area.component';
 import { ModalDeleteAreaComponent } from './components/admin/views/master-data/area-add/modal/modal-delete-area/modal-delete-area.component';
 import { ModalEditAreaComponent } from './components/admin/views/master-data/area-add/modal/modal-edit-area/modal-edit-area.component';
+import { ModalCreateIsrComponent } from './components/admin/views/master-data/isr-add/modal/modal-create-isr/modal-create-isr.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ AreaAddComponent,
     ModalCreateAreaComponent,
     ModalViewAreaComponent,
     ModalDeleteAreaComponent,
-    ModalEditAreaComponent
+    ModalEditAreaComponent,
+    ModalCreateIsrComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [

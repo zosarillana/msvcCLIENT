@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       this.isLoading = false; // Set isLoading to false after the delay
       console.log('isLoading after delay:', this.isLoading); // Log the state after changing
-    }, 2800); // Adjust the delay as needed
+    }, 1800); // Adjust the delay as needed
   }
 
   public togglePasswordVisibility(): void {

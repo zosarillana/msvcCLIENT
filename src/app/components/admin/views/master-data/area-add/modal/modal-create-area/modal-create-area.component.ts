@@ -13,14 +13,14 @@ import { AreaService } from '../../../../../../../services/area.service';
 })
 export class ModalCreateAreaComponent {
   @Input() area?: Area;
-  @Output() areaUpdated = new EventEmitter<User[]>();
+  @Output() areaUpdated = new EventEmitter<Area[]>();
 
   // Object to hold field-specific error messages
   errorMessages: { [key: string]: string[] } = {};
 
   constructor(
     private areaService: AreaService,
-    public dialogRef: MatDialogRef<ModalCreateUserDialogComponent>,
+    public dialogRef: MatDialogRef<ModalCreateAreaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 

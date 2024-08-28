@@ -42,15 +42,15 @@
           >Role</label
         >
         <select
-          id="role"
-          [(ngModel)]="data.role"
-          name="role"
-          class="border p-2 text-sm rounded w-full"
-        >
-          <option value="" selected disabled>Select a role</option>
-          <option value="user">user</option>
-          <option value="admin">admin</option>
-        </select>
+        id="role"
+        [(ngModel)]="data.role_id"
+        name="role_id"
+        class="border p-2 text-sm rounded w-full"
+      >
+        <option value="" selected disabled>Select a role</option>
+        <option value="2">User</option>
+        <option value="1">Admin</option>
+      </select>
 
         <div *ngIf="errorMessages['role']" class="text-red-700 text-xs mt-1">
           <ul>
@@ -238,5 +238,5 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="save() ">Save</button>
 </div>

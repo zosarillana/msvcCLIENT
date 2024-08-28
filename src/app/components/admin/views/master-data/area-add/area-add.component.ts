@@ -3,12 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-
 import { Area } from '../../../../../models/area';
 import { AreaService } from '../../../../../services/area.service';
-import { ModalDeleteUserDialogComponent } from '../../user/user-add/modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
-import { ModalEditUserDialogComponent } from '../../user/user-add/modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
-import { ModalViewUserDialogComponent } from '../../user/user-add/modal/modal-view-user-dialog/modal-view-user-dialog.component';
 import { ModalCreateAreaComponent } from './modal/modal-create-area/modal-create-area.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import moment from 'moment';

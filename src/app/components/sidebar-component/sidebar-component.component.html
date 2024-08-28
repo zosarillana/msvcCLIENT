@@ -44,13 +44,13 @@
       </ul>
 
       <!-- Admin Options Label -->
-      <div class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
+      <div *ngIf="user.role_id !== '2'" class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
         Admin Options
       </div>
 
       <!-- Admin Options Items -->
       <ul>
-        <li *ngIf="user.role !== '2'" class="mb-1">
+        <li *ngIf="user.role_id !== '2'" class="mb-1">
           <a
             routerLink="/dashboard"
             class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
@@ -64,10 +64,10 @@
           </a>
         </li>
         <!-- Admin Options Label -->
-        <div class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
+        <div *ngIf="user.role_id !== '2'" class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
           Master Data
         </div>
-        <li class="mb-1">
+        <li *ngIf="user.role_id !== '2'" class="mb-1">
           <a
             routerLink="/dashboard"
             class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
@@ -80,7 +80,7 @@
             <p class="ml-2 text-sm">Add area</p>
           </a>
         </li>
-        <li class="mb-1">
+        <li *ngIf="user.role_id !== '2'" class="mb-1">
           <a
             routerLink="/dashboard"
             class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
@@ -93,7 +93,7 @@
             <p class="ml-2 text-sm">In store requirements</p>
           </a>
         </li>
-        <li *ngIf="user.role !== '2'" class="mb-1">
+        <li *ngIf="user.role_id !== '2'" class="mb-1">
           <a
             routerLink="/dashboard"
             class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
@@ -112,7 +112,7 @@
       <div class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
         Logout
       </div>
-      <li *ngIf="user.role !== '2'" class="mb-1">
+      <li  class="mb-1">
         <a
           routerLink="/dashboard"
           class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
@@ -159,7 +159,7 @@
       <!-- Sidebar Content -->
       <div>
         <p class="font-semibold text-xs text-gray-600 mr-2">
-          Welcome, {{ user.fname }} {{ user.mname }} {{ user.lname }}
+          Welcome, {{ user.fname }} {{ user.mname }} {{ user.lname }} 
         </p>
       </div>
 
@@ -182,46 +182,7 @@
       </div>
 
       <div *ngIf="selectedContent === 'content3'">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
-          <div
-            class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
-          >
-            <div class="flex justify-between mb-6">
-              <div>
-                <div class="text-2xl font-semibold mb-1">
-                  In Store Requirements +
-                </div>
-                <div class="text-sm font-medium text-gray-400">
-                  In Store Requirements
-                </div>
-              </div>
-            </div>
-            <a
-              href="#"
-              class="text-blue-500 font-medium text-sm hover:text-blue-600"
-              >View details</a
-            >
-          </div>
-          <div
-            class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5"
-          >
-            <div class="flex justify-between mb-6">
-              <div>
-                <div class="text-xl font-semibold mb-1">
-                  In Store Requirements Needs +
-                </div>
-                <div class="text-sm font-medium text-gray-400">
-                  In Store Requirements Needs
-                </div>
-              </div>
-            </div>
-            <a
-              href="#"
-              class="text-blue-500 font-medium text-sm hover:text-blue-600"
-              >View details</a
-            >
-          </div>
-        </div>
+        <app-isr-add></app-isr-add>
       </div>
       <div *ngIf="selectedContent === 'content4'">
         <app-pod-add></app-pod-add>
