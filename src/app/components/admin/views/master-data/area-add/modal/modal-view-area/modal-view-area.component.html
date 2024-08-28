@@ -1,0 +1,51 @@
+<!-- modal.component.html -->
+<h1 mat-dialog-title>Add area</h1>
+
+<div *ngIf="data" mat-dialog-content>
+  <form>
+    <div class="grid grid-cols-1 gap-2 mb-4">
+      <div class="relative">
+        <label
+          for="areaName"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Area Name</label
+        >
+        <input
+          id="areaName"
+          [(ngModel)]="data.area"
+          placeholder="Area Name"
+          name="areaName"
+          class="border p-2 text-sm rounded w-full"
+          disabled
+        />
+       
+      </div>
+      <div class="relative">
+        <div class="grid grid-cols-2">
+          <div class="relative col-span-2">
+            <label
+              for="description"
+              class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Description</label>
+            <textarea
+              id="description"
+              [(ngModel)]="data.description"
+              placeholder="Description"
+              name="description"
+              class="border p-2 text-sm rounded w-full"
+              rows="4"
+              disabled
+            ></textarea>
+          </div>
+        </div>
+        
+       
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+
+</div>

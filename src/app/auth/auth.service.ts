@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -12,10 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(
-    username: string,
-    user_password: string
-  ): Observable<{ token: string; }> {
+  login(username: string, user_password: string): Observable<{ token: string; }> {
     const loginData = { username, user_password };
     return this.http
       .post<{ token: string; }>(this.apiUrl, loginData)
@@ -23,7 +20,16 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('jwtToken');
+    if (!token) {
+      return false;
+    }
+    const decodedToken = this.decodeToken(token);
+    if (decodedToken && decodedToken.exp) {
+      const expiry = new Date(decodedToken.exp * 1000); // Convert exp to milliseconds
+      return new Date() < expiry; // Check if the current date is before the token expiry
+    }
+    return false;
   }
 
   logout(): void {
@@ -58,3 +64,5 @@ export class AuthService {
     return throwError(() => new Error(errorMessage));
   }
 }
+
+  

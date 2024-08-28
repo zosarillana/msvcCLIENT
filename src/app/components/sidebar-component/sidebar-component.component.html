@@ -50,7 +50,7 @@
 
       <!-- Admin Options Items -->
       <ul>
-        <li *ngIf="user.role !== 'user'" class="mb-1">
+        <li *ngIf="user.role !== '2'" class="mb-1">
           <a
             routerLink="/dashboard"
             class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
@@ -72,9 +72,9 @@
             routerLink="/dashboard"
             class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
             [ngClass]="{
-              'bg-gray-800 text-white': selectedContent === 'addTable'
+              'bg-gray-800 text-white': selectedContent === 'add-area'
             }"
-            (click)="showContent('addTable')"
+            (click)="showContent('add-area')"
           >
             <mat-icon>add_location_alt</mat-icon>
             <p class="ml-2 text-sm">Add area</p>
@@ -93,7 +93,7 @@
             <p class="ml-2 text-sm">In store requirements</p>
           </a>
         </li>
-        <li *ngIf="user.role !== 'user'" class="mb-1">
+        <li *ngIf="user.role !== '2'" class="mb-1">
           <a
             routerLink="/dashboard"
             class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
@@ -112,7 +112,7 @@
       <div class="mt-6 mb-2 text-gray-500 uppercase text-xs tracking-wider">
         Logout
       </div>
-      <li *ngIf="user.role !== 'user'" class="mb-1">
+      <li *ngIf="user.role !== '2'" class="mb-1">
         <a
           routerLink="/dashboard"
           class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md"
@@ -229,8 +229,8 @@
       <div *ngIf="selectedContent === 'content5'">
         <app-add-visits></app-add-visits>
       </div>
-      <div *ngIf="selectedContent === 'addTable'">
-        <app-area-add></app-area-add>
+      <div *ngIf="selectedContent === 'add-area'">
+    <app-area-add></app-area-add>
       </div>
     </div>
   </main>

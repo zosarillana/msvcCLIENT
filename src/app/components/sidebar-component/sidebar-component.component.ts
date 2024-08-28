@@ -1,9 +1,16 @@
-import { Component, ElementRef, Renderer2, OnInit, OnDestroy, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Renderer2,
+  OnInit,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../auth/auth.service';
 import { TokenService } from '../../services/token.service';
 import { SharedService } from '../../services/shared.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-sidebar-component',
   templateUrl: './sidebar-component.component.html',
@@ -16,7 +23,7 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
   userCount: number = 0;
   username: string | null = null;
   user: any = null;
-  
+
   private _formBuilder = inject(FormBuilder);
 
   firstFormGroup = this._formBuilder.group({
@@ -34,7 +41,7 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
   fifthFormGroup = this._formBuilder.group({
     fifthCtrl: ['', Validators.required],
   });
-  isLinear = false
+  isLinear = false;
 
   private clickListener!: () => void;
 
@@ -50,7 +57,7 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
   logout(): void {
     this.authService.logout();
   }
-  
+
   ngOnInit(): void {
     // Bind the click event listener using Renderer2
     this.clickListener = this.renderer.listen(
@@ -61,31 +68,15 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.fetchUserCount();
-
-    // Set up polling every 3 seconds
-    setInterval(() => this.fetchUserCount(), 3000);
-
     // Decode token and set user information
     this.tokenService.decodeTokenAndSetUser();
     this.user = this.tokenService.getUser();
     this.username = this.user ? this.user.sub : null; // Update username based on 'sub'
 
     // Subscribe to content changes from SharedService
-    this.sharedService.selectedContent$.subscribe(content => {
+    this.sharedService.selectedContent$.subscribe((content) => {
       this.selectedContent = content;
     });
-  }
-
-  private fetchUserCount(): void {
-    this.userService.getUserCount().subscribe(
-      (count: number) => {
-        this.userCount = count;
-      },
-      (error) => {
-        console.error('Error fetching user count:', error);
-      }
-    );
   }
 
   ngOnDestroy(): void {

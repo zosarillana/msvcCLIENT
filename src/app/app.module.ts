@@ -18,7 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { AreaAddComponent } from './components/admin/views/master-data/area-add/area-add.component';
 
 import { UpdateMarketVisitsComponent } from './components/update-market-visits/update-market-visits.component';
 import { GetMarketVisitsComponent } from './components/get-market-visits/get-market-visits.component';
@@ -28,8 +28,8 @@ import { ModalCreateDialogComponent } from './components/get-market-visits/modal
 import { ModalEditDialogComponent } from './components/get-market-visits/modal/modal-edit-dialog/modal-edit-dialog.component';
 import { ModalDeleteDialogComponent } from './components/get-market-visits/modal/modal-delete-dialog/modal-delete-dialog.component';
 import { UserAddComponent } from './components/admin/views/user/user-add/user-add.component';
-import { IsrAddComponent } from './components/admin/isr-add/isr-add.component';
-import { PodAddComponent } from './components/admin/pod-add/pod-add.component';
+import { IsrAddComponent } from './components/admin/views/master-data/isr-add/isr-add.component';
+import { PodAddComponent } from './components/admin/views/master-data/pod-add/pod-add.component';
 import { ModalCreateUserDialogComponent } from './components/admin/views/user/user-add/modal/modal-create-user-dialog/modal-create-user-dialog.component';
 import { ModalEditUserDialogComponent } from './components/admin/views/user/user-add/modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
 import { ModalDeleteUserDialogComponent } from './components/admin/views/user/user-add/modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
@@ -41,6 +41,10 @@ import { TokenService } from './services/token.service'; // Import TokenService
 import { AuthService } from './auth/auth.service';
 import { AddVisitsComponent } from './components/get-market-visits/views/add-visits/add-visits.component';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
+import { ModalCreateAreaComponent } from './components/admin/views/master-data/area-add/modal/modal-create-area/modal-create-area.component';
+import { ModalViewAreaComponent } from './components/admin/views/master-data/area-add/modal/modal-view-area/modal-view-area.component';
+import { ModalDeleteAreaComponent } from './components/admin/views/master-data/area-add/modal/modal-delete-area/modal-delete-area.component';
+import { ModalEditAreaComponent } from './components/admin/views/master-data/area-add/modal/modal-edit-area/modal-edit-area.component';
 
 
 @NgModule({
@@ -64,8 +68,11 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
     ConfirmDialogComponent,
     AddVisitsComponent,
     LoadingScreenComponent,
-  
-    
+AreaAddComponent,
+    ModalCreateAreaComponent,
+    ModalViewAreaComponent,
+    ModalDeleteAreaComponent,
+    ModalEditAreaComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
