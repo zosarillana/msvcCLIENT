@@ -1,0 +1,52 @@
+/* Loader Styles */
+.loader {
+    border: 8px solid rgba(255, 255, 255, 0.2); /* Light gray background */
+    border-left: 8px solid #ffffff; /* White spinner */
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Keyframes for spinning animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* General styles for the loading screen */
+  .fixed {
+    position: fixed;
+  }
+  
+  .inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .bg-black {
+    background-color: black;
+  }
+  
+  .bg-opacity-75 {
+    opacity: 0.75;
+  }
+  
+  .z-50 {
+    z-index: 50;
+  }
+  
+  .text-white {
+    color: white;
+  }
+  
+  .text-xl {
+    font-size: 1.25rem; /* 20px */
+  }
+  
+  .mt-4 {
+    margin-top: 1rem; /* 16px */
+  }
+  

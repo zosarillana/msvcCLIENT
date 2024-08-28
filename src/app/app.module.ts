@@ -40,6 +40,7 @@ import { ConfirmDialogComponent } from './components/admin/views/user/user-add/m
 import { TokenService } from './services/token.service'; // Import TokenService
 import { AuthService } from './auth/auth.service';
 import { AddVisitsComponent } from './components/get-market-visits/views/add-visits/add-visits.component';
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { AddVisitsComponent } from './components/get-market-visits/views/add-vis
     ModalViewUserDialogComponent,
     ConfirmDialogComponent,
     AddVisitsComponent,
+    LoadingScreenComponent,
   
     
   ],
