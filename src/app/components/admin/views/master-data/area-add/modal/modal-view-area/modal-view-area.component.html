@@ -1,5 +1,4 @@
-<!-- modal.component.html -->
-<h1 mat-dialog-title>Add area</h1>
+<h1 mat-dialog-title>View Area</h1>
 
 <div *ngIf="data" mat-dialog-content>
   <form>
@@ -8,8 +7,7 @@
         <label
           for="areaName"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-          >Area Name</label
-        >
+        >Area Name</label>
         <input
           id="areaName"
           [(ngModel)]="data.area"
@@ -18,7 +16,6 @@
           class="border p-2 text-sm rounded w-full"
           disabled
         />
-       
       </div>
       <div class="relative">
         <div class="grid grid-cols-2">
@@ -38,8 +35,6 @@
             ></textarea>
           </div>
         </div>
-        
-       
       </div>
     </div>
   </form>
@@ -47,5 +42,4 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
-
 </div>

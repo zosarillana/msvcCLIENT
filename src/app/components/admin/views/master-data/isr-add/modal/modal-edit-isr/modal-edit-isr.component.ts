@@ -1,39 +1,74 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Isr } from '../../../../../../../models/isr';
 import { IsrService } from '../../../../../../../services/isr.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../../../user/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'app-modal-create-isr',
-  templateUrl: './modal-create-isr.component.html',
-  styleUrls: ['./modal-create-isr.component.css']
+  selector: 'app-modal-edit-isr',
+  templateUrl: './modal-edit-isr.component.html',
+  styleUrls: ['./modal-edit-isr.component.css'] // Corrected from styleUrl to styleUrls
 })
-export class ModalCreateIsrComponent {
-  imageFile: File | null = null;
-  imagePreview: string | ArrayBuffer | null = null;  
+export class ModalEditIsrComponent {
   @Input() area?: Isr;
   @Output() IsrUpdated = new EventEmitter<Isr[]>();
+
+  imageFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
   errorMessages: { [key: string]: string[] } = {};
 
   constructor(
     private isrService: IsrService,
-    public dialogRef: MatDialogRef<ModalCreateIsrComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    public dialogRef: MatDialogRef<ModalEditIsrComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog // Inject MatDialog service
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  
+  openConfirmationDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.save(); // Proceed with saving if the user confirmed
+      }
+    });
+  }
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.imageFile = input.files[0];
+      const reader = new FileReader();
+  
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target?.result) {
+          this.imagePreview = e.target.result;
+        } else {
+          this.imagePreview = null;
+        }
+      };
+  
+      reader.readAsDataURL(this.imageFile);
+    } else {
+      this.imageFile = null;
+      this.imagePreview = null;
+    }
+  }
+  
   save(): void {
     if (this.data) {
       const formData = new FormData();
-      
+  
       // Append form fields
-      formData.append('isr_name', this.data.isrName);
-      formData.append('isr_others', this.data.others);
-      formData.append('isr_type', this.data.type);
+      formData.append('id', this.data.id.toString()); // Ensure id is appended
+      formData.append('isr_name', this.data.isr_name);
+      formData.append('isr_others', this.data.isr_others);
+      formData.append('isr_type', this.data.isr_type);
       formData.append('description', this.data.description);
   
       // Append image file if available
@@ -41,13 +76,12 @@ export class ModalCreateIsrComponent {
         formData.append('file', this.imageFile);
       }
   
-      this.isrService.createIsrs(formData).subscribe({
+      this.isrService.updateIsrs(formData).subscribe({
         next: (response) => {
           this.dialogRef.close(this.data);
         },
         error: (errorResponse) => {
           console.log('Error Response:', errorResponse);
-  
           this.errorMessages = {};
   
           if (errorResponse && typeof errorResponse === 'object') {
@@ -75,25 +109,4 @@ export class ModalCreateIsrComponent {
       console.log('No data provided.');
     }
   }
-  
-  onFileChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.imageFile = input.files[0];
-      const reader = new FileReader();
-      
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        if (e.target?.result) {
-          this.imagePreview = e.target.result;
-        } else {
-          this.imagePreview = null;
-        }
-      };
-      
-      reader.readAsDataURL(this.imageFile);
-    } else {
-      this.imageFile = null;
-      this.imagePreview = null;
-    }
-  }
-}
+}  

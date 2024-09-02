@@ -1,24 +1,25 @@
 import { Component, ViewChild } from '@angular/core';
 import { Isr } from '../../../../../models/isr';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import moment from 'moment';
 import { Subscription } from 'rxjs';
-import { Area } from '../../../../../models/area';
-import { AreaService } from '../../../../../services/area.service';
-import { ModalCreateAreaComponent } from '../area-add/modal/modal-create-area/modal-create-area.component';
-import { ModalDeleteAreaComponent } from '../area-add/modal/modal-delete-area/modal-delete-area.component';
-import { ModalEditAreaComponent } from '../area-add/modal/modal-edit-area/modal-edit-area.component';
-import { ModalViewAreaComponent } from '../area-add/modal/modal-view-area/modal-view-area.component';
 import { IsrService } from '../../../../../services/isr.service';
+import { MatDialog } from '@angular/material/dialog';
 import { ModalCreateIsrComponent } from './modal/modal-create-isr/modal-create-isr.component';
+import { ModalDeleteAreaComponent } from '../area-add/modal/modal-delete-area/modal-delete-area.component';
+import { ModalViewAreaComponent } from '../area-add/modal/modal-view-area/modal-view-area.component';
+import { environment } from '../../../../../../environments/environment';  // <-- Import the environment
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import moment from 'moment';
+import { ModalEditIsrComponent } from './modal/modal-edit-isr/modal-edit-isr.component';
+import { initFlowbite } from 'flowbite';
+import { ModalViewIsrComponent } from './modal/modal-view-isr/modal-view-isr.component';
+import { ModalDeleteIsrComponent } from './modal/modal-delete-isr/modal-delete-isr.component';
 
 @Component({
   selector: 'app-isr-add',
   templateUrl: './isr-add.component.html',
-  styleUrl: './isr-add.component.css'
+  styleUrls: ['./isr-add.component.css']
 })
 export class IsrAddComponent {
   displayedColumns: string[] = [
@@ -26,7 +27,7 @@ export class IsrAddComponent {
     'others',
     'type',
     'image_path',
-    'description',        
+    'description',
     'date_created',
     'action',
   ];
@@ -35,14 +36,18 @@ export class IsrAddComponent {
   isrCount: number = 0;
   startDate: Date | null = null;
   endDate: Date | null = null;
-  
+
   private pollingSubscription!: Subscription;
+
+  // Construct the base API URL
+  public imageUrlBase = `${environment.apiUrl}/Isr/image/`;  // <-- Use the environment API URL
 
   constructor(private isrService: IsrService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.loadAreas();
+    this.loadIsrs();
     this.startPolling();
+    initFlowbite();
   }
 
   ngOnDestroy(): void {
@@ -50,9 +55,7 @@ export class IsrAddComponent {
       this.pollingSubscription.unsubscribe();
     }
   }
-
-
-
+  
   applyDateFilter(type: string, event: MatDatepickerInputEvent<Date>): void {
     const date = event.value;
   
@@ -70,8 +73,9 @@ export class IsrAddComponent {
     };
     this.dataSource.filter = '' + Math.random(); // Trigger filtering
   }
+  
 
-  loadAreas(): void {
+  loadIsrs(): void {
     this.isrService.getIsrs().subscribe((result: Isr[]) => {
       this.dataSource.data = result;
       this.dataSource.paginator = this.paginator; // Set paginator after data is loaded
@@ -83,7 +87,7 @@ export class IsrAddComponent {
     this.pollingSubscription = this.isrService.getIsrCount()
       .subscribe(
         (count: number) => this.isrCount = count,
-        (error) => console.error('Error fetching area count:', error)
+        (error) => console.error('Error fetching ISR count:', error)
       );
 
     setInterval(() => this.fetchUserCount(), 3000);
@@ -95,18 +99,27 @@ export class IsrAddComponent {
         this.isrCount = count;
       },
       (error) => {
-        console.error('Error fetching area count:', error);
+        console.error('Error fetching ISR count:', error);
       }
     );
   }
 
-  openEditDialog(area: Area): void {
-    const dialogRef = this.dialog.open(ModalEditAreaComponent, {
+  openViewDialog(isr: Isr): void {
+    const dialogRef = this.dialog.open(ModalViewIsrComponent, {
       width: '500px',
-      data: area,
+      data: isr,
     });
 
-    dialogRef.afterClosed().subscribe(() => this.loadAreas());
+    dialogRef.afterClosed().subscribe(() => this.loadIsrs());
+  }
+
+  openEditDialog(isr: Isr): void {
+    const dialogRef = this.dialog.open(ModalEditIsrComponent, {
+      width: '500px',
+      data: isr,
+    });
+
+    dialogRef.afterClosed().subscribe(() => this.loadIsrs());
   }
 
   openAddDialog(): void {
@@ -118,26 +131,18 @@ export class IsrAddComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loadAreas();
+        this.loadIsrs();
       }
     });
   }
 
-  openDeleteDialog(area: Area): void {
-    const dialogRef = this.dialog.open(ModalDeleteAreaComponent, {
+  openDeleteDialog(isr: Isr): void {
+    const dialogRef = this.dialog.open(ModalDeleteIsrComponent, {
       width: '500px',
-      data: area,
+      data: isr,
     });
 
-    dialogRef.afterClosed().subscribe(() => this.loadAreas());
+    dialogRef.afterClosed().subscribe(() => this.loadIsrs());
   }
 
-  openViewDialog(area: Area): void {
-    const dialogRef = this.dialog.open(ModalViewAreaComponent, {
-      width: '500px',
-      data: area,
-    });
-
-    dialogRef.afterClosed().subscribe(() => this.loadAreas());
-  }
 }

@@ -22,6 +22,7 @@
           [(ngModel)]="data.area"
           placeholder="Area Name"
           name="areaName"
+          aria-modal="true"
           class="border p-2 text-sm rounded w-full"
         />
         <div
@@ -44,6 +45,7 @@
             >Description</label>
             <textarea
               id="description"
+              aria-modal="true"
               [(ngModel)]="data.description"
               placeholder="Description"
               name="description"

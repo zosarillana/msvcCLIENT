@@ -13,7 +13,6 @@ import { ModalEditUserDialogComponent } from '../../../../user/user-add/modal/mo
 export class ModalEditAreaComponent {
   @Input() area?: Area;
   @Output() areaUpdated = new EventEmitter<Area[]>();
-  isPasswordEnabled = false; // Default is disabled
 
   errorMessages: { [key: string]: string[] } = {};
 
@@ -71,18 +70,6 @@ export class ModalEditAreaComponent {
           this.errorMessages['general'] = ['An unknown error occurred.'];
         }
       },
-    });
-  }
-
-  // Method to toggle password field enabled state
-  togglePasswordField(event: any) {
-    this.isPasswordEnabled = event.target.checked;
-  }
-
-  //for editing and updating
-  private fetchMarketVisits() {
-    this.areaService.getAreas().subscribe((areas: Area[]) => {
-      this.areaUpdated.emit(areas);
     });
   }
 }

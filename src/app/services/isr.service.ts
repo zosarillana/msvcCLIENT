@@ -16,27 +16,18 @@ export class IsrService {
     return this.http.get<Isr[]>(`${environment.apiUrl}/${this.url}`);
   }
 
-  public updateIsrs(mvisit: Isr): Observable<Isr> {
+  public updateIsrs(formData: FormData): Observable<Isr> {
     return this.http.put<Isr>(
-      `${environment.apiUrl}/${this.url}`,
-      mvisit
-    );
-  }
-
-  // public createIsrs(mvisit: Isr): Observable<Isr> {
-  //   return this.http.post<Isr>(
-  //     `${environment.apiUrl}/${this.url}`,
-  //     mvisit
-  //   );
-  // }
-  createIsrs(formData: FormData): Observable<Isr> {
-    return this.http.post<Isr>(
-      `${environment.apiUrl}/${this.url}`,
+      `${environment.apiUrl}/${this.url}/update`, // Adjusted URL
       formData
     );
-  }
-  
-
+  }  
+  createIsrs(formData: FormData): Observable<Isr> {
+    return this.http.post<Isr>(
+      `${environment.apiUrl}/${this.url}/upload`,
+      formData
+    );
+  }  
   public deleteIsrs(mvisit: Isr): Observable<Isr[]> {
     return this.http.delete<Isr[]>(
       `${environment.apiUrl}/${this.url}/${mvisit.id}`

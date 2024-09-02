@@ -1,12 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { MarketVisits } from '../../../../../models/market-visits';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MarketVisitsService } from '../../../../../services/market-visits.service';
-
 import { ModalCreateUserDialogComponent } from './modal/modal-create-user-dialog/modal-create-user-dialog.component';
-
 import { ModalEditUserDialogComponent } from './modal/modal-edit-user-dialog/modal-edit-user-dialog.component';
 import { ModalDeleteUserDialogComponent } from './modal/modal-delete-user-dialog/modal-delete-user-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -14,6 +10,7 @@ import moment from 'moment';
 import { ModalViewUserDialogComponent } from './modal/modal-view-user-dialog/modal-view-user-dialog.component';
 import { User } from '../../../../../models/user';
 import { UserService } from '../../../../../services/user.service';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-user-add',
@@ -41,6 +38,7 @@ export class UserAddComponent {
 
   ngOnInit(): void {
     this.loadUsers();
+    initFlowbite();
   }
 
   loadUsers(): void {

@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from '../../../../../../../models/user';
-import { UserService } from '../../../../../../../services/user.service';
-import { ModalCreateUserDialogComponent } from '../../../../user/user-add/modal/modal-create-user-dialog/modal-create-user-dialog.component';
 import { Area } from '../../../../../../../models/area';
 import { AreaService } from '../../../../../../../services/area.service';
 

@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Isr } from '../../../../../../../models/isr';
 import { IsrService } from '../../../../../../../services/isr.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalCreateIsrComponent } from '../../../isr-add/modal/modal-create-isr/modal-create-isr.component';
 
 @Component({
-  selector: 'app-modal-create-isr',
-  templateUrl: './modal-create-isr.component.html',
-  styleUrls: ['./modal-create-isr.component.css']
+  selector: 'app-modal-create-pod',
+  templateUrl: './modal-create-pod.component.html',
+  styleUrl: './modal-create-pod.component.css'
 })
-export class ModalCreateIsrComponent {
+export class ModalCreatePodComponent {
   imageFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;  
   @Input() area?: Isr;

@@ -1,4 +1,4 @@
-export class Isr {
+export class Pod {
     id?: number;
     isr_name = '';
     isr_others = '';

@@ -130,8 +130,11 @@ export class AreaAddComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ModalViewAreaComponent, {
       width: '500px',
       data: area,
+      disableClose: true,     // Prevents closing the dialog by clicking outside or pressing ESC
+      autoFocus: true,        // Automatically focuses the first focusable element in the dialog
+      restoreFocus: true,     // Restores focus to the element that triggered the dialog after it closes
     });
-
+  
     dialogRef.afterClosed().subscribe(() => this.loadAreas());
   }
-}
+}  

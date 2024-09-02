@@ -1,0 +1,20 @@
+.tooltip {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  background-color: #333; /* Tooltip background color */
+  color: #fff; /* Tooltip text color */
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  top: 45px; /* Increase the top value to position it further down */
+  left: 50%;
+  transform: translateX(-50%) scale(0.8); /* Initially scale down */
+  transition: opacity 0.3s ease, transform 0.1s ease; /* Smooth ease-in transition */
+}
+
+.group:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1); /* Scale to full size */
+}

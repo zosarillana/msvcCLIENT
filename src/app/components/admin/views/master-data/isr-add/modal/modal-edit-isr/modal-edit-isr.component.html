@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add in store requirements</h1>
+<h1 mat-dialog-title>Edit in store requirements</h1>
 <div
   *ngIf="errorMessages['general']"
   class="bg-red-100 text-red-700 p-2 rounded mb-4"
@@ -18,7 +18,7 @@
         >
         <input
           id="isrName"
-          [(ngModel)]="data.isrName"
+          [(ngModel)]="data.isr_name"
           placeholder="Isr Name"
           name="isrName"
           class="border p-2 text-sm rounded w-full"
@@ -39,7 +39,7 @@
         >
         <input
           id="others"
-          [(ngModel)]="data.others"
+          [(ngModel)]="data.isr_others"
           placeholder="Others"
           name="others"
           class="border p-2 text-sm rounded w-full"
@@ -60,7 +60,7 @@
         >
         <input
           id="type"
-          [(ngModel)]="data.type"
+          [(ngModel)]="data.isr_type"
           placeholder="Type"
           name="type"
           class="border p-2 text-sm rounded w-full"
@@ -94,7 +94,10 @@
           </div>
         </div>
       </div>
-      <div *ngIf="errorMessages['description']" class="text-red-700 text-xs mt-1">
+      <div
+        *ngIf="errorMessages['description']"
+        class="text-red-700 text-xs mt-1"
+      >
         <ul>
           <li *ngFor="let errorMsg of errorMessages['description']">
             {{ errorMsg }}
@@ -102,7 +105,6 @@
         </ul>
       </div>
     </div>
-
     <div class="grid grid-cols-1 gap-2 mb-4">
       <div class="relative">
         <div class="grid grid-cols-2">
@@ -116,10 +118,13 @@
               type="file"
               id="imageUpload"
               (change)="onFileChange($event)"
-              class="border p-2 text-sm rounded w-full"
+              class="border p-2 text-sm rounded w-full cursor-pointer"
               accept="image/*"
             />
-            <div *ngIf="errorMessages['image']" class="text-red-700 text-xs mt-1">
+            <div
+              *ngIf="errorMessages['image']"
+              class="text-red-700 text-xs mt-1"
+            >
               <ul>
                 <li *ngFor="let errorMsg of errorMessages['image']">
                   {{ errorMsg }}
@@ -127,7 +132,11 @@
               </ul>
             </div>
             <div *ngIf="imagePreview" class="mt-4">
-              <img [src]="imagePreview" alt="Image preview" class="w-full max-h-60 object-cover" />
+              <img
+                [src]="imagePreview"
+                alt="Image preview"
+                class="w-full max-h-60 object-cover"
+              />
             </div>
           </div>
         </div>
@@ -135,7 +144,6 @@
     </div>
   </form>
 </div>
-
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
   <button mat-button (click)="save()">Save</button>

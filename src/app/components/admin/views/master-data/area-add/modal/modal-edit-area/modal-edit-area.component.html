@@ -1,5 +1,5 @@
 <!-- modal.component.html -->
-<h1 mat-dialog-title>Add area</h1>
+<h1 mat-dialog-title>Edit area</h1>
 <div
   *ngIf="errorMessages['general']"
   class="bg-red-100 text-red-700 p-2 rounded mb-4"
@@ -22,6 +22,7 @@
           [(ngModel)]="data.area"
           placeholder="Area Name"
           name="areaName"
+          aria-modal="true"
           class="border p-2 text-sm rounded w-full"
         />
         <div
@@ -47,6 +48,7 @@
               [(ngModel)]="data.description"
               placeholder="Description"
               name="description"
+              aria-modal="true"
               class="border p-2 text-sm rounded w-full"
               rows="4"
             ></textarea>
