@@ -15,6 +15,9 @@ import { ModalEditIsrComponent } from '../isr-add/modal/modal-edit-isr/modal-edi
 import { ModalViewIsrComponent } from '../isr-add/modal/modal-view-isr/modal-view-isr.component';
 import { ModalCreatePodComponent } from './modal/modal-create-pod/modal-create-pod.component';
 import { PodService } from '../../../../../services/pod.service';
+import { ModalEditPodComponent } from './modal/modal-edit-pod/modal-edit-pod.component';
+import { ModalViewPodComponent } from './modal/modal-view-pod/modal-view-pod.component';
+import { ModalDeletePodComponent } from './modal/modal-delete-pod/modal-delete-pod.component';
 @Component({
   selector: 'app-pod-add',
   templateUrl: './pod-add.component.html',
@@ -104,7 +107,7 @@ export class PodAddComponent {
   }
 
   openViewDialog(isr: Isr): void {
-    const dialogRef = this.dialog.open(ModalViewIsrComponent, {
+    const dialogRef = this.dialog.open(ModalViewPodComponent, {
       width: '500px',
       data: isr,
     });
@@ -113,7 +116,7 @@ export class PodAddComponent {
   }
 
   openEditDialog(isr: Isr): void {
-    const dialogRef = this.dialog.open(ModalEditIsrComponent, {
+    const dialogRef = this.dialog.open(ModalEditPodComponent, {
       width: '500px',
       data: isr,
     });
@@ -136,7 +139,7 @@ export class PodAddComponent {
   }
 
   openDeleteDialog(isr: Isr): void {
-    const dialogRef = this.dialog.open(ModalDeleteIsrComponent, {
+    const dialogRef = this.dialog.open(ModalDeletePodComponent, {
       width: '500px',
       data: isr,
     });

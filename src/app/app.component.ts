@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MarketVisits } from './models/market-visits';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 @Component({
   selector: 'app-root',

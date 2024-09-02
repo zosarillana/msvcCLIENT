@@ -6,8 +6,6 @@ import { Subscription } from 'rxjs';
 import { IsrService } from '../../../../../services/isr.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCreateIsrComponent } from './modal/modal-create-isr/modal-create-isr.component';
-import { ModalDeleteAreaComponent } from '../area-add/modal/modal-delete-area/modal-delete-area.component';
-import { ModalViewAreaComponent } from '../area-add/modal/modal-view-area/modal-view-area.component';
 import { environment } from '../../../../../../environments/environment';  // <-- Import the environment
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import moment from 'moment';
@@ -15,6 +13,7 @@ import { ModalEditIsrComponent } from './modal/modal-edit-isr/modal-edit-isr.com
 import { initFlowbite } from 'flowbite';
 import { ModalViewIsrComponent } from './modal/modal-view-isr/modal-view-isr.component';
 import { ModalDeleteIsrComponent } from './modal/modal-delete-isr/modal-delete-isr.component';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-isr-add',
@@ -40,7 +39,7 @@ export class IsrAddComponent {
   private pollingSubscription!: Subscription;
 
   // Construct the base API URL
-  public imageUrlBase = `${environment.apiUrl}/Isr/image/`;  // <-- Use the environment API URL
+  public imageUrlBase = `${environment. apiUrl}/Isr/image/`;  // <-- Use the environment API URL
 
   constructor(private isrService: IsrService, public dialog: MatDialog) {}
 

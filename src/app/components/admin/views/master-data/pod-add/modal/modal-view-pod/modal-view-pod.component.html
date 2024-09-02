@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add product in display</h1>
+<h1 mat-dialog-title>View in store requirements</h1>
 <div
   *ngIf="errorMessages['general']"
   class="bg-red-100 text-red-700 p-2 rounded mb-4"
@@ -12,20 +12,21 @@
     <div class="grid md:grid-cols-1 grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
       <div class="relative">
         <label
-          for="podName"
+          for="isrName"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Isr Name</label
         >
         <input
-          id="podName"
-          [(ngModel)]="data.podName"
+          id="isrName"
+          [(ngModel)]="data.pod_name"
           placeholder="Isr Name"
           name="isrName"
           class="border p-2 text-sm rounded w-full"
+          disabled
         />
-        <div *ngIf="errorMessages['podName']" class="text-red-700 text-xs mt-1">
+        <div *ngIf="errorMessages['isrName']" class="text-red-700 text-xs mt-1">
           <ul>
-            <li *ngFor="let errorMsg of errorMessages['podName']">
+            <li *ngFor="let errorMsg of errorMessages['isrName']">
               {{ errorMsg }}
             </li>
           </ul>
@@ -39,10 +40,11 @@
         >
         <input
           id="others"
-          [(ngModel)]="data.others"
+          [(ngModel)]="data.pod_others"
           placeholder="Others"
           name="others"
           class="border p-2 text-sm rounded w-full"
+          disabled
         />
         <div *ngIf="errorMessages['others']" class="text-red-700 text-xs mt-1">
           <ul>
@@ -60,10 +62,11 @@
         >
         <input
           id="type"
-          [(ngModel)]="data.type"
+          [(ngModel)]="data.pod_type"
           placeholder="Type"
           name="type"
           class="border p-2 text-sm rounded w-full"
+          disabled
         />
         <div *ngIf="errorMessages['type']" class="text-red-700 text-xs mt-1">
           <ul>
@@ -88,13 +91,17 @@
               [(ngModel)]="data.description"
               placeholder="Description"
               name="description"
-              class="border p-2 text-sm rounded w-full"
+              class="border p-2 text-sm rounded w-full border-gray-300"
               rows="4"
+              disabled
             ></textarea>
           </div>
         </div>
       </div>
-      <div *ngIf="errorMessages['description']" class="text-red-700 text-xs mt-1">
+      <div
+        *ngIf="errorMessages['description']"
+        class="text-red-700 text-xs mt-1"
+      >
         <ul>
           <li *ngFor="let errorMsg of errorMessages['description']">
             {{ errorMsg }}
@@ -102,41 +109,27 @@
         </ul>
       </div>
     </div>
-
     <div class="grid grid-cols-1 gap-2 mb-4">
       <div class="relative">
         <div class="grid grid-cols-2">
-          <div class="relative col-span-2">
-            <label
-              for="imageUpload"
-              class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-              >Add image upload</label
-            >
-            <input
-              type="file"
-              id="imageUpload"
-              (change)="onFileChange($event)"
-              class="border p-2 text-sm rounded w-full"
-              accept="image/*"
-            />
-            <div *ngIf="errorMessages['image']" class="text-red-700 text-xs mt-1">
-              <ul>
-                <li *ngFor="let errorMsg of errorMessages['image']">
-                  {{ errorMsg }}
-                </li>
-              </ul>
-            </div>
-            <div *ngIf="imagePreview" class="mt-4">
-              <img [src]="imagePreview" alt="Image preview" class="w-full max-h-60 object-cover" />
-            </div>
-          </div>
+            <div class="relative col-span-2">
+                <label
+                  for="imageUpload"
+                  class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                  >Image</label
+                >
+                <img
+                  [src]="imageUrlBase + data.image_path"
+                  alt="Image"
+                  class="mx-auto w-full h-60 border border-gray-300 rounded-md"
+                />
+              </div>
+              
         </div>
       </div>
     </div>
   </form>
 </div>
-
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="onNoClick()">Close</button>  
 </div>

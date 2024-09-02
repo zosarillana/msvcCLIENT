@@ -19,7 +19,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AreaAddComponent } from './components/admin/views/master-data/area-add/area-add.component';
-
 import { UpdateMarketVisitsComponent } from './components/update-market-visits/update-market-visits.component';
 import { GetMarketVisitsComponent } from './components/get-market-visits/get-market-visits.component';
 import { SidebarComponentComponent } from './components/sidebar-component/sidebar-component.component';
@@ -50,7 +49,10 @@ import { ModalEditIsrComponent } from './components/admin/views/master-data/isr-
 import { ModalViewIsrComponent } from './components/admin/views/master-data/isr-add/modal/modal-view-isr/modal-view-isr.component';
 import { ModalDeleteIsrComponent } from './components/admin/views/master-data/isr-add/modal/modal-delete-isr/modal-delete-isr.component';
 import { ModalCreatePodComponent } from './components/admin/views/master-data/pod-add/modal/modal-create-pod/modal-create-pod.component';
-
+import { ModalEditPodComponent } from './components/admin/views/master-data/pod-add/modal/modal-edit-pod/modal-edit-pod.component';
+import { ModalViewPodComponent } from './components/admin/views/master-data/pod-add/modal/modal-view-pod/modal-view-pod.component';
+import { RouterModule } from '@angular/router';
+import { ModalDeletePodComponent } from './components/admin/views/master-data/pod-add/modal/modal-delete-pod/modal-delete-pod.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,7 @@ import { ModalCreatePodComponent } from './components/admin/views/master-data/po
     ConfirmDialogComponent,
     AddVisitsComponent,
     LoadingScreenComponent,
-AreaAddComponent,
+    AreaAddComponent,
     ModalCreateAreaComponent,
     ModalViewAreaComponent,
     ModalDeleteAreaComponent,
@@ -82,7 +84,10 @@ AreaAddComponent,
     ModalEditIsrComponent,
     ModalViewIsrComponent,
     ModalDeleteIsrComponent,
-    ModalCreatePodComponent
+    ModalCreatePodComponent,
+    ModalEditPodComponent,
+    ModalViewPodComponent,
+    ModalDeletePodComponent,    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -105,13 +110,14 @@ AreaAddComponent,
     MatExpansionModule,
     MatStepperModule,
     MatProgressSpinnerModule,
-   
+    RouterModule,
+    
   ],
   providers: [
     TokenService, // Add TokenService to providers
     AuthService, // Add AuthService to providers
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

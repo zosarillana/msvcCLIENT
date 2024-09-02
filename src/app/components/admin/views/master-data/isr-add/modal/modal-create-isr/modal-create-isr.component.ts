@@ -25,56 +25,75 @@ export class ModalCreateIsrComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
   save(): void {
     if (this.data) {
       const formData = new FormData();
-      
+  
       // Append form fields
       formData.append('isr_name', this.data.isrName);
       formData.append('isr_others', this.data.others);
       formData.append('isr_type', this.data.type);
       formData.append('description', this.data.description);
   
-      // Append image file if available
+      // Append image file or default image
       if (this.imageFile) {
         formData.append('file', this.imageFile);
-      }
-  
-      this.isrService.createIsrs(formData).subscribe({
-        next: (response) => {
-          this.dialogRef.close(this.data);
-        },
-        error: (errorResponse) => {
-          console.log('Error Response:', errorResponse);
-  
-          this.errorMessages = {};
-  
-          if (errorResponse && typeof errorResponse === 'object') {
-            if (errorResponse.errors) {
-              for (const [key, value] of Object.entries(errorResponse.errors)) {
-                if (Array.isArray(value)) {
-                  this.errorMessages[key] = value;
-                } else if (typeof value === 'string') {
-                  this.errorMessages[key] = [value];
-                } else {
-                  this.errorMessages[key] = ['Unexpected error format.'];
-                }
-              }
-            } else if (errorResponse.message) {
-              this.errorMessages['general'] = [errorResponse.message];
-            } else {
-              this.errorMessages['general'] = ['Unexpected error format.'];
+        this.submitFormData(formData);
+      } else {
+        // Create a default image Blob
+        fetch('/default_img.png')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok.');
             }
-          } else {
-            this.errorMessages['general'] = ['An unknown error occurred.'];
-          }
-        }
-      });
+            return response.blob();
+          })
+          .then(blob => {
+            formData.append('file', blob, 'default_img.png');
+            this.submitFormData(formData);
+          })
+          .catch(error => {
+            console.error('Error fetching default image:', error);
+            this.errorMessages['general'] = ['Failed to load default image.'];
+          });
+      }
     } else {
       console.log('No data provided.');
     }
   }
+  
+  private submitFormData(formData: FormData): void {
+    this.isrService.createIsrs(formData).subscribe({
+      next: (response) => {
+        this.dialogRef.close(this.data);
+      },
+      error: (errorResponse) => {
+        console.log('Error Response:', errorResponse);
+        this.errorMessages = {};
+  
+        if (errorResponse && typeof errorResponse === 'object') {
+          if (errorResponse.errors) {
+            for (const [key, value] of Object.entries(errorResponse.errors)) {
+              if (Array.isArray(value)) {
+                this.errorMessages[key] = value;
+              } else if (typeof value === 'string') {
+                this.errorMessages[key] = [value];
+              } else {
+                this.errorMessages[key] = ['Unexpected error format.'];
+              }
+            }
+          } else if (errorResponse.message) {
+            this.errorMessages['general'] = [errorResponse.message];
+          } else {
+            this.errorMessages['general'] = ['Unexpected error format.'];
+          }
+        } else {
+          this.errorMessages['general'] = ['An unknown error occurred.'];
+        }
+      }
+    });
+  }
+  
   
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
