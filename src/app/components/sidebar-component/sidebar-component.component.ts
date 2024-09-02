@@ -74,20 +74,6 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
     this.user = this.tokenService.getUser();
     this.username = this.user ? this.user.sub : null; // Update username based on 'sub'
 
-    // Log the decoded token for debugging
-    if (this.user) {
-      console.log('Decoded Token:', this.user);
-      console.log('Username:', this.username);
-      console.log('Role ID:', this.user.role_id);
-      console.log('First Name:', this.user.fname);
-      console.log('Middle Name:', this.user.mname);
-      console.log('Last Name:', this.user.lname);
-      console.log('Contact Number:', this.user.contact_num);
-      console.log('ABFI ID:', this.user.abfi_id);
-    } else {
-      console.log('No user data available. Token may be missing or invalid.');
-    }
-
     // Subscribe to content changes from SharedService
     this.sharedService.selectedContent$.subscribe((content) => {
       this.selectedContent = content;

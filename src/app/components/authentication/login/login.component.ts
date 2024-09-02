@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // Log the initial state of isLoading
-    console.log('Initial isLoading:', this.isLoading);
+  
 
     // Simulate a delay for the loading screen (e.g., fetching data)
     setTimeout(() => {
       this.isLoading = false; // Set isLoading to false after the delay
-      console.log('isLoading after delay:', this.isLoading); // Log the state after changing
+    
     }, 1800); // Adjust the delay as needed
   }
 
