@@ -53,6 +53,11 @@ import { ModalEditPodComponent } from './components/admin/views/master-data/pod-
 import { ModalViewPodComponent } from './components/admin/views/master-data/pod-add/modal/modal-view-pod/modal-view-pod.component';
 import { RouterModule } from '@angular/router';
 import { ModalDeletePodComponent } from './components/admin/views/master-data/pod-add/modal/modal-delete-pod/modal-delete-pod.component';
+import { PapAddComponent } from './components/admin/views/master-data/pap-add/pap-add.component';
+import { ModalCreatePapComponent } from './components/admin/views/master-data/pap-add/modal/modal-create-pap/modal-create-pap.component';
+import { ModalEditPapComponent } from './components/admin/views/master-data/pap-add/modal/modal-edit-pap/modal-edit-pap.component';
+import { ModalViewPapComponent } from './components/admin/views/master-data/pap-add/modal/modal-view-pap/modal-view-pap.component';
+import { ModalDeletePapComponent } from './components/admin/views/master-data/pap-add/modal/modal-delete-pap/modal-delete-pap.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +92,12 @@ import { ModalDeletePodComponent } from './components/admin/views/master-data/po
     ModalCreatePodComponent,
     ModalEditPodComponent,
     ModalViewPodComponent,
-    ModalDeletePodComponent,    
+    ModalDeletePodComponent,
+    PapAddComponent,
+    ModalCreatePapComponent,
+    ModalEditPapComponent,
+    ModalViewPapComponent,
+    ModalDeletePapComponent,    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [

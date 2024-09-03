@@ -1,22 +1,19 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialog,
-} from '@angular/material/dialog';
-import { Isr } from '../../../../../../../models/isr';
-import { ConfirmDialogComponent } from '../../../../user/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
-import { Pod } from '../../../../../../../models/pod';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { PodService } from '../../../../../../../services/pod.service';
+import { ConfirmDialogComponent } from '../../../../user/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
+import { ModalEditPodComponent } from '../../../pod-add/modal/modal-edit-pod/modal-edit-pod.component';
+import { Pap } from '../../../../../../../models/pap';
+import { PapService } from '../../../../../../../services/pap.service';
 
 @Component({
-  selector: 'app-modal-edit-pod',
-  templateUrl: './modal-edit-pod.component.html',
-  styleUrl: './modal-edit-pod.component.css',
+  selector: 'app-modal-edit-pap',
+  templateUrl: './modal-edit-pap.component.html',
+  styleUrl: './modal-edit-pap.component.css'
 })
-export class ModalEditPodComponent {
-  @Input() pod?: Pod;
-  @Output() PodUpdated = new EventEmitter<Isr[]>();
+export class ModalEditPapComponent {
+  @Input() pod?: Pap;
+  @Output() PodUpdated = new EventEmitter<Pap[]>();
 
   imageFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
@@ -24,7 +21,7 @@ export class ModalEditPodComponent {
   errorMessages: { [key: string]: string[] } = {};
 
   constructor(
-    private podService: PodService,
+    private podService: PapService,
     public dialogRef: MatDialogRef<ModalEditPodComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog // Inject MatDialog service
@@ -81,7 +78,7 @@ export class ModalEditPodComponent {
         formData.append('file', this.imageFile);
       }
 
-      this.podService.updatePods(formData).subscribe({
+      this.podService.updatePaps(formData).subscribe({
         next: (response) => {
           this.dialogRef.close(this.data);
         },

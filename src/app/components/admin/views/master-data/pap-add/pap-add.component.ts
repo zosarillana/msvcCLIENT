@@ -8,33 +8,33 @@ import moment from 'moment';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { Isr } from '../../../../../models/isr';
-import { IsrService } from '../../../../../services/isr.service';
-import { ModalCreateIsrComponent } from '../isr-add/modal/modal-create-isr/modal-create-isr.component';
-import { ModalDeleteIsrComponent } from '../isr-add/modal/modal-delete-isr/modal-delete-isr.component';
-import { ModalEditIsrComponent } from '../isr-add/modal/modal-edit-isr/modal-edit-isr.component';
-import { ModalViewIsrComponent } from '../isr-add/modal/modal-view-isr/modal-view-isr.component';
-import { ModalCreatePodComponent } from './modal/modal-create-pod/modal-create-pod.component';
 import { PodService } from '../../../../../services/pod.service';
-import { ModalEditPodComponent } from './modal/modal-edit-pod/modal-edit-pod.component';
-import { ModalViewPodComponent } from './modal/modal-view-pod/modal-view-pod.component';
-import { ModalDeletePodComponent } from './modal/modal-delete-pod/modal-delete-pod.component';
-import { ModalDeletePapComponent } from '../pap-add/modal/modal-delete-pap/modal-delete-pap.component';
+import { ModalCreatePodComponent } from '../pod-add/modal/modal-create-pod/modal-create-pod.component';
+import { ModalDeletePodComponent } from '../pod-add/modal/modal-delete-pod/modal-delete-pod.component';
+import { ModalEditPodComponent } from '../pod-add/modal/modal-edit-pod/modal-edit-pod.component';
+import { ModalViewPodComponent } from '../pod-add/modal/modal-view-pod/modal-view-pod.component';
+import { PapService } from '../../../../../services/pap.service';
+import { Pap } from '../../../../../models/pap';
+import { ModalCreatePapComponent } from './modal/modal-create-pap/modal-create-pap.component';
+import { ModalEditPapComponent } from './modal/modal-edit-pap/modal-edit-pap.component';
+import { ModalViewPapComponent } from './modal/modal-view-pap/modal-view-pap.component';
+
 @Component({
-  selector: 'app-pod-add',
-  templateUrl: './pod-add.component.html',
-  styleUrl: './pod-add.component.css'
+  selector: 'app-pap-add',
+  templateUrl: './pap-add.component.html',
+  styleUrl: './pap-add.component.css'
 })
-export class PodAddComponent {
+export class PapAddComponent {
   displayedColumns: string[] = [
     'pod_name',
     'others',
-    'type',
+    
     'image_path',
     'description',
     'date_created',
     'action',
   ];
-  dataSource = new MatTableDataSource<Isr>();
+  dataSource = new MatTableDataSource<Pap>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   podCount: number = 0;
   startDate: Date | null = null;
@@ -43,9 +43,9 @@ export class PodAddComponent {
   private pollingSubscription!: Subscription;
 
   // Construct the base API URL
-  public imageUrlBase = `${environment.apiUrl}/Pod/image/`;  // <-- Use the environment API URL
+  public imageUrlBase = `${environment.apiUrl}/Pap/image/`;  // <-- Use the environment API URL
 
-  constructor(private podService: PodService, public dialog: MatDialog) {}
+  constructor(private papService: PapService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadPods();
@@ -68,7 +68,7 @@ export class PodAddComponent {
       this.endDate = date;
     }
   
-    this.dataSource.filterPredicate = (data: Isr) => {
+    this.dataSource.filterPredicate = (data: Pap) => {
       const createdDate = moment(data.date_created);
       const withinStart = this.startDate ? createdDate.isSameOrAfter(this.startDate) : true;
       const withinEnd = this.endDate ? createdDate.isSameOrBefore(this.endDate) : true;
@@ -79,7 +79,7 @@ export class PodAddComponent {
   
 
   loadPods(): void {
-    this.podService.getPods().subscribe((result: Isr[]) => {
+    this.papService.getPaps().subscribe((result: Pap[]) => {
       this.dataSource.data = result;
       this.dataSource.paginator = this.paginator; // Set paginator after data is loaded
       this.fetchUserCount();
@@ -87,7 +87,7 @@ export class PodAddComponent {
   }
 
   private startPolling(): void {
-    this.pollingSubscription = this.podService.getPodsCount()
+    this.pollingSubscription = this.papService.getPapsCount()
       .subscribe(
         (count: number) => this.podCount = count,
         (error) => console.error('Error fetching ISR count:', error)
@@ -97,7 +97,7 @@ export class PodAddComponent {
   }
 
   private fetchUserCount(): void {
-    this.podService.getPodsCount().subscribe(
+    this.papService.getPapsCount().subscribe(
       (count: number) => {
         this.podCount = count;
       },
@@ -107,26 +107,26 @@ export class PodAddComponent {
     );
   }
 
-  openViewDialog(isr: Isr): void {
-    const dialogRef = this.dialog.open(ModalViewPodComponent, {
+  openViewDialog(pap: Pap): void {
+    const dialogRef = this.dialog.open(ModalViewPapComponent, {
       width: '500px',
-      data: isr,
+      data: pap,
     });
 
     dialogRef.afterClosed().subscribe(() => this.loadPods());
   }
 
-  openEditDialog(isr: Isr): void {
-    const dialogRef = this.dialog.open(ModalEditPodComponent, {
+  openEditDialog(pap: Pap): void {
+    const dialogRef = this.dialog.open(ModalEditPapComponent, {
       width: '500px',
-      data: isr,
+      data: pap,
     });
 
     dialogRef.afterClosed().subscribe(() => this.loadPods());
   }
 
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(ModalCreatePodComponent, {
+    const dialogRef = this.dialog.open(ModalCreatePapComponent, {
       width: '900px',
       height: 'auto',
       data: {},
@@ -139,10 +139,10 @@ export class PodAddComponent {
     });
   }
 
-  openDeleteDialog(isr: Isr): void {
-    const dialogRef = this.dialog.open(ModalDeletePapComponent, {
+  openDeleteDialog(pap: Pap): void {
+    const dialogRef = this.dialog.open(ModalDeletePodComponent, {
       width: '500px',
-      data: isr,
+      data: pap,
     });
 
     dialogRef.afterClosed().subscribe(() => this.loadPods());

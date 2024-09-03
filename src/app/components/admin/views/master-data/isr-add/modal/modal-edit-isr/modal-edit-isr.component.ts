@@ -67,7 +67,8 @@ export class ModalEditIsrComponent {
       // Append form fields
       formData.append('id', this.data.id.toString()); // Ensure id is appended
       formData.append('isr_name', this.data.isr_name);
-      formData.append('isr_others', this.data.isr_others);
+      const othersValue = this.data.others && this.data.others.trim() ? this.data.others : 'N/A';
+      formData.append('isr_others', othersValue);
       formData.append('isr_type', this.data.isr_type);
       formData.append('description', this.data.description);
   

@@ -1,24 +1,27 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { Isr } from '../../../../../../../models/isr';
-import { IsrService } from '../../../../../../../services/isr.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Isr } from '../../../../../../../models/isr';
+import { PodService } from '../../../../../../../services/pod.service';
+import { ModalCreatePodComponent } from '../../../pod-add/modal/modal-create-pod/modal-create-pod.component';
+import { Pap } from '../../../../../../../models/pap';
+import { PapService } from '../../../../../../../services/pap.service';
 
 @Component({
-  selector: 'app-modal-create-isr',
-  templateUrl: './modal-create-isr.component.html',
-  styleUrls: ['./modal-create-isr.component.css']
+  selector: 'app-modal-create-pap',
+  templateUrl: './modal-create-pap.component.html',
+  styleUrl: './modal-create-pap.component.css'
 })
-export class ModalCreateIsrComponent {
+export class ModalCreatePapComponent {
   imageFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;  
-  @Input() area?: Isr;
-  @Output() IsrUpdated = new EventEmitter<Isr[]>();
+  @Input() area?: Pap;
+  @Output() IsrUpdated = new EventEmitter<Pap[]>();
 
   errorMessages: { [key: string]: string[] } = {};
 
   constructor(
-    private isrService: IsrService,
-    public dialogRef: MatDialogRef<ModalCreateIsrComponent>,
+    private podService: PapService,
+    public dialogRef: MatDialogRef<ModalCreatePodComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -28,20 +31,21 @@ export class ModalCreateIsrComponent {
   save(): void {
     if (this.data) {
       const formData = new FormData();
-  
+      
       // Append form fields
-      formData.append('isr_name', this.data.isrName);
+      formData.append('pap_name', this.data.podName);
+      
+      // Check if "others" field is empty or undefined, and append "N/A" if it is
       const othersValue = this.data.others && this.data.others.trim() ? this.data.others : 'N/A';
-      formData.append('isr_others', othersValue);
-      formData.append('isr_type', this.data.type);
+      formData.append('pap_others', othersValue);   
       formData.append('description', this.data.description);
-  
-      // Append image file or default image
+    
+      // Check if an image file is available
       if (this.imageFile) {
         formData.append('file', this.imageFile);
         this.submitFormData(formData);
       } else {
-        // Create a default image Blob
+        // Fetch the default image and append it to formData
         fetch('/default_img.png')
           .then(response => {
             if (!response.ok) {
@@ -62,9 +66,8 @@ export class ModalCreateIsrComponent {
       console.log('No data provided.');
     }
   }
-  
   private submitFormData(formData: FormData): void {
-    this.isrService.createIsrs(formData).subscribe({
+    this.podService.createPaps(formData).subscribe({
       next: (response) => {
         this.dialogRef.close(this.data);
       },

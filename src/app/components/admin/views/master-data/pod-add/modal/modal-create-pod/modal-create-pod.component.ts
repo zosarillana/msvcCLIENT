@@ -33,7 +33,9 @@ export class ModalCreatePodComponent {
       
       // Append form fields
       formData.append('pod_name', this.data.podName);
-      formData.append('pod_others', this.data.others);
+
+      const othersValue = this.data.others && this.data.others.trim() ? this.data.others : 'N/A';
+      formData.append('pod_others', othersValue);
       formData.append('pod_type', this.data.type);
       formData.append('description', this.data.description);
     

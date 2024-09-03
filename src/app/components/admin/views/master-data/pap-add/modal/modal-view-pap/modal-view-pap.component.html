@@ -1,0 +1,113 @@
+<h1 mat-dialog-title>View in store requirements</h1>
+<div
+  *ngIf="errorMessages['general']"
+  class="bg-red-100 text-red-700 p-2 rounded mb-4"
+>
+  <ul>
+    <li *ngFor="let errorMsg of errorMessages['general']">{{ errorMsg }}</li>
+  </ul>
+</div>
+<div *ngIf="data" mat-dialog-content>
+  <form>
+    <div class="grid md:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
+      <div class="relative">
+        <label
+          for="isrName"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Isr Name</label
+        >
+        <input
+          id="isrName"
+          [(ngModel)]="data.pap_name"
+          placeholder="PAP Name"
+          name="isrName"
+          class="border p-2 text-sm rounded w-full"
+          disabled
+        />
+        <div *ngIf="errorMessages['isrName']" class="text-red-700 text-xs mt-1">
+          <ul>
+            <li *ngFor="let errorMsg of errorMessages['isrName']">
+              {{ errorMsg }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="relative">
+        <label
+          for="others"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Others</label
+        >
+        <input
+          id="others"
+          [(ngModel)]="data.pap_others"
+          placeholder="Others"
+          name="others"
+          class="border p-2 text-sm rounded w-full"
+          disabled
+        />
+        <div *ngIf="errorMessages['others']" class="text-red-700 text-xs mt-1">
+          <ul>
+            <li *ngFor="let errorMsg of errorMessages['others']">
+              {{ errorMsg }}
+            </li>
+          </ul>
+        </div>
+      </div>      
+    </div>
+    <div class="grid grid-cols-1 gap-2 mb-4">
+      <div class="relative">
+        <div class="grid grid-cols-2">
+          <div class="relative col-span-2">
+            <label
+              for="description"
+              class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              [(ngModel)]="data.description"
+              placeholder="Description"
+              name="description"
+              class="border p-2 text-sm rounded w-full border-gray-300"
+              rows="4"
+              disabled
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="errorMessages['description']"
+        class="text-red-700 text-xs mt-1"
+      >
+        <ul>
+          <li *ngFor="let errorMsg of errorMessages['description']">
+            {{ errorMsg }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 gap-2 mb-4">
+      <div class="relative">
+        <div class="grid grid-cols-2">
+            <div class="relative col-span-2">
+                <label
+                  for="imageUpload"
+                  class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                  >Image</label
+                >
+                <img
+                  [src]="imageUrlBase + data.image_path"
+                  alt="Image"
+                  class="mx-auto w-full h-60 border border-gray-300 rounded-md"
+                />
+              </div>
+              
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>  
+</div>
