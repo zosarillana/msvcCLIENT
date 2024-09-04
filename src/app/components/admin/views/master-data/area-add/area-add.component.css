@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+
 .tooltip {
   opacity: 0;
   visibility: hidden;
@@ -17,4 +19,13 @@
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) scale(1); /* Scale to full size */
+}
+
+
+.mat-header-cell {
+  background-color: white; /* Overrides Tailwind's bg-white if needed */
+}
+
+.bg-white-imp {
+    background-color: white !important;
 }

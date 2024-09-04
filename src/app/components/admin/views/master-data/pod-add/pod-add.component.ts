@@ -19,6 +19,7 @@ import { ModalEditPodComponent } from './modal/modal-edit-pod/modal-edit-pod.com
 import { ModalViewPodComponent } from './modal/modal-view-pod/modal-view-pod.component';
 import { ModalDeletePodComponent } from './modal/modal-delete-pod/modal-delete-pod.component';
 import { ModalDeletePapComponent } from '../pap-add/modal/modal-delete-pap/modal-delete-pap.component';
+import { Pod } from '../../../../../models/pod';
 @Component({
   selector: 'app-pod-add',
   templateUrl: './pod-add.component.html',
@@ -34,7 +35,7 @@ export class PodAddComponent {
     'date_created',
     'action',
   ];
-  dataSource = new MatTableDataSource<Isr>();
+  dataSource = new MatTableDataSource<Pod>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   podCount: number = 0;
   startDate: Date | null = null;
@@ -68,7 +69,7 @@ export class PodAddComponent {
       this.endDate = date;
     }
   
-    this.dataSource.filterPredicate = (data: Isr) => {
+    this.dataSource.filterPredicate = (data: Pod) => {
       const createdDate = moment(data.date_created);
       const withinStart = this.startDate ? createdDate.isSameOrAfter(this.startDate) : true;
       const withinEnd = this.endDate ? createdDate.isSameOrBefore(this.endDate) : true;
@@ -79,7 +80,7 @@ export class PodAddComponent {
   
 
   loadPods(): void {
-    this.podService.getPods().subscribe((result: Isr[]) => {
+    this.podService.getPods().subscribe((result: Pod[]) => {
       this.dataSource.data = result;
       this.dataSource.paginator = this.paginator; // Set paginator after data is loaded
       this.fetchUserCount();
@@ -90,7 +91,7 @@ export class PodAddComponent {
     this.pollingSubscription = this.podService.getPodsCount()
       .subscribe(
         (count: number) => this.podCount = count,
-        (error) => console.error('Error fetching ISR count:', error)
+        (error) => console.error('Error fetching Pod count:', error)
       );
 
     setInterval(() => this.fetchUserCount(), 3000);
@@ -102,12 +103,12 @@ export class PodAddComponent {
         this.podCount = count;
       },
       (error) => {
-        console.error('Error fetching ISR count:', error);
+        console.error('Error fetching pod count:', error);
       }
     );
   }
 
-  openViewDialog(isr: Isr): void {
+  openViewDialog(isr: Pod): void {
     const dialogRef = this.dialog.open(ModalViewPodComponent, {
       width: '500px',
       data: isr,
@@ -116,7 +117,7 @@ export class PodAddComponent {
     dialogRef.afterClosed().subscribe(() => this.loadPods());
   }
 
-  openEditDialog(isr: Isr): void {
+  openEditDialog(isr: Pod): void {
     const dialogRef = this.dialog.open(ModalEditPodComponent, {
       width: '500px',
       data: isr,
@@ -139,7 +140,7 @@ export class PodAddComponent {
     });
   }
 
-  openDeleteDialog(isr: Isr): void {
+  openDeleteDialog(isr: Pod): void {
     const dialogRef = this.dialog.open(ModalDeletePapComponent, {
       width: '500px',
       data: isr,

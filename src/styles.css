@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
 /* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
@@ -40,13 +41,6 @@ html {
   /* 3 */
   -o-tab-size: 4;
      tab-size: 4;
-  /* 3 */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  /* 4 */
-  font-feature-settings: normal;
-  /* 5 */
-  font-variation-settings: normal;
-  /* 6 */
 }
 
 /*
@@ -59,6 +53,7 @@ body {
   /* 1 */
   line-height: inherit;
   /* 2 */
+    font-family: "SUSE", sans-serif;
 }
 
 /*
@@ -66,6 +61,27 @@ body {
 2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
 3. Ensure horizontal rules are visible by default.
 */
+.mat-app-background,
+.mat-elevation-z1,
+.mat-elevation-z2,
+.mat-elevation-z3,
+.mat-elevation-z4,
+.mat-elevation-z5 {
+  font-family: "SUSE", sans-serif !important;
+}
+
+.mat-button,
+.mat-raised-button,
+.mat-flat-button,
+.mat-stroked-button,
+.mat-icon-button,
+.mat-fab,
+.mat-mini-fab,
+.mat-card,
+.mat-form-field,
+.mat-input-element {
+  font-family: "SUSE", sans-serif !important;
+}
 
 hr {
   height: 0;

@@ -18,6 +18,7 @@ import { Pap } from '../../../../../models/pap';
 import { ModalCreatePapComponent } from './modal/modal-create-pap/modal-create-pap.component';
 import { ModalEditPapComponent } from './modal/modal-edit-pap/modal-edit-pap.component';
 import { ModalViewPapComponent } from './modal/modal-view-pap/modal-view-pap.component';
+import { ModalDeletePapComponent } from './modal/modal-delete-pap/modal-delete-pap.component';
 
 @Component({
   selector: 'app-pap-add',
@@ -140,7 +141,7 @@ export class PapAddComponent {
   }
 
   openDeleteDialog(pap: Pap): void {
-    const dialogRef = this.dialog.open(ModalDeletePodComponent, {
+    const dialogRef = this.dialog.open(ModalDeletePapComponent, {
       width: '500px',
       data: pap,
     });

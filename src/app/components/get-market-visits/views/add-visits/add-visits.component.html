@@ -22,23 +22,33 @@
             type="datetime-local"
             id="datetimepicker"
             name="datetime"
-            class="border p-2 text-sm rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
+            class="border p-2 text-sm rounded w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
           />
         </div>
-
-        <div class="relative">
-          <label
-            for="area"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Area</label
-          >
-          <input
-            id="area"
-            placeholder="Area"
-            name="area"
-            class="border p-2 text-sm rounded w-full"
-          />
-        </div>
+      </div>
+      <div class="relative">
+        <label
+          for="area"
+          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >Area</label
+        >
+        <ul>
+          <li *ngFor="let areas of areas">
+            <div class="flex items-center mb-2">
+              <input
+                id="{{ areas.id }}"
+                type="checkbox"
+                name="pod_canned"
+                value="{{ areas.id }}"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="{{ areas.id }}" class="ml-2 text-xs text-gray-700">{{
+                areas.area
+              }}</label>
+              <!-- The for attribute should match the input id -->
+            </div>
+          </li>
+        </ul>
       </div>
 
       <div>
@@ -96,29 +106,27 @@
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
             >Account type</label
           >
-          <select
-            id="visit_accountType"
-            name="visit_accountType"
-            class="border p-2 text-sm rounded w-full"
-          >
-            <option value="" selected disabled>Select account type</option>
-            <option value="General Trade">General Trade</option>
-            <option value="Modern Trade">Modern Trade</option>
-            <option value="Local Key Account">Local Key Account</option>
-            <option value="Others">Others...</option>
-          </select>
-        </div>
-        <div class="relative">
-          <label
-            for="visit_accountTypeOthers"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-            >Others</label
-          >
+          <ul>
+            <li *ngFor="let type of accountType">
+              <div class="flex items-center mb-2">
+                <input
+                  id="{{ type }}"
+                  type="checkbox"
+                  name="pod_canned"
+                  value="{{ type }}"
+                  class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label for="{{ type }}" class="ml-2 text-xs text-gray-700">{{
+                  type
+                }}</label>
+              </div>
+            </li>
+          </ul>
           <input
-            id="visit_accountTypeOthers"
-            placeholder="Others..."
-            name="visit_accountTypeOthers"
-            class="border p-2 text-sm rounded w-full"
+            type="text"
+            id="pod_others"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Others"
           />
         </div>
       </div>
@@ -130,65 +138,108 @@
   </mat-step>
   <mat-step [stepControl]="thirdFormGroup">
     <form [formGroup]="thirdFormGroup">
-      <ng-template matStepLabel>Fill out account information</ng-template>
+      <ng-template matStepLabel
+        >Fill out In store requirement checklist</ng-template
+      >
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-        <div class="relative">
-          <label
-            for="visit_isr"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-            >In-Store Requirements</label
+        <div class="relative mt-4">
+          <label class="block font-medium mb-4">In store requirement</label>
+          <div
+            *ngIf="
+              isrRequirements && isrRequirements.length > 0;
+              else noIsrRequirements
+            "
           >
-          <select
-            id="visit_isr"
-            name="visit_isr"
-            class="border p-2 text-sm rounded w-full"
-          >
-            <option value="" selected disabled>Select account type</option>
-            <option value="General Trade">General Trade</option>
-            <option value="Modern Trade">Modern Trade</option>
-            <option value="Local Key Account">Local Key Account</option>
-            <option value="Others">Others...</option>
-          </select>
+            <ul>
+              <li *ngFor="let isr of isrRequirements">
+                <div class="flex items-center mb-2">
+                  <input
+                    id="{{ isr.id }}"
+                    type="checkbox"
+                    name="pod_canned"
+                    value="{{ isr.id }}"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label
+                    for="{{ isr.id }}"
+                    class="ml-2 text-xs text-gray-700"
+                    >{{ isr.isr_name }}</label
+                  >
+                  <!-- The for attribute should match the input id -->
+                </div>
+              </li>
+            </ul>
+            <div class="relative col-span-2">
+              <div>
+                <input
+                  type="text"
+                  id="pod_others"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Others"
+                />
+              </div>
+              <div>
+                <input
+                  type="file"
+                  id="imageUpload"
+                  class="border rounded-lg text-sm w-1/2 cursor-pointer mt-2"
+                  accept="image/*"
+                />
+              </div>
+            </div>
+          </div>
+          <ng-template #noIsrRequirements>
+            <p>No ISR available.</p>
+          </ng-template>
         </div>
-        <div class="relative">
-          <label
-            for="visit_isrOthers"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-            >Others</label
+        <div class="relative mt-4">
+          <label class="block font-medium mb-4"
+            >In store requirement needs</label
           >
-          <input
-            id="visit_isrOthers"
-            placeholder="Others..."
-            name="visit_isrOthers"
-            class="border p-2 text-sm rounded w-full"
-          />
-        </div>
-        <div class="relative">
-          <label
-            for="salesPeronnel"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Payola Supervisor</label
-          >
-          <input
-            id="salesPeronnel"
-            placeholder="Payola Supervisor"
-            name="salesPeronnel"
-            class="border p-2 text-sm rounded w-full"
-          />
-        </div>
-
-        <div class="relative">
-          <label
-            for="visit_averageOffTakePd"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Average Off Take</label
-          >
-          <input
-            id="visit_averageOffTakePd"
-            placeholder="Average Off Take Per Day"
-            name="visit_averageOffTakePd"
-            class="border p-2 text-sm rounded w-full"
-          />
+          <div *ngIf="isrNeeds && isrNeeds.length > 0; else noisrNeeds">
+            <ul>
+              <li *ngFor="let isr of isrNeeds">
+                <div class="flex items-center mb-2">
+                  <input
+                    id="{{ isr.id }}"
+                    type="checkbox"
+                    name="pod_canned"
+                    value="{{ isr.id }}"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label
+                    for="{{ isr.id }}"
+                    class="ml-2 text-xs text-gray-700"
+                    >{{ isr.isr_name }}</label
+                  >
+                  <!-- The for attribute should match the input id -->
+                </div>
+              </li>
+            </ul>
+            <div>
+              <div class="relative col-span-2">
+                <div>
+                  <input
+                    type="text"
+                    id="pod_others"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Others"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="file"
+                    id="imageUpload"
+                    class="border rounded-lg text-sm w-1/2 cursor-pointer mt-2"
+                    accept="image/*"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-template #noisrNeeds>
+            <p>No ISR NEEDS available.</p>
+          </ng-template>
         </div>
       </div>
       <div>
@@ -255,318 +306,70 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
         <div class="relative">
-          <label class="block font-medium mb-4">Canned</label>
-
-          <div class="grid grid-cols-1 gap-2">
-            <div class="flex items-center">
-              <input
-                id="cml"
-                type="checkbox"
-                name="cml"
-                value="CML"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="cml" class="ml-2 text-xs text-gray-700">CML</label>
-            </div>
-            <div class="flex items-center">
-              <input
-                id="clo"
-                type="checkbox"
-                name="clo"
-                value="CLO"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="clo" class="ml-2 text-xs text-gray-700">CLO 2</label>
-            </div>
-            <div class="flex items-center">
-              <input
-                id="cls"
-                type="checkbox"
-                name="cls"
-                value="CLS"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label class="ml-2 text-xs text-gray-700">CLS</label>
-            </div>
-            <div class="flex items-center">
-              <input
-                id="cdlPastel"
-                type="checkbox"
-                name="cdlPastel"
-                value="CDL PASTIL"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="cdlPastel" class="ml-2 text-xs text-gray-700"
-                >CDL PASTIL</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="cdlGiniling"
-                type="checkbox"
-                name="cdlGiniling"
-                value="CDL GINILING"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="cdlGiniling" class="ml-2 text-xs text-gray-700"
-                >CDL GINILING</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="cdlSisig"
-                type="checkbox"
-                name="cdlSisig"
-                value="CDL SISIG"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="cdlSisig" class="ml-2 text-xs text-gray-700"
-                >CDL SISIG</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="cscInBrine"
-                type="checkbox"
-                name="cscInBrine"
-                value="CHEF SERIES CHICKEN in BRINE"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="cscInBrine" class="ml-2 text-xs text-gray-700"
-                >CHEF SERIES CHICKEN in BRINE</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="cscInOil"
-                type="checkbox"
-                name="cscInOil"
-                value="CHEF SERIES CHUNKS in OIL"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="cscInOil" class="ml-2 text-xs text-gray-700"
-                >CHEF SERIES CHUNKS in OIL</label
-              >
-            </div>
-
-            <div class="flex items-center">
-              <input
-                id="msLuncheonMeat"
-                type="checkbox"
-                name="msLuncheonMeat"
-                value="MEATLOAF SERIES - LUNCHEON MEAT"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="msLuncheonMeat" class="ml-2 text-xs text-gray-700"
-                >MEATLOAF SERIES - LUNCHEON MEAT</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="msViennaLoaf"
-                type="checkbox"
-                name="msViennaLoaf"
-                value="MEATLOAF SERIES - VIENNA LOAF"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="msViennaLoaf" class="ml-2 text-xs text-gray-700"
-                >MEATLOAF SERIES - VIENNA LOAF</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="ifChickenAndMushroom"
-                type="checkbox"
-                name="ifChickenAndMushroom"
-                value="IF - Chicken and Mushroom"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label
-                for="ifChickenAndMushroom"
-                class="ml-2 text-xs text-gray-700"
-                >IF - Chicken and Mushroom</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="ifChickenMasala"
-                type="checkbox"
-                name="ifChickenMasala"
-                value="IF - Chicken Masala"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="ifChickenMasala" class="ml-2 text-xs text-gray-700"
-                >IF - Chicken Masala</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="ifCornedChicken"
-                type="checkbox"
-                name="ifCornedChicken"
-                value="IF - Corned Chicken
-                          "
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="ifCornedChicken" class="ml-2 text-xs text-gray-700"
-                >IF - Corned Chicken
-              </label>
-            </div>
-            <div class="flex items-center">
-              <input
-                id="ifBicolExpress"
-                type="checkbox"
-                name="ifBicolExpress"
-                value="IF - Bicol Express"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="ifBicolExpress" class="ml-2 text-xs text-gray-700"
-                >IF - Bicol Express</label
-              >
-            </div>
-
-            <div class="flex items-center">
-              <input
-                id="ifTeriyaki"
-                type="checkbox"
-                name="ifTeriyaki"
-                value="IF - Teriyaki"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="ifTeriyaki" class="ml-2 text-xs text-gray-700"
-                >IF - Teriyaki</label
-              >
-            </div>
-            <div class="w-12">
-              <input
-                id="Others"
-                placeholder="Others..."
-                name="Others"
-                class="border-b border-gray-400 p-2 text-sm w-full"
-              />
-            </div>
+          <label class="block font-medium mb-4">CANNED PODs</label>
+          <div *ngIf="cannedPods && cannedPods.length > 0; else noCannedData">
+            <ul>
+              <li *ngFor="let pod of cannedPods">
+                <div class="flex items-center mb-2">
+                  <input
+                    id="{{ pod.id }}"
+                    type="checkbox"
+                    name="pod_canned"
+                    value="{{ pod.id }}"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label
+                    for="{{ pod.id }}"
+                    class="ml-2 text-xs text-gray-700"
+                    >{{ pod.pod_name }}</label
+                  >
+                  <!-- The for attribute should match the input id -->
+                </div>
+              </li>
+            </ul>
+            <input
+              type="text"
+              id="pod_others"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Others"
+            />
           </div>
+          <ng-template #noCannedData>
+            <p>No CANNED PODs available.</p>
+          </ng-template>
         </div>
-        <div class="relative">
-          <label class="block font-medium mb-4">MPP</label>
-          <div class="grid grid-cols-1 gap-2">
-            <div class="flex items-center">
-              <input
-                id="pNuggets"
-                type="checkbox"
-                name="pNuggets"
-                value="PREMIUM - Nuggets"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="pNuggets" class="ml-2 text-xs text-gray-700"
-                >PREMIUM - Nuggets</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="pBacon"
-                type="checkbox"
-                name="pBacon"
-                value="PREMIUM - BACON"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="pBacon" class="ml-2 text-xs text-gray-700"
-                >PREMIUM - BACON</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="mChickenTocinoOriginal"
-                type="checkbox"
-                name="mChickenTocinoOriginal"
-                value="MARINATES - Chicken Tocino Original"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label
-                for="mChickenTocinoOriginal"
-                class="ml-2 text-xs text-gray-700"
-                >MARINATES - Chicken Tocino Original</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="mChickenTocinoSpicy"
-                type="checkbox"
-                name="mChickenTocinoSpicy"
-                value="MARINATES - Chicken Tocino Spicy"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label
-                for="mChickenTocinoSpicy"
-                class="ml-2 text-xs text-gray-700"
-                >MARINATES - Chicken Tocino Spicy</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="mCHickenTocinoTeriyaki"
-                type="checkbox"
-                name="mCHickenTocinoTeriyaki"
-                value="MARINATES - Chicken Tocino Teriyaki"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label
-                for="mCHickenTocinoTeriyaki"
-                class="ml-2 text-xs text-gray-700"
-                >MARINATES - Chicken Tocino Teriyaki</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="mChickenTocinoCurry"
-                type="checkbox"
-                name="mChickenTocinoCurry"
-                value="MARINATES - Chicken Tocino Curry"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label
-                for="mChickenTocinoCurry"
-                class="ml-2 text-xs text-gray-700"
-                >MARINATES - Chicken Tocino Curry</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="lSkinlessOriginal"
-                type="checkbox"
-                name="lSkinlessOriginal"
-                value="LONGGANISA - Skinless Original"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="lSkinlessOriginal" class="ml-2 text-xs text-gray-700"
-                >LONGGANISA - Skinless Original</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="lSpanishStyle"
-                type="checkbox"
-                name="lSpanishStyle"
-                value="LONGGANISA - Smoked Original"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="lSpanishStyle" class="ml-2 text-xs text-gray-700"
-                >LONGGANISA - Smoked Original</label
-              >
-            </div>
-            <div class="flex items-center">
-              <input
-                id="lCurry"
-                type="checkbox"
-                name="lCurry"
-                value="LONGGANISA - Curry"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="lCurry" class="ml-2 text-xs text-gray-700"
-                >LONGGANISA - Curry</label
-              >
-            </div>
+        <div class="relative mt-4">
+          <label class="block font-medium mb-4">MPP PODs</label>
+          <div *ngIf="mppPods && mppPods.length > 0; else noMppData">
+            <ul>
+              <li *ngFor="let pod of mppPods">
+                <div class="flex items-center mb-2">
+                  <input
+                    id="{{ pod.id }}"
+                    type="checkbox"
+                    name="pod_canned"
+                    value="{{ pod.id }}"
+                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label
+                    for="{{ pod.id }}"
+                    class="ml-2 text-xs text-gray-700"
+                    >{{ pod.pod_name }}</label
+                  >
+                  <!-- The for attribute should match the input id -->
+                </div>
+              </li>
+            </ul>
+            <input
+              type="text"
+              id="pod_others"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Others"
+            />
           </div>
+          <ng-template #noMppData>
+            <p>No MPP PODs available.</p>
+          </ng-template>
         </div>
       </div>
       <div>
@@ -603,33 +406,34 @@
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
             >Proposed Action Plan</label
           >
-          <select
-            id="visit_pap"
-            name="visit_pap"
-            class="border p-2 text-sm rounded w-full"
-          >
-            <option value="" selected disabled>Select account type</option>
-            <option value="General Trade">General Trade</option>
-            <option value="Modern Trade">Modern Trade</option>
-            <option value="Local Key Account">Local Key Account</option>
-            <option value="Others">Others...</option>
-          </select>
-        </div>
-        <div class="relative">
-          <label
-            for="visit_papOthers"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
-            >Others</label
-          >
+          <ul>
+            <li *ngFor="let paps of paps">
+              <div class="flex items-center mb-2">
+                <input
+                  id="{{ paps.id }}"
+                  type="checkbox"
+                  name="pod_canned"
+                  value="{{ paps.id }}"
+                  class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label for="{{ paps.id }}" class="ml-2 text-xs text-gray-700">{{
+                  paps.pap_name
+                }}</label>
+                <!-- The for attribute should match the input id -->
+              </div>
+            </li>
+          </ul>
           <input
-            id="visit_papOthers"
-            placeholder="Others..."
-            name="visit_papOthers"
-            class="border p-2 text-sm rounded w-full"
+            type="text"
+            id="pod_others"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Others"
           />
         </div>
+        <ng-template #noMppData>
+          <p>No MPP PODs available.</p>
+        </ng-template>
       </div>
-
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>

@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+
 .sidebar-menu a.active {
   background-color: #1f2937; /* Gray-800 */
   color: #ffffff; /* White */
+}
+
+body {
+  font-family: "SUSE", sans-serif;
 }

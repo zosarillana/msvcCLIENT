@@ -1,39 +1,8 @@
-.icon-button {
-  border-radius: 50%; /* Circular button */
-  width: 36px; /* Larger button diameter */
-  height: 36px; /* Larger button diameter */
-  padding: 0; /* Remove default padding */
-  display: flex; /* Center align the SVG */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
- 
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+
+.mat-header-cell {
+  background-color: white; /* Overrides Tailwind's bg-white if needed */
 }
-
-.icon-button svg {
-  width: 24px; /* Larger SVG size */
-  height: 24px; /* Larger SVG size */
-  color: currentColor; /* Use current color of the button */
-}
-
-
-.icon-button-edit {
-    border-radius: 50%; /* Circular button */
-    width: 36px; /* Larger button diameter */
-    height: 36px; /* Larger button diameter */
-    padding: 0; /* Remove default padding */
-    display: flex; /* Center align the SVG */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-  }
-
-  .icon-button-edit svg {
-    width: 16px; /* Larger SVG size */
-    height: 16px; /* Larger SVG size */
-    color: currentColor; /* Use current color of the button */
-  }
-  
-
-  /*Table*/
 
 .bg-white-imp {
     background-color: white !important;
