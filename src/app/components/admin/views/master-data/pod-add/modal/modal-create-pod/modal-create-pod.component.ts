@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Isr } from '../../../../../../../models/isr';
-import { IsrService } from '../../../../../../../services/isr.service';
 import { PodService } from '../../../../../../../services/pod.service';
 
 

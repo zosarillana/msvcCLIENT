@@ -95,7 +95,7 @@
               type="file"
               id="imageUpload"
               (change)="onFileChange($event)"
-              class="border p-2 text-sm rounded w-full"
+              class="border text-sm rounded w-full cursor-pointer"
               accept="image/*"
             />
             <div *ngIf="errorMessages['image']" class="text-red-700 text-xs mt-1">

@@ -73,6 +73,7 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
     this.tokenService.decodeTokenAndSetUser();
     this.user = this.tokenService.getUser();
     this.username = this.user ? this.user.sub : null; // Update username based on 'sub'
+    
 
     // Subscribe to content changes from SharedService
     this.sharedService.selectedContent$.subscribe((content) => {

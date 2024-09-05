@@ -15,7 +15,7 @@ export class ModalDeletePodComponent {
 
   constructor(
     private podService: PodService,
-    public dialogRef: MatDialogRef<ModalDeleteAreaComponent>,
+    public dialogRef: MatDialogRef<ModalDeletePodComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 

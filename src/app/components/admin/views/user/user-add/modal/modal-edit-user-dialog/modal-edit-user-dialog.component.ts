@@ -13,7 +13,13 @@ export class ModalEditUserDialogComponent {
   @Input() user?: User;
   @Output() userUpdated = new EventEmitter<User[]>();
   isPasswordEnabled = false; // Default is disabled
-
+  passwordValue = ""; 
+  onPasswordInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    // Handle the input change here
+    this.passwordValue = input.value;  // Update local variable
+    // You can add logic here if needed to handle password updates
+  }
   errorMessages: { [key: string]: string[] } = {};
 
   constructor(
@@ -38,6 +44,11 @@ export class ModalEditUserDialogComponent {
   }
 
   save(): void {
+    console.log('Password Value:', this.passwordValue);
+
+    // Include password in the data object, or set it to an empty string if passwordValue is empty
+    this.data.user_password = this.passwordValue || "";
+    
     this.userService.updateUser(this.data).subscribe({
       next: (response) => {
         this.dialogRef.close(this.data);
@@ -72,6 +83,8 @@ export class ModalEditUserDialogComponent {
       },
     });
   }
+
+
 
   // Method to toggle password field enabled state
   togglePasswordField(event: any) {

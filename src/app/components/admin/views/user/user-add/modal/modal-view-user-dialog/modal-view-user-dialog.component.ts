@@ -13,21 +13,40 @@ import { formatDate } from '@angular/common';
 export class ModalViewUserDialogComponent {
   @Input() user?: User;
   @Output() userUpdated = new EventEmitter<User[]>();
-
+  isPasswordEnabled = false; // Default is disabled
+  passwordValue = ""; 
+  onPasswordInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    // Handle the input change here
+    this.passwordValue = input.value;  // Update local variable
+    // You can add logic here if needed to handle password updates
+  }
   formattedDate: string = '';
   formattedDateUpdated: string = '';
   ngOnInit() {
     this.formattedDate = formatDate(this.data.date_created, 'short', 'en-US');
     this.formattedDateUpdated = formatDate(this.data.date_updated, 'short', 'en-US');
   }
+  errorMessages: { [key: string]: string[] } = {};
 
   constructor(
     private userService: UserService,
     public dialogRef: MatDialogRef<ModalEditUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  
+
+
+
+
+  //for editing and updating
+  private fetchMarketVisits() {
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.userUpdated.emit(users);
+    });
   }
 }

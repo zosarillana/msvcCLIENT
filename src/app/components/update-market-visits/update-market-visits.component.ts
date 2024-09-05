@@ -29,7 +29,7 @@ export class UpdateMarketVisitsComponent {
     this.marketVisitsService.deleteMarketVisits(mvisit).subscribe(() => this.fetchMarketVisits());
   }
 
-  createVisit(mvisit: MarketVisits) {
-    this.marketVisitsService.createMarketVisits(mvisit).subscribe(() => this.fetchMarketVisits());
-  }
+  // createVisit(mvisit: MarketVisits) {
+  //   this.marketVisitsService.createMarketVisits(mvisit).subscribe(() => this.fetchMarketVisits());
+  // }
 }

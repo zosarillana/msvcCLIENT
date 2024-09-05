@@ -12,11 +12,11 @@
 </div>
 <div *ngIf="data" mat-dialog-content>
   <form>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 mb-4">
       <div class="relative">
         <label
           for="abfi_id"
-          class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          class="block text-gray-700 text-md  dark:text-gray-300 font-medium mb-2"
           >Annas Breeder INC ID</label
         >
         <input
@@ -24,7 +24,7 @@
           [(ngModel)]="data.abfi_id"
           placeholder="XXX-XXX"
           name="abfi_id"
-          class="border p-2 text-sm rounded w-full"
+          class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <div *ngIf="errorMessages['abfi_id']" class="text-red-700 text-xs mt-1">
           <ul>
@@ -36,21 +36,39 @@
       </div>
 
       <div class="relative">
-        <label
+        <!-- <label
           for="role"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Role</label
         >
         <select
-        id="role"
-        [(ngModel)]="data.role_id"
-        name="role_id"
-        class="border p-2 text-sm rounded w-full"
-      >
-        <option value="" selected disabled>Select a role</option>
-        <option value="2">User</option>
-        <option value="1">Admin</option>
-      </select>
+          id="role"
+          [(ngModel)]="data.role_id"
+          name="role_id"
+          class="border p-2 text-sm rounded w-full"
+        >
+          <option value="" selected disabled>Select a role</option>
+          <option value="2">User</option>
+          <option value="1">Admin</option>
+        </select> -->
+
+       
+          <label
+            for="countries"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Select an option</label
+          >
+          <select
+            id="role_id"
+            [(ngModel)]="data.role_id"
+            name="role_id"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+          <option selected disabled>Select a role</option>
+          <option value="2">User</option>
+          <option value="1">Admin</option>
+          </select>
+      
 
         <div *ngIf="errorMessages['role']" class="text-red-700 text-xs mt-1">
           <ul>
@@ -74,7 +92,7 @@
           [(ngModel)]="data.fname"
           placeholder="Firstname"
           name="Firstname"
-          class="border p-2 text-sm rounded w-full"
+          class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <div *ngIf="errorMessages['fname']" class="text-red-700 text-xs mt-1">
           <ul>
@@ -96,7 +114,7 @@
           [(ngModel)]="data.mname"
           placeholder="Middle Name"
           name="Middlename"
-          class="border p-2 text-sm rounded w-full"
+          class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <div *ngIf="errorMessages['mname']" class="text-red-700 text-xs mt-1">
           <ul>
@@ -117,7 +135,7 @@
           [(ngModel)]="data.lname"
           placeholder="Last Name"
           name="Lastname"
-          class="border p-2 text-sm rounded w-full"
+          class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <div *ngIf="errorMessages['lname']" class="text-red-700 text-xs mt-1">
           <ul>
@@ -140,7 +158,7 @@
           [(ngModel)]="data.email_add"
           placeholder="Email Address"
           name="Emailadd"
-          class="border p-2 text-sm rounded w-full"
+          class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <div
           *ngIf="errorMessages['email_add']"
@@ -168,7 +186,7 @@
           [(ngModel)]="data.contact_num"
           placeholder="Contact Number"
           name="Contactnum"
-          class="border p-2 text-sm rounded w-full"
+          class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <div
           *ngIf="errorMessages['contact_num']"
@@ -194,7 +212,7 @@
           [(ngModel)]="data.username"
           placeholder="Username"
           name="Username"
-          class="border p-2 text-sm rounded w-full"
+          class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <div
           *ngIf="errorMessages['username']"
@@ -219,7 +237,7 @@
           placeholder="Password"
           name="Password"
           type="password"
-          class="border p-2 text-sm rounded w-full"
+          class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <div
           *ngIf="errorMessages['user_password']"
@@ -238,5 +256,5 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>
-  <button mat-button (click)="save() ">Save</button>
+  <button mat-button (click)="save()">Save</button>
 </div>

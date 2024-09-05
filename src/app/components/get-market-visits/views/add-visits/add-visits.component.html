@@ -1,34 +1,33 @@
 <div class="text-2xl font-semibold mb-1">Add visits</div>
-<!-- <button
-          mat-raised-button
-          (click)="isLinear = !isLinear"
-          id="toggle-linear"
-        >
-          {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
-        </button> -->
-<mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+<mat-stepper orientation="vertical" [linear]="true" #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Fill out time and date of visit</ng-template>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
         <div class="relative">
+          <input
+            placeholder="{{ user.user_id }}"
+            value="{{ user.user_id }}"
+            type="user_id"
+            id="user_id"
+            name="user_id"
+          />
           <label
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
             >Date of visit
           </label>
           <input
-            id="dateOfVisit"
+            id="visit_date"
             placeholder="Date and Time"
             type="datetime-local"
-            id="datetimepicker"
-            name="datetime"
-            class="border p-2 text-sm rounded w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
+            name="visit_date"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
       </div>
       <div class="relative">
         <label
-          for="area"
+          for="area_id"
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Area</label
         >
@@ -38,7 +37,7 @@
               <input
                 id="{{ areas.id }}"
                 type="checkbox"
-                name="pod_canned"
+                name="area_id"
                 value="{{ areas.id }}"
                 class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
               />
@@ -62,40 +61,40 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-4">
         <div class="relative">
           <label
-            for="accountName"
+            for="visit_accountName"
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
             >Account Name</label
           >
           <input
-            id="accountName"
+            id="visit_accountName"
             placeholder="Account name"
-            name="accountName"
-            class="border p-2 text-sm rounded w-full"
+            name="visit_accountName"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
         <div class="relative">
           <label
-            for="distributor"
+            for="visit_distributor"
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
             >Distributor</label
           >
           <input
-            id="distributor"
-            placeholder="Distributor"
-            name="distributor"
-            class="border p-2 text-sm rounded w-full"
+            id="visit_distributor"
+            placeholder="visit_distributor"
+            name="visit_distributor"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
         <div class="relative">
           <label
-            for="salesPeronnel"
+            for="visit_salesPersonnel"
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
             >Sales Personnel in Charge</label
           >
           <input
             placeholder="Sales Personnel in Charge"
-            name="salesPeronnel"
-            class="border p-2 text-sm rounded w-full"
+            name="visit_salesPersonnel"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
       </div>
@@ -112,7 +111,7 @@
                 <input
                   id="{{ type }}"
                   type="checkbox"
-                  name="pod_canned"
+                  name="visit_accountType"
                   value="{{ type }}"
                   class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                 />
@@ -156,7 +155,7 @@
                   <input
                     id="{{ isr.id }}"
                     type="checkbox"
-                    name="pod_canned"
+                    name="isr_id"
                     value="{{ isr.id }}"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
@@ -173,7 +172,8 @@
               <div>
                 <input
                   type="text"
-                  id="pod_others"
+                  name="isr_reqOthers"
+                  id="isr_reqOthers"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Others"
                 />
@@ -181,11 +181,21 @@
               <div>
                 <input
                   type="file"
-                  id="imageUpload"
+                  name="isr_req_ImgPath"
+                  id="isr_req_ImgPath"
                   class="border rounded-lg text-sm w-1/2 cursor-pointer mt-2"
                   accept="image/*"
+                  (change)="onImageSelect($event, 'req')"
                 />
               </div>
+              <img
+                *ngIf="imagePreviewReq"
+                [src]="imagePreviewReq"
+                alt="Selected Image"
+                width="350"
+                height="350"
+                class="mt-2 border-1 border-blueGray-100 rounded-lg"
+              />
             </div>
           </div>
           <ng-template #noIsrRequirements>
@@ -203,7 +213,7 @@
                   <input
                     id="{{ isr.id }}"
                     type="checkbox"
-                    name="pod_canned"
+                    name="isr_id"
                     value="{{ isr.id }}"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
@@ -221,7 +231,7 @@
                 <div>
                   <input
                     type="text"
-                    id="pod_others"
+                    id="isr_needsOthers"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Others"
                   />
@@ -229,11 +239,21 @@
                 <div>
                   <input
                     type="file"
-                    id="imageUpload"
+                    name="isr_needs_ImgPath"
+                    id="isr_needs_ImgPath"
                     class="border rounded-lg text-sm w-1/2 cursor-pointer mt-2"
                     accept="image/*"
+                    (change)="onImageSelect($event, 'need')"
                   />
                 </div>
+                <img
+                  *ngIf="imagePreviewNeed"
+                  [src]="imagePreviewNeed"
+                  alt="Selected Image"
+                  width="350"
+                  height="350"
+                  class="mt-2 border-1 border-blueGray-100 rounded-lg"
+                />
               </div>
             </div>
           </div>
@@ -262,21 +282,21 @@
             id="visit_payolaMerchandiser"
             placeholder="Payola Merchandiser"
             name="visit_payolaMerchandiser"
-            class="border p-2 text-sm rounded w-full"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
 
         <div class="relative">
           <label
-            for="salesPeronnel"
+            for="visit_payolaSupervisor"
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
             >Payola Supervisor</label
           >
           <input
-            id="salesPeronnel"
+            id="visit_payolaSupervisor"
             placeholder="Payola Supervisor"
-            name="salesPeronnel"
-            class="border p-2 text-sm rounded w-full"
+            name="visit_payolaSupervisor"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
 
@@ -290,7 +310,7 @@
             id="visit_averageOffTakePd"
             placeholder="Average Off Take Per Day"
             name="visit_averageOffTakePd"
-            class="border p-2 text-sm rounded w-full"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
       </div>
@@ -314,7 +334,7 @@
                   <input
                     id="{{ pod.id }}"
                     type="checkbox"
-                    name="pod_canned"
+                    name="pod_id"
                     value="{{ pod.id }}"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
@@ -347,7 +367,7 @@
                   <input
                     id="{{ pod.id }}"
                     type="checkbox"
-                    name="pod_canned"
+                    name="pod_id"
                     value="{{ pod.id }}"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
@@ -383,7 +403,7 @@
       <ng-template matStepLabel
         >Fill out Competitors Check and Action plan</ng-template
       >
-      <div class="grid grid-cols-1 gap-2 mt-4 mb-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-4 mb-4">
         <div class="relative">
           <label
             for="visit_competitorsCheck"
@@ -392,9 +412,9 @@
           </label>
           <input
             id="visit_competitorsCheck"
-            placeholder="Area"
+            placeholder="SKU Competitors Check"
             name="visit_competitorsCheck"
-            class="border p-2 text-sm rounded w-full"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
       </div>
@@ -412,7 +432,7 @@
                 <input
                   id="{{ paps.id }}"
                   type="checkbox"
-                  name="pod_canned"
+                  name="pap_id"
                   value="{{ paps.id }}"
                   class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                 />
@@ -425,7 +445,8 @@
           </ul>
           <input
             type="text"
-            id="pod_others"
+            id="pap_others"
+            name="pap_others"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Others"
           />
@@ -444,8 +465,20 @@
     <ng-template matStepLabel>Done</ng-template>
     <p>You are now done. Proceed to submit checklist.</p>
     <div class="mt-4">
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button>Submit</button>
+      <button
+        mat-button
+        (click)="stepper.previous()"
+        [disabled]="stepper.selectedIndex === 0"
+      >
+        Back
+      </button>
+      <button
+        mat-button
+        (click)="onSubmit()"
+        [disabled]="stepper.selectedIndex < stepper.steps.length - 1"
+      >
+        Submit
+      </button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>

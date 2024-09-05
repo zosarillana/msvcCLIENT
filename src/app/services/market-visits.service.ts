@@ -23,12 +23,11 @@ export class MarketVisitsService {
     );
   }
 
-  public createMarketVisits(mvisit: MarketVisits): Observable<MarketVisits> {
-    return this.http.post<MarketVisits>(
-      `${environment.apiUrl}/${this.url}`,
-      mvisit
-    );
+ 
+  public createMarketVisits(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/${this.url}`, formData);
   }
+  
 
   public deleteMarketVisits(mvisit: MarketVisits): Observable<MarketVisits[]> {
     return this.http.delete<MarketVisits[]>(

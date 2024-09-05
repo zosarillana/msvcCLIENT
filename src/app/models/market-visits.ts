@@ -15,8 +15,16 @@ export class MarketVisits {
   visit_payolaSupervisor = '';
   visit_payolaMerchandiser = '';
   visit_averageOffTakePd = '';
-  visit_pod = '';
+  pod_id = '';
+  pod_others = '';
   visit_competitorsCheck = '';
-  visit_pap = '';
+  pap_id = '';
+  pap_others = '';
+  areas: Array<{
+    area_id: number;
+    area_name: string;
+    area_description: string;
+    area_dateCreated: string;
+    area_dateUpdated: string;
+  }> = [];
 }
-

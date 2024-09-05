@@ -10,9 +10,8 @@ import { ModalEditDialogComponent } from './modal/modal-edit-dialog/modal-edit-d
 import { ModalCreateDialogComponent } from './modal/modal-create-dialog/modal-create-dialog.component';
 import { ModalDeleteDialogComponent } from './modal/modal-delete-dialog/modal-delete-dialog.component';
 import { SharedService } from '../../services/shared.service';
-import { initFlowbite
-
- } from 'flowbite';
+import { initFlowbite} from 'flowbite';
+import { AreaService } from '../../services/area.service';
 @Component({
   selector: 'app-get-market-visits',
   templateUrl: './get-market-visits.component.html',

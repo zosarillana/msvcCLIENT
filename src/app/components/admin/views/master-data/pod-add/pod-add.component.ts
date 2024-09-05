@@ -141,7 +141,7 @@ export class PodAddComponent {
   }
 
   openDeleteDialog(isr: Pod): void {
-    const dialogRef = this.dialog.open(ModalDeletePapComponent, {
+    const dialogRef = this.dialog.open(ModalDeletePodComponent, {
       width: '500px',
       data: isr,
     });
