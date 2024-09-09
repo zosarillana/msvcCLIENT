@@ -19,7 +19,9 @@ import { Pod } from '../../../../models/pod';
 import { PodService } from '../../../../services/pod.service';
 import { Pap } from '../../../../models/pap';
 import { PapService } from '../../../../services/pap.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { SharedService } from '../../../../services/shared.service';
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -50,6 +52,8 @@ export class TestComponent {
   formGroup: FormGroup;
 
   constructor(
+    private sharedService: SharedService,
+    private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
     private marketVisitsService: MarketVisitsService,
     private _areaService: AreaService,
@@ -330,14 +334,28 @@ export class TestComponent {
     }
 
     // Submit the form data to the server
-    this.marketVisitsService.createMarketVisits(formData).subscribe(
-      (response) => {
-        console.log('Market visit submitted successfully', response);
-      },
-      (error) => {
-        console.error('Error creating market visit:', error);
-      }
-    );
+this.marketVisitsService.createMarketVisits(formData).subscribe(
+  (response) => {
+    console.log('Market visit submitted successfully', response);
+
+    // Show success notification (for example, using MatSnackBar)
+    this.snackBar.open('Market visit submitted successfully!', 'Close', {
+      duration: 3000, // 3 seconds
+    });
+
+    // Optionally, reset the form or navigate to another page
+    this.formGroup.reset(); // Clear the form
+    this.sharedService.setSelectedContent('content1');
+  },
+  (error) => {
+    console.error('Error creating market visit:', error);
+
+    // Show error notification
+    this.snackBar.open('Failed to submit market visit. Please try again.', 'Close', {
+      duration: 3000, // 3 seconds
+    });
+  }
+);
   }
 
   onImageSelect(event: Event, type: 'req' | 'need'): void {

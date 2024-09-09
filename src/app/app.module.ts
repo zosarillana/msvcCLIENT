@@ -59,6 +59,7 @@ import { ModalEditPapComponent } from './components/admin/views/master-data/pap-
 import { ModalViewPapComponent } from './components/admin/views/master-data/pap-add/modal/modal-view-pap/modal-view-pap.component';
 import { ModalDeletePapComponent } from './components/admin/views/master-data/pap-add/modal/modal-delete-pap/modal-delete-pap.component';
 import { TestComponent } from './components/get-market-visits/views/test/test.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,7 @@ import { TestComponent } from './components/get-market-visits/views/test/test.co
     MatStepperModule,
     MatProgressSpinnerModule,
     RouterModule,
-    
+    MatSnackBarModule
   ],
   providers: [
     TokenService, // Add TokenService to providers
