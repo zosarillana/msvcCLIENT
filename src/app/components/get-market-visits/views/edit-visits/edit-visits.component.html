@@ -1,9 +1,7 @@
 <!-- edit-visits.component.html -->
-<div>
-  <h2>Edit Visit</h2>
-  <div *ngIf="visitId">
-    <p>Editing visit with ID: {{ visitId }}</p>
-    <div class="text-2xl font-semibold mb-1">Add visits</div>
+<div>  
+  <div *ngIf="visitId">   
+    <div class="text-2xl font-semibold mb-1">Edit visits for {{ visitId }}</div>
     <mat-stepper orientation="vertical" [linear]="false" #stepper>
       <mat-step [stepControl]="formGroup">
         <form [formGroup]="formGroup">
@@ -443,7 +441,7 @@
           </button>
           <button
             mat-button
-            (click)="onSubmit()"
+            (click)="openConfirmationDialog()"
             [disabled]="stepper.selectedIndex < stepper.steps.length - 1"
           >
             Submit

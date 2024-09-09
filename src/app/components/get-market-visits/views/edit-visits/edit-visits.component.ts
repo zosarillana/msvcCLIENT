@@ -22,7 +22,8 @@ import { PapService } from '../../../../services/pap.service';
 import { PodService } from '../../../../services/pod.service';
 import { SharedService } from '../../../../services/shared.service';
 import { TokenService } from '../../../../services/token.service';
-
+import { ConfirmDialogComponent } from '../../../admin/views/user/user-add/modal/modal-edit-user-dialog/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-edit-visits',
   templateUrl: './edit-visits.component.html',
@@ -64,7 +65,8 @@ export class EditVisitsComponent implements OnInit {
     private _podService: PodService,
     private _papService: PapService,
     private _formBuilder: FormBuilder,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dialog: MatDialog
   ) {
     // Initialize formGroup with FormBuilder
     this.formGroup = this._formBuilder.group({
@@ -236,7 +238,15 @@ export class EditVisitsComponent implements OnInit {
     );
     this.isrNeeds = this.isrs.filter((isr) => isr.isr_type === 'NEEDS');
   }
+  openConfirmationDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.onSubmit(); // Proceed with saving if the user confirmed
+      }
+    });
+  }
   onSubmit(): void {
     // Ensure visitId is a number
     const visitId: number = Number(this.visitId);

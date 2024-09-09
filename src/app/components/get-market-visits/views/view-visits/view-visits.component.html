@@ -1,0 +1,39 @@
+<div>
+  <h2>Edit Visit</h2>
+  <div *ngIf="visitId">
+    <p>Editing visit with ID: {{ visitId }}</p>
+    <!-- Form for editing visit details -->
+    <form (ngSubmit)="onSubmit()" *ngIf="mvisit">
+      <label for="visitArea">Visit Area:</label>
+      <div *ngIf="mvisit.areas.length">
+        <span *ngFor="let area of mvisit.areas; let last = last">
+          {{ area.area_name }}<span *ngIf="!last">, </span>
+        </span>
+      </div>
+      <div *ngIf="!mvisit.areas.length">No Areas</div>
+
+      <label for="visitDate">Visit Date:</label>
+      <input
+        id="visitDate"
+        [(ngModel)]="mvisit.visit_date"
+        name="visitDate"
+        required
+      />
+
+      <label for="accountName">Account Name:</label>
+      <input
+        id="accountName"
+        [(ngModel)]="mvisit.visit_accountName"
+        name="visitAccountName"
+        required
+      />
+
+      <!-- Add other fields as needed -->
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+  <div *ngIf="!visitId">
+    <p>No visit ID provided.</p>
+  </div>
+</div>
