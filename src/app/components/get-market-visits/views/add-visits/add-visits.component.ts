@@ -1,12 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  Input,
-  ChangeDetectorRef,
-} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { PodService } from '../../../../services/pod.service';
 import { Pod } from '../../../../models/pod';
 import { IsrService } from '../../../../services/isr.service';
@@ -23,28 +16,24 @@ import { TokenService } from '../../../../services/token.service';
   selector: 'app-add-visits',
   templateUrl: './add-visits.component.html',
   styleUrls: ['./add-visits.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddVisitsComponent implements OnInit {
-  userCount: number = 0;
-  username: string | null = null;
-  user: any = null;
+  @Input() data?: MarketVisits;
+  @Output() MarketVisitsUpdated = new EventEmitter<MarketVisits[]>();
+
+  user_id: string | null = null;
   imageFileReq: File | null = null;
   imagePreviewReq: string | ArrayBuffer | null = null;
   imageFileNeed: File | null = null;
   imagePreviewNeed: string | ArrayBuffer | null = null;
-
-  @Input() data?: MarketVisits;
-  @Output() MarketVisitsUpdated = new EventEmitter<MarketVisits[]>();
-
-  errorMessages: { [key: string]: string[] } = {};
-
+  
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
-
-  isLinear = false;
+  sixthFormGroup: FormGroup;
 
   pods: Pod[] = [];
   cannedPods: Pod[] = [];
@@ -55,7 +44,6 @@ export class AddVisitsComponent implements OnInit {
   isrNeeds: Isr[] = [];
 
   areas: Area[] = [];
-
   paps: Pap[] = [];
 
   accountType: string[] = [
@@ -71,185 +59,236 @@ export class AddVisitsComponent implements OnInit {
     private _isrService: IsrService,
     private _papService: PapService,
     private _areaService: AreaService,
-    private _formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private tokenService: TokenService
   ) {
-   // Initialize FormGroups without validators
-   this.firstFormGroup = this._formBuilder.group({
-    user_id: [''],
-    visit_date: [''],
-    area_id: [''],
-  });
-
-  this.secondFormGroup = this._formBuilder.group({
-    visit_accountName: [''],
-    visit_distributor: [''],
-    visit_salesPersonnel: [''],
-    visit_accountType: [''],
-    pod_others: [''],
-  });
-
-  this.thirdFormGroup = this._formBuilder.group({
-    isr_id: [''],
-    isr_reqOthers: [''],
-    isr_req_ImgPath: [''],
-    isr_needsOthers: [''],
-    isr_needs_ImgPath: [''],
-  });
-
-  this.fourthFormGroup = this._formBuilder.group({
-    visit_payolaMerchandiser: [''],
-    visit_payolaSupervisor: [''],
-    visit_averageOffTakePd: [''],
-  });
-
-  this.fifthFormGroup = this._formBuilder.group({
-    pod_id: [''],
-    visit_competitorsCheck: [''],
-    visit_pap: [''],
-    pap_others: [''],
-  });
+    // Form initialization
+    this.firstFormGroup = this.fb.group({
+      user_id: [''],
+      visit_date: [''],
+      area_id: this.fb.array([]),
+    });
+    this.secondFormGroup = this.fb.group({
+      visit_accountName: [''],
+      visit_distributor: [''],
+      visit_salesPersonnel: [''],
+      visit_accountType_others: [''],
+      visit_accountType: this.fb.array([]),
+    });
+    this.thirdFormGroup = this.fb.group({
+      isr_id: this.fb.array([]),
+      isr_reqOthers: [''],
+      isr_req_ImgPath: [''],
+      isr_needsOthers: [''],
+      isr_needs_ImgPath: [''],
+    });
+    this.fourthFormGroup = this.fb.group({
+      visit_payolaMerchandiser: [''],
+      visit_payolaSupervisor: [''],
+      visit_averageOffTakePd: [''],
+    });
+    this.fifthFormGroup = this.fb.group({
+      pod_id: this.fb.array([]),
+      cannedPodOthers: [''],
+      mppPodOthers: [''],
+    });
+    this.sixthFormGroup = this.fb.group({
+      pap_id: this.fb.array([]),
+      visit_competitorsCheck: [''],
+      pap_others: [''],
+    });
   }
 
   ngOnInit(): void {
-    // Decode token and set user information
-    this.tokenService.decodeTokenAndSetUser();
-    this.user = this.tokenService.getUser();
-    this.username = this.user ? this.user.sub : null; // Update username based on 'sub'
-    this.cdr.detectChanges();
+    this.tokenService.decodeTokenAndSetUser(); // Decode the token and set user information
+    const user = this.tokenService.getUser();
+    this.user_id = user?.id ?? null;
+    this.firstFormGroup.patchValue({ user_id: this.user_id });
+
     this.getPodData();
     this.getIsrsData();
-    this.getPapsData();
-    this.getAreasData();
+    this.loadAreas();
+    this.loadPaps();
+
+    // Initialize visit_accountType array
+    this.accountType.forEach(() => {
+      (this.secondFormGroup.get('visit_accountType') as FormArray).push(new FormControl(false));
+    });
   }
 
   getPodData(): void {
-    this._podService.getPods().subscribe((data: Pod[]) => {
-      this.pods = data;
-      this.filterPods();
-    });
-  }
-
-  filterPods(): void {
-    this.cannedPods = this.pods.filter((pod) => pod.pod_type === 'CANNED');
-    this.mppPods = this.pods.filter((pod) => pod.pod_type === 'MPP');
+    this._podService.getPods().subscribe(
+      (data: Pod[]) => {
+        this.pods = data;
+        this.filterPods();
+        this.updatePodControls();
+      },
+      (error) => console.error('Error fetching pods:', error)
+    );
   }
 
   getIsrsData(): void {
-    this._isrService.getIsrs().subscribe((data: Isr[]) => {
-      this.isrs = data;
-      this.filterIsrs();
-    });
+    this._isrService.getIsrs().subscribe(
+      (data: Isr[]) => {
+        this.isrs = data;
+        this.filterIsrs();
+        this.updateIsrControls();
+      },
+      (error) => console.error('Error fetching ISRs:', error)
+    );
+  }
+
+  loadAreas(): void {
+    this._areaService.getAreas().subscribe(
+      (areas) => {
+        this.areas = areas;
+        this.setControls(this.firstFormGroup.get('area_id') as FormArray, this.areas);
+      },
+      (error) => console.error('Error fetching areas:', error)
+    );
+  }
+
+  loadPaps(): void {
+    this._papService.getPaps().subscribe(
+      (paps) => {
+        this.paps = paps;
+        this.setControls(this.sixthFormGroup.get('pap_id') as FormArray, this.paps);
+      },
+      (error) => console.error('Error fetching paps:', error)
+    );
+  }
+
+  filterPods(): void {
+    this.cannedPods = this.pods.filter(pod => pod.pod_type === 'CANNED');
+    this.mppPods = this.pods.filter(pod => pod.pod_type === 'MPP');
   }
 
   filterIsrs(): void {
-    this.isrRequirements = this.isrs.filter(
-      (isr) => isr.isr_type === 'REQUIREMENTS'
-    );
-    this.isrNeeds = this.isrs.filter((isr) => isr.isr_type === 'NEEDS');
+    this.isrRequirements = this.isrs.filter(isr => isr.isr_type === 'REQUIREMENTS');
+    this.isrNeeds = this.isrs.filter(isr => isr.isr_type === 'NEEDS');
   }
 
-  getPapsData(): void {
-    this._papService.getPaps().subscribe((data: Pap[]) => {
-      this.paps = data;
-    });
+  updatePodControls(): void {
+    this.updateControls(this.fifthFormGroup.get('pod_id') as FormArray, this.pods);
   }
 
-  getAreasData(): void {
-    this._areaService.getAreas().subscribe((data: Area[]) => {
-      this.areas = data;
-    });
+  updateIsrControls(): void {
+    this.updateControls(this.thirdFormGroup.get('isr_id') as FormArray, this.isrs);
   }
 
+  updateControls(formArray: FormArray, items: any[]): void {
+    formArray.clear();
+    items.forEach(() => formArray.push(new FormControl(false)));
+    this.cdr.detectChanges(); // Ensure change detection
+  }
+
+  setControls(formArray: FormArray, items: any[]): void {
+    formArray.clear();
+    items.forEach(() => formArray.push(new FormControl(false)));
+    this.cdr.detectChanges(); // Ensure change detection
+  }
+
+  prepareFormData(): FormData {
+    const formData = new FormData();
+  
+    const appendFormGroupValues = (formGroup: FormGroup, prefix: string) => {
+      Object.entries(formGroup.controls).forEach(([key, control]) => {
+        if (control instanceof FormArray) {
+          control.value.forEach((value: any, index: number) => {
+            formData.append(`${prefix}[${key}][${index}]`, JSON.stringify(value));
+          });
+        } else {
+          formData.append(`${prefix}[${key}]`, control.value ?? '');
+        }
+      });
+    };
+  
+    appendFormGroupValues(this.firstFormGroup, 'firstFormGroup');
+    appendFormGroupValues(this.secondFormGroup, 'secondFormGroup');
+    appendFormGroupValues(this.thirdFormGroup, 'thirdFormGroup');
+    appendFormGroupValues(this.fourthFormGroup, 'fourthFormGroup');
+    appendFormGroupValues(this.fifthFormGroup, 'fifthFormGroup');
+    appendFormGroupValues(this.sixthFormGroup, 'sixthFormGroup');
+  
+    if (this.imageFileReq) {
+      formData.append('isr_req_ImgPath', this.imageFileReq, this.imageFileReq.name);
+    }
+    if (this.imageFileNeed) {
+      formData.append('isr_needs_ImgPath', this.imageFileNeed, this.imageFileNeed.name);
+    }
+  
+    return formData;
+  }
+  prepareDummyFormData(): FormData {
+    const formData = new FormData();
+    
+    // Add hardcoded values for testing
+    formData.append('firstFormGroup[user_id]', '1');
+    formData.append('firstFormGroup[visit_date]', '2024-09-06T16:53');
+    formData.append('firstFormGroup[area_id][]', '1'); // Example value
+    formData.append('secondFormGroup[visit_accountName]', 'Test Account');
+    formData.append('secondFormGroup[visit_distributor]', 'Test Distributor');
+    formData.append('secondFormGroup[visit_salesPersonnel]', 'Test Sales Personnel');
+    formData.append('secondFormGroup[visit_accountType][]', '1'); // Example value
+    formData.append('thirdFormGroup[isr_id][]', '1'); // Example value
+    formData.append('thirdFormGroup[isr_reqOthers]', 'Test ISR Req Others');
+    formData.append('thirdFormGroup[isr_needsOthers]', 'Test ISR Needs Others');
+    formData.append('fourthFormGroup[visit_payolaMerchandiser]', 'Test Payola Merchandiser');
+    formData.append('fifthFormGroup[pod_id][]', '1'); // Example value
+    formData.append('fifthFormGroup[cannedPodOthers]', 'Test Canned Pod Others');
+    formData.append('sixthFormGroup[pap_id][]', '1'); // Example value
+    formData.append('sixthFormGroup[pap_others]', 'Test PAP Others');
+    
+    // Example of image files (optional for testing)
+    // if (this.imageFileReq) {
+    //   formData.append('isr_req_ImgPath', this.imageFileReq, this.imageFileReq.name);
+    // }
+    // if (this.imageFileNeed) {
+    //   formData.append('isr_needs_ImgPath', this.imageFileNeed, this.imageFileNeed.name);
+    // }
+    
+    return formData;
+  }
   onSubmit(): void {
     if (
       this.firstFormGroup.valid &&
       this.secondFormGroup.valid &&
       this.thirdFormGroup.valid &&
       this.fourthFormGroup.valid &&
-      this.fifthFormGroup.valid
+      this.fifthFormGroup.valid &&
+      this.sixthFormGroup.valid
     ) {
-      const formData = new FormData();
-      
-      // Append form fields
-      formData.append('user_id', this.firstFormGroup.get('user_id')?.value || '');
-      formData.append('visit_date', this.firstFormGroup.get('visit_date')?.value || '');
-      
-      // Append area_id array
-      const areaIds = this.firstFormGroup.get('area_id')?.value || [];
-      areaIds.forEach((id: string) => {
-        formData.append('area_id[]', id);
-      });
+      const dummyFormData = this.prepareDummyFormData();
   
-      formData.append('visit_accountName', this.secondFormGroup.get('visit_accountName')?.value || '');
-      formData.append('visit_distributor', this.secondFormGroup.get('visit_distributor')?.value || '');
-      formData.append('visit_salesPersonnel', this.secondFormGroup.get('visit_salesPersonnel')?.value || '');
-      
-      // Append account_type array
-      const accountTypes = this.secondFormGroup.get('visit_accountType')?.value || [];
-      accountTypes.forEach((type: string) => {
-        formData.append('visit_accountType[]', type);
-      });
-      
-      formData.append('pod_others', this.secondFormGroup.get('pod_others')?.value || '');
+      // Log FormData to verify content
+      dummyFormData.forEach((value, key) => console.log(`FormData Key: ${key}, Value: ${value}`));
   
-      // Append isr_id array
-      const isrIds = this.thirdFormGroup.get('isr_id')?.value || [];
-      isrIds.forEach((id: string) => {
-        formData.append('isr_id[]', id);
-      });
-  
-      formData.append('isr_reqOthers', this.thirdFormGroup.get('isr_reqOthers')?.value || '');
-  
-      if (this.imageFileReq) {
-        formData.append('isr_req_Img', this.imageFileReq, this.imageFileReq.name);
-      }
-      
-      if (this.imageFileNeed) {
-        formData.append('isr_needs_Img', this.imageFileNeed, this.imageFileNeed.name);
-      }
-      
-      formData.append('visit_payolaMerchandiser', this.fourthFormGroup.get('visit_payolaMerchandiser')?.value || '');
-      formData.append('visit_payolaSupervisor', this.fourthFormGroup.get('visit_payolaSupervisor')?.value || '');
-      formData.append('visit_averageOffTakePd', this.fourthFormGroup.get('visit_averageOffTakePd')?.value || '');
-      
-      // Append pod_id array
-      const podIds = this.fifthFormGroup.get('pod_id')?.value || [];
-      podIds.forEach((id: string) => {
-        formData.append('pod_id[]', id);
-      });
-  
-      formData.append('visit_competitorsCheck', this.fifthFormGroup.get('visit_competitorsCheck')?.value || '');
-      
-      // Append pap_id array
-      const papIds = this.fifthFormGroup.get('visit_pap')?.value || [];
-      papIds.forEach((id: string) => {
-        formData.append('visit_pap[]', id);
-      });
-  
-      formData.append('pap_others', this.fifthFormGroup.get('pap_others')?.value || '');
-  
-      this.marketVisitsService.createMarketVisits(formData).subscribe(
-        (response) => {
-          console.log('Visit successfully created:', response);
-          // Delay detection
-          setTimeout(() => {
-            this.cdr.detectChanges();
-          }, 0);
-        },
+      this.marketVisitsService.createMarketVisits(dummyFormData).subscribe(
+        (response) => console.log('Visit successfully created:', response),
         (error) => {
           console.error('Error creating visit:', error);
+          
+          // Check if the error response contains validation errors
+          if (error.error && error.error.errors) {
+            Object.entries(error.error.errors).forEach(([key, messages]) => {
+              // Ensure messages is an array of strings before using join
+              if (Array.isArray(messages) && messages.every(msg => typeof msg === 'string')) {
+                console.error(`${key}: ${messages.join(', ')}`);
+              } else {
+                console.error(`${key}: Invalid error format`);
+              }
+            });
+          }
         }
       );
     } else {
       console.error('Please fill out all required fields.');
     }
   }
-  
-  
+
   onImageSelect(event: Event, type: 'req' | 'need'): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
+    if (input.files?.[0]) {
       const file = input.files[0];
       const reader = new FileReader();
       reader.onload = () => {
@@ -257,11 +296,12 @@ export class AddVisitsComponent implements OnInit {
           this.imageFileReq = file;
           this.imagePreviewReq = reader.result;
           this.thirdFormGroup.patchValue({ isr_req_ImgPath: file.name });
-        } else if (type === 'need') {
+        } else {
           this.imageFileNeed = file;
           this.imagePreviewNeed = reader.result;
           this.thirdFormGroup.patchValue({ isr_needs_ImgPath: file.name });
         }
+        this.cdr.markForCheck(); // Ensure change detection is triggered
       };
       reader.readAsDataURL(file);
     }

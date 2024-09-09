@@ -172,7 +172,7 @@
       <!-- Sidebar Content -->
       <div>
         <p class="font-semibold text-xs text-gray-600 mr-2">
-          Welcome, {{ user.fname }} {{ user.mname }} {{ user.lname }} {{user.abfi_id}}
+          WELCOME, {{ user.fname }} {{ user.mname }} {{ user.lname }} {{user.abfi_id}}
         </p>
       </div>
 
@@ -181,7 +181,7 @@
         (click)="logout()"
       >
         <i class="ri-logout-box-r-line"></i>
-        Logout
+        LOGOUT
       </button>
     </div>
 
@@ -191,7 +191,8 @@
       </div>
 
       <div *ngIf="selectedContent === 'content2'">
-        <app-user-add></app-user-add>
+        <!-- <app-user-add></app-user-add> -->
+        <app-add-visits></app-add-visits>
       </div>
 
       <div *ngIf="selectedContent === 'content3'">
@@ -201,7 +202,8 @@
         <app-pod-add></app-pod-add>
       </div>
       <div *ngIf="selectedContent === 'content5'">
-        <app-add-visits></app-add-visits>
+        <!-- <app-add-visits></app-add-visits> -->
+         <app-test></app-test>
       </div>
       <div *ngIf="selectedContent === 'add-area'">
         <app-area-add></app-area-add>

@@ -58,6 +58,7 @@ import { ModalCreatePapComponent } from './components/admin/views/master-data/pa
 import { ModalEditPapComponent } from './components/admin/views/master-data/pap-add/modal/modal-edit-pap/modal-edit-pap.component';
 import { ModalViewPapComponent } from './components/admin/views/master-data/pap-add/modal/modal-view-pap/modal-view-pap.component';
 import { ModalDeletePapComponent } from './components/admin/views/master-data/pap-add/modal/modal-delete-pap/modal-delete-pap.component';
+import { TestComponent } from './components/get-market-visits/views/test/test.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { ModalDeletePapComponent } from './components/admin/views/master-data/pa
     ModalCreatePapComponent,
     ModalEditPapComponent,
     ModalViewPapComponent,
-    ModalDeletePapComponent,    
+    ModalDeletePapComponent,
+    TestComponent,    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [

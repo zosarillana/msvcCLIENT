@@ -1,5 +1,5 @@
 export class Area {
-  id?: number;
+  id = '';
   area = '';
   description = '';
   date_created = '';

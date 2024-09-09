@@ -1,27 +1,37 @@
 <div class="text-2xl font-semibold mb-1">Add visits</div>
-<mat-stepper orientation="vertical" [linear]="true" #stepper>
+<mat-stepper orientation="vertical" [linear]="false" #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Fill out time and date of visit</ng-template>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-4">
         <div class="relative">
-          <input
-            placeholder="{{ user.user_id }}"
-            value="{{ user.user_id }}"
-            type="user_id"
-            id="user_id"
-            name="user_id"
-          />
+          <!-- User ID input -->
           <label
+            for="user_id"
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Date of visit
+          >
+            User Abfi ID
           </label>
           <input
+            readonly
+            formControlName="user_id"
+            type="text"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
+        <div class="relative">
+          <!-- Date of visit input -->
+          <label
+            for="visit_date"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Date of visit</label
+          >
+          <input
+            formControlName="visit_date"
             id="visit_date"
-            placeholder="Date and Time"
             type="datetime-local"
-            name="visit_date"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Date and Time"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
       </div>
@@ -31,23 +41,20 @@
           class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
           >Area</label
         >
-        <ul>
-          <li *ngFor="let areas of areas">
-            <div class="flex items-center mb-2">
-              <input
-                id="{{ areas.id }}"
-                type="checkbox"
-                name="area_id"
-                value="{{ areas.id }}"
-                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label for="{{ areas.id }}" class="ml-2 text-xs text-gray-700">{{
-                areas.area
-              }}</label>
-              <!-- The for attribute should match the input id -->
-            </div>
-          </li>
-        </ul>
+        <div formArrayName="area_id">
+          <div *ngFor="let area of areas; let i = index">
+            <input
+              [formControlName]="i"
+              value="{{ area.id }}"
+              type="checkbox"
+              class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label class="ml-2 text-xs text-gray-700">
+              {{ area.area }}
+              <!-- Access area.name directly here -->
+            </label>
+          </div>
+        </div>
       </div>
 
       <div>
@@ -66,6 +73,7 @@
             >Account Name</label
           >
           <input
+            formControlName="visit_accountName"
             id="visit_accountName"
             placeholder="Account name"
             name="visit_accountName"
@@ -79,8 +87,9 @@
             >Distributor</label
           >
           <input
+            formControlName="visit_distributor"
             id="visit_distributor"
-            placeholder="visit_distributor"
+            placeholder="Visit Distributor"
             name="visit_distributor"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
@@ -92,6 +101,7 @@
             >Sales Personnel in Charge</label
           >
           <input
+            formControlName="visit_salesPersonnel"
             placeholder="Sales Personnel in Charge"
             name="visit_salesPersonnel"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -105,29 +115,28 @@
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
             >Account type</label
           >
-          <ul>
-            <li *ngFor="let type of accountType">
-              <div class="flex items-center mb-2">
-                <input
-                  id="{{ type }}"
-                  type="checkbox"
-                  name="visit_accountType"
-                  value="{{ type }}"
-                  class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <label for="{{ type }}" class="ml-2 text-xs text-gray-700">{{
-                  type
-                }}</label>
-              </div>
-            </li>
-          </ul>
+          <div formArrayName="visit_accountType">
+            <div *ngFor="let type of accountType; let i = index">
+              <input
+                [formControlName]="i"
+                value="{{ type }}"
+                type="checkbox"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label class="ml-2 text-xs text-gray-700">
+                {{ type }}
+                <!-- Access area.name directly here -->
+              </label>
+            </div>
+          </div>
           <input
+          formControlName="visit_accountType_others"
             type="text"
-            id="pod_others"
+            id="visit_accountType_others"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Others"
           />
-        </div>
+        </div>        
       </div>
       <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -149,28 +158,23 @@
               else noIsrRequirements
             "
           >
-            <ul>
-              <li *ngFor="let isr of isrRequirements">
-                <div class="flex items-center mb-2">
-                  <input
-                    id="{{ isr.id }}"
-                    type="checkbox"
-                    name="isr_id"
-                    value="{{ isr.id }}"
-                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label
-                    for="{{ isr.id }}"
-                    class="ml-2 text-xs text-gray-700"
-                    >{{ isr.isr_name }}</label
-                  >
-                  <!-- The for attribute should match the input id -->
-                </div>
-              </li>
-            </ul>
+            <div formArrayName="isr_id">
+              <div *ngFor="let isrs of isrRequirements; let i = index">
+                <input
+                  [formControlName]="i"
+                  [value]="isrs.id"
+                  type="checkbox"
+                  class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label class="ml-2 text-xs text-gray-700">
+                  {{ isrs.isr_name }}
+                </label>
+              </div>
+            </div>
             <div class="relative col-span-2">
               <div>
                 <input
+                  formControlName="isr_reqOthers"
                   type="text"
                   name="isr_reqOthers"
                   id="isr_reqOthers"
@@ -198,63 +202,56 @@
               />
             </div>
           </div>
-          <ng-template #noIsrRequirements>
-            <p>No ISR available.</p>
-          </ng-template>
+          <ng-template #noIsrRequirements
+            >No ISR Requirements Available</ng-template
+          >
         </div>
         <div class="relative mt-4">
           <label class="block font-medium mb-4"
             >In store requirement needs</label
           >
           <div *ngIf="isrNeeds && isrNeeds.length > 0; else noisrNeeds">
-            <ul>
-              <li *ngFor="let isr of isrNeeds">
-                <div class="flex items-center mb-2">
-                  <input
-                    id="{{ isr.id }}"
-                    type="checkbox"
-                    name="isr_id"
-                    value="{{ isr.id }}"
-                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label
-                    for="{{ isr.id }}"
-                    class="ml-2 text-xs text-gray-700"
-                    >{{ isr.isr_name }}</label
-                  >
-                  <!-- The for attribute should match the input id -->
-                </div>
-              </li>
-            </ul>
-            <div>
-              <div class="relative col-span-2">
-                <div>
-                  <input
-                    type="text"
-                    id="isr_needsOthers"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Others"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="file"
-                    name="isr_needs_ImgPath"
-                    id="isr_needs_ImgPath"
-                    class="border rounded-lg text-sm w-1/2 cursor-pointer mt-2"
-                    accept="image/*"
-                    (change)="onImageSelect($event, 'need')"
-                  />
-                </div>
-                <img
-                  *ngIf="imagePreviewNeed"
-                  [src]="imagePreviewNeed"
-                  alt="Selected Image"
-                  width="350"
-                  height="350"
-                  class="mt-2 border-1 border-blueGray-100 rounded-lg"
+            <div formArrayName="isr_id">
+              <div *ngFor="let isr of isrNeeds; let i = index">
+                <input
+                  [formControlName]="i"
+                  [value]="isr.id"
+                  type="checkbox"
+                  class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label class="ml-2 text-xs text-gray-700">
+                  {{ isr.isr_name }}
+                </label>
+              </div>
+            </div>
+            <div class="relative col-span-2">
+              <div>
+                <input
+                  formControlName="isr_needsOthers"
+                  type="text"
+                  id="isr_needsOthers"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Others"
                 />
               </div>
+              <div>
+                <input
+                  type="file"
+                  name="isr_needs_ImgPath"
+                  id="isr_needs_ImgPath"
+                  class="border rounded-lg text-sm w-1/2 cursor-pointer mt-2"
+                  accept="image/*"
+                  (change)="onImageSelect($event, 'need')"
+                />
+              </div>
+              <img
+                *ngIf="imagePreviewNeed"
+                [src]="imagePreviewNeed"
+                alt="Selected Image"
+                width="350"
+                height="350"
+                class="mt-2 border-1 border-blueGray-100 rounded-lg"
+              />
             </div>
           </div>
           <ng-template #noisrNeeds>
@@ -279,6 +276,7 @@
             >Payola Merchandiser</label
           >
           <input
+            formControlName="visit_payolaMerchandiser"
             id="visit_payolaMerchandiser"
             placeholder="Payola Merchandiser"
             name="visit_payolaMerchandiser"
@@ -293,6 +291,7 @@
             >Payola Supervisor</label
           >
           <input
+            formControlName="visit_payolaSupervisor"
             id="visit_payolaSupervisor"
             placeholder="Payola Supervisor"
             name="visit_payolaSupervisor"
@@ -307,6 +306,7 @@
             >Average Off Take</label
           >
           <input
+            formControlName="visit_averageOffTakePd"
             id="visit_averageOffTakePd"
             placeholder="Average Off Take Per Day"
             name="visit_averageOffTakePd"
@@ -322,34 +322,34 @@
   </mat-step>
   <mat-step [stepControl]="fifthFormGroup">
     <form [formGroup]="fifthFormGroup">
-      <ng-template matStepLabel>Fill out checklist</ng-template>
-
+      <ng-template matStepLabel
+        >Fill out product on display checklist</ng-template
+      >
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+        <!-- Canned PODs Section -->
         <div class="relative">
           <label class="block font-medium mb-4">CANNED PODs</label>
           <div *ngIf="cannedPods && cannedPods.length > 0; else noCannedData">
             <ul>
-              <li *ngFor="let pod of cannedPods">
-                <div class="flex items-center mb-2">
+              <div formArrayName="pod_id">
+                <div *ngFor="let pod of cannedPods; let i = index">
                   <input
-                    id="{{ pod.id }}"
+                    [formControlName]="i"
+                    [value]="pod.id"
                     type="checkbox"
-                    name="pod_id"
-                    value="{{ pod.id }}"
                     class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <label
-                    for="{{ pod.id }}"
-                    class="ml-2 text-xs text-gray-700"
-                    >{{ pod.pod_name }}</label
-                  >
-                  <!-- The for attribute should match the input id -->
+                  <label class="ml-2 text-xs text-gray-700">
+                    {{ pod.pod_name }}
+                    <!-- Access additional pod details if needed -->
+                  </label>
                 </div>
-              </li>
+              </div>
             </ul>
             <input
               type="text"
-              id="pod_others"
+              formControlName="cannedPodOthers"
+              id="cannedPodOthers"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Others"
             />
@@ -358,31 +358,29 @@
             <p>No CANNED PODs available.</p>
           </ng-template>
         </div>
+
+        <!-- MPP PODs Section -->
         <div class="relative mt-4">
           <label class="block font-medium mb-4">MPP PODs</label>
           <div *ngIf="mppPods && mppPods.length > 0; else noMppData">
-            <ul>
-              <li *ngFor="let pod of mppPods">
-                <div class="flex items-center mb-2">
-                  <input
-                    id="{{ pod.id }}"
-                    type="checkbox"
-                    name="pod_id"
-                    value="{{ pod.id }}"
-                    class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label
-                    for="{{ pod.id }}"
-                    class="ml-2 text-xs text-gray-700"
-                    >{{ pod.pod_name }}</label
-                  >
-                  <!-- The for attribute should match the input id -->
-                </div>
-              </li>
-            </ul>
+            <div formArrayName="pod_id">
+              <div *ngFor="let pod of mppPods; let i = index">
+                <input
+                  [formControlName]="i"
+                  [value]="pod.id"
+                  type="checkbox"
+                  class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label class="ml-2 text-xs text-gray-700">
+                  {{ pod.pod_name }}
+                  <!-- Access additional pod details if needed -->
+                </label>
+              </div>
+            </div>
             <input
               type="text"
-              id="pod_others"
+              formControlName="mppPodOthers"
+              id="mppPodOthers"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Others"
             />
@@ -392,14 +390,16 @@
           </ng-template>
         </div>
       </div>
+
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
+
+  <mat-step [stepControl]="sixthFormGroup">
+    <form [formGroup]="sixthFormGroup">
       <ng-template matStepLabel
         >Fill out Competitors Check and Action plan</ng-template
       >
@@ -411,6 +411,7 @@
             >Competitors Check (existing SKU in-store)
           </label>
           <input
+            formControlName="visit_competitorsCheck"
             id="visit_competitorsCheck"
             placeholder="SKU Competitors Check"
             name="visit_competitorsCheck"
@@ -426,24 +427,21 @@
             class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-3"
             >Proposed Action Plan</label
           >
-          <ul>
-            <li *ngFor="let paps of paps">
-              <div class="flex items-center mb-2">
-                <input
-                  id="{{ paps.id }}"
-                  type="checkbox"
-                  name="pap_id"
-                  value="{{ paps.id }}"
-                  class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <label for="{{ paps.id }}" class="ml-2 text-xs text-gray-700">{{
-                  paps.pap_name
-                }}</label>
-                <!-- The for attribute should match the input id -->
-              </div>
-            </li>
-          </ul>
+          <div formArrayName="pap_id">
+            <div *ngFor="let pap of paps; let i = index">
+              <input
+                [formControlName]="i"
+                value="{{ pap.id }}"
+                type="checkbox"
+                class="h-5 w-5 text-blue-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label class="ml-2 text-xs text-gray-700">
+                {{ pap.pap_name }}
+              </label>
+            </div>
+          </div>
           <input
+            formControlName="pap_others"
             type="text"
             id="pap_others"
             name="pap_others"
@@ -479,7 +477,6 @@
       >
         Submit
       </button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
 </mat-stepper>
