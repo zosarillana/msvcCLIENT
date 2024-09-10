@@ -12,6 +12,7 @@ export class TokenService {
     try {
       const payload = token.split('.')[1];
       const decodedPayload = atob(payload);
+      // console.log('Decoded Token Payload:', decodedPayload); // Add this for debugging
       return JSON.parse(decodedPayload);
     } catch (error) {
       console.error('Token decoding failed', error);
@@ -21,8 +22,10 @@ export class TokenService {
 
   decodeTokenAndSetUser(): void {
     const token = localStorage.getItem('jwtToken');
+    // console.log('Token from localStorage:', token); // Add this for debugging
     if (token) {
       this.user = this.decodeToken(token);
+      // console.log('User after decoding token:', this.user); // Add this for debugging
     } else {
       this.user = null;
     }

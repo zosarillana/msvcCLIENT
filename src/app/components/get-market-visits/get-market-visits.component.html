@@ -4,8 +4,12 @@
   >
     <div class="flex justify-between mb-6">
       <div>
-        <div class="text-2xl font-semibold mb-1">Visits</div>
-        <div class="text-sm font-medium text-gray-400">Number of Visits</div>
+        <div class="flex items-center text-2xl font-semibold mb-1">
+          <!-- SVG icon -->
+          <mat-icon>storefront</mat-icon>
+          <span>{{ visitCount }}</span>
+        </div>
+        <div class="text-sm font-medium text-gray-400">Number of visits</div>
       </div>
     </div>
     <a
@@ -14,7 +18,6 @@
       >Add visits</a
     >
   </div>
-  
 </div>
 <div class="grid grid-cols-1 gap-6 mb-6">
   <div
@@ -23,30 +26,71 @@
     <div class="w-full mx-auto">
       <!-- <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6"> -->
       <div class="rounded-t mb-0 border-0 mb-4">
-        <div class="flex items-center justify-between flex-wrap">
+        <div class="flex justify-between  flex-wrap">
           <div class="flex items-center">
             <h1 class="font-semibold text-2xl text-blueGray-700">
               Market Visits
             </h1>
             <!-- Your existing button -->
-            <button             
+            <button
               mat-icon-button
               class="icon-button ml-4"
               (click)="showContent('content5')"
             >
-              <mat-icon>add</mat-icon>
+              <mat-icon>add_circle</mat-icon>
             </button>
           </div>
-          <!-- Add the Export to Excel button here -->
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="exportToExcel()"
-            class="mb-5"
-          >
-            Export to Excel
-          </button>
-        </div>
+          <div></div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <!-- Export to Excel Button -->
+            <div class="col-span-1 flex items-center justify-center sm:justify-start">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="exportMarketVisitsToExcel()"
+                class="mb-5"
+              >
+                Export to Excel
+              </button>
+            </div>
+          
+            <!-- Date Pickers -->
+            <div class="col-span-3 flex flex-col gap-2 sm:flex-row sm:gap-4">
+              <mat-form-field class="sm:min-w-[150px] sm:h-[70px]">
+                <mat-label class="text-base">Filter by (Start Date)</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="startPicker"
+                  placeholder="Start Date"
+                  (dateChange)="applyDateFilter('start', $event)"
+                  class="text-xs"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="startPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+              </mat-form-field>
+          
+              <mat-form-field class="sm:min-w-[150px] sm:h-[70px]">
+                <mat-label class="text-base">Filter by (End Date)</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="endPicker"
+                  placeholder="End Date"
+                  (dateChange)="applyDateFilter('end', $event)"
+                  class="text-xs"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="endPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          
       </div>
       <div class="block w-full overflow-x-auto">
         <table
@@ -57,10 +101,18 @@
           <!-- Column Definitions -->
 
           <ng-container matColumnDef="visit_area">
-            <th mat-header-cell *matHeaderCellDef class="bg-white-imp uppercase text-xs">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
               Areas
             </th>
-            <td mat-cell *matCellDef="let mvisit" class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700">
+            <td
+              mat-cell
+              *matCellDef="let mvisit"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
               <div *ngIf="mvisit.areas.length">
                 <span *ngFor="let area of mvisit.areas; let last = last">
                   {{ area.area_name }}<span *ngIf="!last">, </span>
@@ -145,13 +197,66 @@
             >
               Account Type
             </th>
-            <td mat-cell *matCellDef="let mvisit" class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700">
+            <td
+              mat-cell
+              *matCellDef="let mvisit"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
               <div *ngIf="mvisit.accountTypes.length">
-                <span *ngFor="let accountTypes of mvisit.accountTypes; let last = last">
-                  {{ accountTypes.accountType_name }}<span *ngIf="!last">, </span>
+                <span
+                  *ngFor="
+                    let accountTypes of mvisit.accountTypes;
+                    let last = last
+                  "
+                >
+                  {{ accountTypes.accountType_name
+                  }}<span *ngIf="!last">, </span>
                 </span>
               </div>
-              <div *ngIf="!mvisit.accountTypes.length">No Account Types</div>           
+              <div *ngIf="!mvisit.accountTypes.length">No Account Types</div>
+            </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="isr_need">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Isrs
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let mvisit"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              <div *ngIf="filterIsrsForNeeds(mvisit.isrs).length">
+                <span
+                  *ngFor="
+                    let isrs of filterIsrsForNeeds(mvisit.isrs);
+                    let last = last
+                  "
+                >
+                  {{ isrs.isr_name }}
+                  <span *ngIf="!last">, </span>
+                </span>
+              </div>
+              <div *ngIf="!filterIsrsForNeeds(mvisit.isrs).length">No Isrs Types</div>
+            </td>
+          </ng-container> -->          
+          <ng-container matColumnDef="date_created">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="bg-white-imp uppercase text-xs"
+            >
+              Date Created
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let mvisit"
+              class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
+            >
+              {{ mvisit.date_created }}
             </td>
           </ng-container>
           <ng-container matColumnDef="action">
@@ -167,16 +272,24 @@
               *matCellDef="let mvisit"
               class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
             >
-            <div class="flex space-x-2">
-              <div class="relative inline-block group">
-                <button mat-icon-button class="icon-button-edit" (click)="showContent('edit-visits', mvisit.id)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button class="icon-button-edit" (click)="showContent('view-visits', mvisit.id)">
-                  <mat-icon>visibility</mat-icon>
-                </button>
-              </div>
-              <!-- <div class="relative inline-block group">
+              <div class="flex space-x-2">
+                <div class="relative inline-block group">
+                  <button
+                    mat-icon-button
+                    class="icon-button-edit"
+                    (click)="showContent('edit-visits', mvisit.id)"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    class="icon-button-edit"
+                    (click)="showContent('view-visits', mvisit.id)"
+                  >
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </div>
+                <!-- <div class="relative inline-block group">
                 <button
                   mat-icon-button
                   class="icon-button-edit"
@@ -184,17 +297,17 @@
                 >
                   <mat-icon>visibility</mat-icon>
                 </button>                
-              </div> -->                   
-              <div class="relative inline-block group">
-                <button
-                  mat-icon-button
-                  class="icon-button-edit"
-                  (click)="openDeleteDialog(mvisit)"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>                
-              </div>                                               
-            </div>
+              </div> -->
+                <div class="relative inline-block group">
+                  <button
+                    mat-icon-button
+                    class="icon-button-edit"
+                    (click)="openDeleteDialog(mvisit)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
             </td>
           </ng-container>
           <!-- Table Header and Rows -->

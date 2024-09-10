@@ -22,6 +22,8 @@ export class MarketVisits {
   visit_competitorsCheck = '';
   pap_id = '';
   pap_others = '';
+  date_created = '';
+  date_updated = '';
   areas: Array<{
     area_id: number;
     area_name: string;
@@ -52,4 +54,13 @@ export class MarketVisits {
     pap_dateCreated: string;
     pap_dateUpdated: string;
   }> = [];
+  accountTypes: Array<{
+    accountType_id: number;
+    accountType_name: string;
+    accountType_description: string;
+    accountType_dateCreated: string;
+    accountType_dateUpdated: string;  
+  }> = [];
+
+
 }
