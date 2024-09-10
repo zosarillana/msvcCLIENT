@@ -191,8 +191,16 @@
       </div>
 
       <div *ngIf="selectedContent === 'content2'">
-        <!-- <app-user-add></app-user-add> -->
-        <app-add-visits></app-add-visits>
+        <app-user-add></app-user-add>
+        <!-- <app-add-visits></app-add-visits> -->
+      </div>
+
+      <div *ngIf="selectedContent === 'edit-visits'">        
+        <app-edit-visits *ngIf="selectedContent === 'edit-visits'" [visitId]="selectedId"></app-edit-visits>
+      </div>
+
+      <div *ngIf="selectedContent === 'view-visits'">        
+        <app-view-visits *ngIf="selectedContent === 'view-visits'" [visitId]="selectedId"></app-view-visits>
       </div>
 
       <div *ngIf="selectedContent === 'content3'">

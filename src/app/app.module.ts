@@ -60,6 +60,8 @@ import { ModalViewPapComponent } from './components/admin/views/master-data/pap-
 import { ModalDeletePapComponent } from './components/admin/views/master-data/pap-add/modal/modal-delete-pap/modal-delete-pap.component';
 import { TestComponent } from './components/get-market-visits/views/test/test.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { EditVisitsComponent } from './components/get-market-visits/views/edit-visits/edit-visits.component';
+import { ViewVisitsComponent } from './components/get-market-visits/views/view-visits/view-visits.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ModalEditPapComponent,
     ModalViewPapComponent,
     ModalDeletePapComponent,
-    TestComponent,    
+    TestComponent,
+    EditVisitsComponent,
+    ViewVisitsComponent,    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [

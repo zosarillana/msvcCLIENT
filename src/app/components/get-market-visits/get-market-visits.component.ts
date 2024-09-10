@@ -10,8 +10,9 @@ import { ModalEditDialogComponent } from './modal/modal-edit-dialog/modal-edit-d
 import { ModalCreateDialogComponent } from './modal/modal-create-dialog/modal-create-dialog.component';
 import { ModalDeleteDialogComponent } from './modal/modal-delete-dialog/modal-delete-dialog.component';
 import { SharedService } from '../../services/shared.service';
-import { initFlowbite} from 'flowbite';
+import { initFlowbite } from 'flowbite';
 import { AreaService } from '../../services/area.service';
+
 @Component({
   selector: 'app-get-market-visits',
   templateUrl: './get-market-visits.component.html',
@@ -43,7 +44,7 @@ export class GetMarketVisitsComponent implements AfterViewInit, OnInit {
       .subscribe((result: MarketVisits[]) => {
         this.dataSource.data = result;
       });
-      initFlowbite();
+    initFlowbite();
   }
 
   loadMarketVisits(): void {
@@ -113,7 +114,7 @@ export class GetMarketVisitsComponent implements AfterViewInit, OnInit {
   exportToExcel(): void {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Market Visits');
-  
+
     // Add column headers
     worksheet.columns = [
       { header: 'ID', key: 'id', width: 10 },
@@ -131,12 +132,12 @@ export class GetMarketVisitsComponent implements AfterViewInit, OnInit {
       { header: 'Competitors Check', key: 'visit_competitorsCheck', width: 25 },
       { header: 'PAP', key: 'visit_pap', width: 15 }
     ];
-  
+
     // Add rows
     this.dataSource.data.forEach(item => {
       worksheet.addRow(item);
     });
-  
+
     // Generate Excel file
     workbook.xlsx.writeBuffer().then((buffer: ArrayBuffer) => {
       const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -146,8 +147,10 @@ export class GetMarketVisitsComponent implements AfterViewInit, OnInit {
     });
   }
 
-  showContent(content: string): void {
-    // Use SharedService to change content
+  showContent(content: string, id?: string) {
     this.sharedService.setSelectedContent(content);
+    if (id) {
+      this.sharedService.setSelectedId(id);
+    }
   }
 }

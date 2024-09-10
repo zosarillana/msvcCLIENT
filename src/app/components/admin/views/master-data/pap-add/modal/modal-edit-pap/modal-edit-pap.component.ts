@@ -67,10 +67,9 @@ export class ModalEditPapComponent {
 
       // Append form fields
       formData.append('id', this.data.id.toString());
-      formData.append('pod_name', this.data.pod_name);
+      formData.append('pap_name', this.data.pap_name);
       const othersValue = this.data.others && this.data.others.trim() ? this.data.others : 'N/A';
-      formData.append('pod_others', othersValue);
-      formData.append('pod_type', this.data.pod_type);
+      formData.append('pap_others', othersValue);   
       formData.append('description', this.data.description || '');
 
       // Append image file if available

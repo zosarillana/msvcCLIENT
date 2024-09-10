@@ -33,7 +33,7 @@ export class ModalEditIsrComponent {
   openConfirmationDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.save(); // Proceed with saving if the user confirmed
       }

@@ -15,19 +15,19 @@ export class UpdateMarketVisitsComponent {
 
   ngOnInit(): void {}
 
-  private fetchMarketVisits() {
-    this.marketVisitsService.getMarketVisits().subscribe((visits: MarketVisits[]) => {
-      this.marketVisitsUpdated.emit(visits);
-    });
-  }
+  // private fetchMarketVisits() {
+  //   this.marketVisitsService.getMarketVisits().subscribe((visits: MarketVisits[]) => {
+  //     this.marketVisitsUpdated.emit(visits);
+  //   });
+  // }
 
-  updateVisit(mvisit: MarketVisits) {
-    this.marketVisitsService.updateMarketVisits(mvisit).subscribe(() => this.fetchMarketVisits());
-  }
+  // updateVisit(mvisit: MarketVisits) {
+  //   this.marketVisitsService.updateMarketVisits(mvisit).subscribe(() => this.fetchMarketVisits());
+  // }
 
-  deleteVisit(mvisit: MarketVisits) {
-    this.marketVisitsService.deleteMarketVisits(mvisit).subscribe(() => this.fetchMarketVisits());
-  }
+  // deleteVisit(mvisit: MarketVisits) {
+  //   this.marketVisitsService.deleteMarketVisits(mvisit).subscribe(() => this.fetchMarketVisits());
+  // }
 
   // createVisit(mvisit: MarketVisits) {
   //   this.marketVisitsService.createMarketVisits(mvisit).subscribe(() => this.fetchMarketVisits());

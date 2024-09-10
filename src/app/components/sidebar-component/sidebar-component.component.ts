@@ -21,9 +21,10 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
   title = 'msvcREST';
   selectedContent = 'content1';
   isSidebarOpen = true;
-  userCount: number = 0;
+  userCount = 0;
   username: string | null = null;
   user: any = null;
+  selectedId: string | null = null;
 
   private _formBuilder = inject(FormBuilder);
 
@@ -55,10 +56,6 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
     private sharedService: SharedService // Inject SharedService
   ) {}
 
-  logout(): void {
-    this.authService.logout();
-  }
-
   ngOnInit(): void {
     // Bind the click event listener using Renderer2
     this.clickListener = this.renderer.listen(
@@ -73,11 +70,15 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
     this.tokenService.decodeTokenAndSetUser();
     this.user = this.tokenService.getUser();
     this.username = this.user ? this.user.sub : null; // Update username based on 'sub'
-    
 
     // Subscribe to content changes from SharedService
     this.sharedService.selectedContent$.subscribe((content) => {
       this.selectedContent = content;
+    });
+
+    // Optionally, handle ID changes
+    this.sharedService.selectedId$.subscribe((id) => {
+      this.selectedId = id;
     });
   }
 
@@ -92,9 +93,16 @@ export class SidebarComponentComponent implements OnInit, OnDestroy {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  showContent(content: string): void {
+  showContent(content: string, id?: string): void {
     // Use SharedService to change content
     this.sharedService.setSelectedContent(content);
+    if (id) {
+      this.sharedService.setSelectedId(id);
+    }
+  }
+  
+  logout(): void {
+    this.authService.logout();
   }
 
   private onDocumentClick(event: MouseEvent): void {

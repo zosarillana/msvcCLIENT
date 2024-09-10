@@ -169,14 +169,12 @@
             >
             <div class="flex space-x-2">
               <div class="relative inline-block group">
-                <button
-                  mat-icon-button
-                  class="icon-button-edit"
-                  (click)="openEditDialog(mvisit)"
-                >
+                <button mat-icon-button class="icon-button-edit" (click)="showContent('edit-visits', mvisit.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
-               
+                <button mat-icon-button class="icon-button-edit" (click)="showContent('view-visits', mvisit.id)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
               </div>
               <!-- <div class="relative inline-block group">
                 <button

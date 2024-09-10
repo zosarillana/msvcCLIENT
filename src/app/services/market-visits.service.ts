@@ -16,11 +16,12 @@ export class MarketVisitsService {
     return this.http.get<MarketVisits[]>(`${environment.apiUrl}/${this.url}`);
   }
 
-  public updateMarketVisits(mvisit: MarketVisits): Observable<MarketVisits> {
-    return this.http.put<MarketVisits>(
-      `${environment.apiUrl}/${this.url}`,
-      mvisit
-    );
+  public updateMarketVisits(id: number, formData: FormData): Observable<MarketVisits> {
+  return this.http.put<MarketVisits>(`${environment.apiUrl}/${this.url}/${id}`, formData);
+}
+
+  getVisitById(id: string): Observable<MarketVisits> {
+    return this.http.get<MarketVisits>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
   public createMarketVisits(formData: FormData): Observable<any> {
