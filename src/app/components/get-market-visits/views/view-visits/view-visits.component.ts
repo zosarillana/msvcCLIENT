@@ -45,13 +45,27 @@ export class ViewVisitsComponent {
       this.mvisit?.accountTypes.map((accountTypes) => accountTypes.accountType_name).join(', ') || 'No Account Types'
     );
   }
+  getAllPaps(): string {
+    return (
+      this.mvisit?.paps.map((paps) => paps.pap_name).join(', ') || 'No Paps'
+    );
+  }
 
   getAllIsrs(type: 'NEEDS' | 'REQUIREMENTS'): string {
     return (
       this.mvisit?.isrs
         .filter((isr) => isr.isr_type === type)
         .map((isr) => isr.isr_name)
-        .join(', ') || 'No ISR Names'
+        .join(', ') || 'No In store requirement'
+    );
+  }
+  
+  getAllPods(type: 'CANNED' | 'MPP'): string {
+    return (
+      this.mvisit?.pods
+        .filter((pod) => pod.pod_type === type)
+        .map((pod) => pod.pod_name)
+        .join(', ') || 'No Poduct on Display'
     );
   }
   public imageUrlBase = `${environment.apiUrl}/MarketVisits/image/`;
