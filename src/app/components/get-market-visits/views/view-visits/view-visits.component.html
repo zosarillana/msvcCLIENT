@@ -1,348 +1,360 @@
-<div>
-  <div *ngIf="visitId">
-    <div class="text-2xl font-semibold mb-1">View details of {{ visitId }}</div>
-    <!-- Form for editing visit details -->
-    <form (ngSubmit)="onSubmit()" *ngIf="mvisit">
-      <!-- User ID input -->
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 mt-5 gap-2">
-        <div class="relative">
-          <label
-            for="user_id"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Submitted by</label
-          >
-          <input
-            id="user_id"
-            type="text"
-            [value]="mvisit.user.abfi_id"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Full Name input -->
-        <div class="relative">
-          <label
-            for="user_name"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Full Name</label
-          >
-          <input
-            id="user_name"
-            type="text"
-            [value]="
-              mvisit.user.fname +
-              ' ' +
-              mvisit.user.mname +
-              ' ' +
-              mvisit.user.lname
-            "
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Email input -->
-        <div class="relative">
-          <label
-            for="user_email"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Email Address</label
-          >
-          <input
-            id="user_email"
-            type="email"
-            [value]="mvisit.user.email_add"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
+<div
+  class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md"
+>
+  <div class="w-full mx-auto">
+    <div>
+      <div *ngIf="visitId">
+        <div class="text-2xl font-semibold mb-1">View details of {{ visitId }}</div>
+        <!-- Form for editing visit details -->
+        <form (ngSubmit)="onSubmit()" *ngIf="mvisit">
+          <!-- User ID input -->
+    
+          <div class="grid grid-cols-1 lg:grid-cols-3 mt-5 gap-2">
+            <div class="relative">
+              <label
+                for="user_id"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Submitted by</label
+              >
+              <input
+                id="user_id"
+                type="text"
+                [value]="mvisit.user.abfi_id"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Full Name input -->
+            <div class="relative">
+              <label
+                for="user_name"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Full Name</label
+              >
+              <input
+                id="user_name"
+                type="text"
+                [value]="
+                  mvisit.user.fname +
+                  ' ' +
+                  mvisit.user.mname +
+                  ' ' +
+                  mvisit.user.lname
+                "
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Email input -->
+            <div class="relative">
+              <label
+                for="user_email"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Email Address</label
+              >
+              <input
+                id="user_email"
+                type="email"
+                [value]="mvisit.user.email_add"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+          </div>
+    
+          <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
+            <div class="relative">
+              <label
+                for="visit_date"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Visited Date</label
+              >
+              <input
+                id="visit_date"
+                type="text"
+                [value]="getFormattedVisitDate()"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Full Name input -->
+            <div class="relative">
+              <label
+                for="visited_locations"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Visited Locations</label
+              >
+              <input
+                id="visited_locations"
+                type="text"
+                [value]="getAllAreaNames()"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+          </div>
+    
+          <div class="text-2xl font-semibold mb-1 mt-5">
+            Submitted account details
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-4 mt-5 gap-2">
+            <div class="relative">
+              <label
+                for="accountName"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Account name</label
+              >
+              <input
+                id="accountName"
+                type="text"
+                [value]="mvisit.visit_accountName"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Full Name input -->
+            <div class="relative">
+              <label
+                for="distributor"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Distributor</label
+              >
+              <input
+                id="distributor"
+                type="text"
+                [value]="mvisit.visit_distributor"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Email input -->
+            <div class="relative">
+              <label
+                for="salesPersonnel"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Sales Personnel in Charge</label
+              >
+              <input
+                id="salesPersonnel"
+                type="text"
+                [value]="mvisit.visit_salesPersonnel"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <!-- User Email input -->
+            <div class="relative">
+              <label
+                for="accountType"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Account Types</label
+              >
+              <input
+                id="accountType"
+                type="text"
+                [value]="getAllAccountType()"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+          </div>
+    
+          <div class="text-2xl font-semibold mb-1 mt-5">
+            In store requirements checklist
+          </div>
+    
+          <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
+            <div class="relative">
+              <label
+                for="allisrsreqs"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >In store requirements</label
+              >
+              <input
+                id="allisrsreqs"
+                type="text"
+                [value]="getAllIsrs('REQUIREMENTS')"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Full Name input -->
+            <div class="relative">
+              <label
+                for="allisrsneeds"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >In store requirements needs</label
+              >
+              <input
+                id="allisrsneeds"
+                type="text"
+                [value]="getAllIsrs('NEEDS')"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div class="relative">
+              <label
+                for="imageDisplay"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+              >
+                Display Requirement Image
+              </label>
+              <img
+                id="imageDisplay"
+                [src]="getImageUrl(mvisit.isr_req_ImgPath)"
+                alt="Visit Image"
+                class="border rounded-lg text-sm h-80 w-1/2 cursor-pointer mt-2"
+              />
+            </div>
+    
+            <div class="relative">
+              <label
+                for="imageDisplay2"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+              >
+                Display Needs Image
+              </label>
+              <img
+                id="imageDisplay2"
+                [src]="getImageUrl(mvisit.isr_needs_ImgPath)"
+                alt="Visit Image"
+                class="border rounded-lg text-sm h-80 w-1/2 cursor-pointer mt-2"
+              />
+            </div>
+          </div>
+          <div class="text-2xl font-semibold mb-1 mt-5">Payola Information</div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 mt-5 gap-2">
+            <div class="relative">
+              <label
+                for="merch"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Payola Merchandiser</label
+              >
+              <input
+                id="merch"
+                type="text"
+                [value]="mvisit.visit_payolaMerchandiser"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Full Name input -->
+            <div class="relative">
+              <label
+                for="supervisor"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Payola Supervisor</label
+              >
+              <input
+                id="supervisor"
+                type="text"
+                [value]="mvisit.visit_payolaSupervisor"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Email input -->
+            <div class="relative">
+              <label
+                for="avgo"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Average Take Off</label
+              >
+              <input
+                id="avgo"
+                type="text"
+                [value]="mvisit.visit_averageOffTakePd"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+          </div>
+          <div class="text-2xl font-semibold mb-1 mt-5">
+            Product on display information
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
+            <div class="relative">
+              <label
+                for="canned"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Canned product on display</label
+              >
+              <input
+                id="canned"
+                type="text"
+                [value]="getAllIsrs('REQUIREMENTS')"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Full Name input -->
+            <div class="relative">
+              <label
+                for="mpp"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >MPP Product on display</label
+              >
+              <input
+                id="mpp"
+                type="text"
+                [value]="getAllIsrs('NEEDS')"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+          </div>
+          <div class="text-2xl font-semibold mb-1 mt-5">
+            Prepared action plan informaiton
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
+            <div class="relative">
+              <label
+                for="canned"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >Competitors Checklist (existing SKU in-store)</label
+              >
+              <input
+                id="canned"
+                type="text"
+                [value]="mvisit.visit_competitorsCheck"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+    
+            <!-- User Full Name input -->
+            <div class="relative">
+              <label
+                for="mpp"
+                class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+                >MPP Product on display</label
+              >
+              <input
+                id="mpp"
+                type="text"
+                [value]="getAllPaps()"
+                readonly
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+          </div>
+        </form>
       </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
-        <div class="relative">
-          <label
-            for="visit_date"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Visited Date</label
-          >
-          <input
-            id="visit_date"
-            type="text"
-            [value]="getFormattedVisitDate()"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Full Name input -->
-        <div class="relative">
-          <label
-            for="visited_locations"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Visited Locations</label
-          >
-          <input
-            id="visited_locations"
-            type="text"
-            [value]="getAllAreaNames()"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
+      <div *ngIf="!visitId">
+        <p>No visit ID provided.</p>
       </div>
-
-      <div class="text-2xl font-semibold mb-1 mt-5">
-        Submitted account details
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-4 mt-5 gap-2">
-        <div class="relative">
-          <label
-            for="accountName"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Account name</label
-          >
-          <input
-            id="accountName"
-            type="text"
-            [value]="mvisit.visit_accountName"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Full Name input -->
-        <div class="relative">
-          <label
-            for="distributor"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Distributor</label
-          >
-          <input
-            id="distributor"
-            type="text"
-            [value]="mvisit.visit_distributor"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Email input -->
-        <div class="relative">
-          <label
-            for="salesPersonnel"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Sales Personnel in Charge</label
-          >
-          <input
-            id="salesPersonnel"
-            type="text"
-            [value]="mvisit.visit_salesPersonnel"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-        <!-- User Email input -->
-        <div class="relative">
-          <label
-            for="accountType"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Account Types</label
-          >
-          <input
-            id="accountType"
-            type="text"
-            [value]="getAllAccountType()"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-      </div>
-
-      <div class="text-2xl font-semibold mb-1 mt-5">
-        In store requirements checklist
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
-        <div class="relative">
-          <label
-            for="allisrsreqs"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >In store requirements</label
-          >
-          <input
-            id="allisrsreqs"
-            type="text"
-            [value]="getAllIsrs('REQUIREMENTS')"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Full Name input -->
-        <div class="relative">
-          <label
-            for="allisrsneeds"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >In store requirements needs</label
-          >
-          <input
-            id="allisrsneeds"
-            type="text"
-            [value]="getAllIsrs('NEEDS')"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-        <div class="relative">
-          <label
-            for="imageDisplay"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-          >
-            Display Requirement Image
-          </label>
-          <img
-            id="imageDisplay"
-            [src]="getImageUrl(mvisit.isr_req_ImgPath)"
-            alt="Visit Image"
-            class="border rounded-lg text-sm h-80 w-1/2 cursor-pointer mt-2"
-          />
-        </div>
-
-        <div class="relative">
-          <label
-            for="imageDisplay2"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-          >
-            Display Needs Image
-          </label>
-          <img
-            id="imageDisplay2"
-            [src]="getImageUrl(mvisit.isr_needs_ImgPath)"
-            alt="Visit Image"
-            class="border rounded-lg text-sm h-80 w-1/2 cursor-pointer mt-2"
-          />
-        </div>
-      </div>
-      <div class="text-2xl font-semibold mb-1 mt-5">Payola Information</div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 mt-5 gap-2">
-        <div class="relative">
-          <label
-            for="merch"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Payola Merchandiser</label
-          >
-          <input
-            id="merch"
-            type="text"
-            [value]="mvisit.visit_payolaMerchandiser"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Full Name input -->
-        <div class="relative">
-          <label
-            for="supervisor"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Payola Supervisor</label
-          >
-          <input
-            id="supervisor"
-            type="text"
-            [value]="mvisit.visit_payolaSupervisor"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Email input -->
-        <div class="relative">
-          <label
-            for="avgo"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Average Take Off</label
-          >
-          <input
-            id="avgo"
-            type="text"
-            [value]="mvisit.visit_averageOffTakePd"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-      </div>
-      <div class="text-2xl font-semibold mb-1 mt-5">Product on display information</div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
-        <div class="relative">
-          <label
-            for="canned"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Canned product on display</label
-          >
-          <input
-            id="canned"
-            type="text"
-            [value]="getAllIsrs('REQUIREMENTS')"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Full Name input -->
-        <div class="relative">
-          <label
-            for="mpp"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >MPP Product on display</label
-          >
-          <input
-            id="mpp"
-            type="text"
-            [value]="getAllIsrs('NEEDS')"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>      
-      </div>
-      <div class="text-2xl font-semibold mb-1 mt-5">Prepared action plan informaiton</div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
-        <div class="relative">
-          <label
-            for="canned"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >Competitors Checklist (existing SKU in-store)</label
-          >
-          <input
-            id="canned"
-            type="text"
-            [value]="mvisit.visit_competitorsCheck"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>
-
-        <!-- User Full Name input -->
-        <div class="relative">
-          <label
-            for="mpp"
-            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
-            >MPP Product on display</label
-          >
-          <input
-            id="mpp"
-            type="text"
-            [value]="getAllPaps()"
-            readonly
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-        </div>      
-      </div>
-    </form>
-  </div>
-  <div *ngIf="!visitId">
-    <p>No visit ID provided.</p>
+    </div>
+    
   </div>
 </div>
+
