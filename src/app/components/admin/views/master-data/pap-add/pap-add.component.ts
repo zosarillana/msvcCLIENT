@@ -19,6 +19,7 @@ import { ModalCreatePapComponent } from './modal/modal-create-pap/modal-create-p
 import { ModalEditPapComponent } from './modal/modal-edit-pap/modal-edit-pap.component';
 import { ModalViewPapComponent } from './modal/modal-view-pap/modal-view-pap.component';
 import { ModalDeletePapComponent } from './modal/modal-delete-pap/modal-delete-pap.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pap-add',
@@ -46,7 +47,14 @@ export class PapAddComponent {
   // Construct the base API URL
   public imageUrlBase = `${environment.apiUrl}/Pap/image/`;  // <-- Use the environment API URL
 
-  constructor(private papService: PapService, public dialog: MatDialog) {}
+  constructor(private papService: PapService, public dialog: MatDialog, private datePipe: DatePipe) {}
+
+  getFormattedVisitDate(visitDate: string | undefined): string {
+    if (visitDate) {
+      return this.datePipe.transform(new Date(visitDate), 'short') || 'No Date';
+    }
+    return 'No Date';
+  }
 
   ngOnInit(): void {
     this.loadPods();

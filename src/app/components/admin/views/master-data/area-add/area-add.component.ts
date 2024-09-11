@@ -11,6 +11,7 @@ import moment from 'moment';
 import { ModalViewAreaComponent } from './modal/modal-view-area/modal-view-area.component';
 import { ModalDeleteAreaComponent } from './modal/modal-delete-area/modal-delete-area.component';
 import { ModalEditAreaComponent } from './modal/modal-edit-area/modal-edit-area.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-area-add',
@@ -29,11 +30,14 @@ export class AreaAddComponent implements OnInit, OnDestroy {
   areaCount: number = 0;
   startDate: Date | null = null;
   endDate: Date | null = null;
-  
+
   private pollingSubscription!: Subscription;
 
-  constructor(private areaService: AreaService, public dialog: MatDialog) {}
-
+  constructor(
+    private areaService: AreaService,
+    public dialog: MatDialog,
+    private datePipe: DatePipe
+  ) {}
   ngOnInit(): void {
     this.loadAreas();
     this.startPolling();
@@ -45,21 +49,23 @@ export class AreaAddComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   applyDateFilter(type: string, event: MatDatepickerInputEvent<Date>): void {
     const date = event.value;
-  
+
     if (type === 'start') {
       this.startDate = date;
     } else {
       this.endDate = date;
     }
-  
+
     this.dataSource.filterPredicate = (data: Area) => {
       const createdDate = moment(data.date_created);
-      const withinStart = this.startDate ? createdDate.isSameOrAfter(this.startDate) : true;
-      const withinEnd = this.endDate ? createdDate.isSameOrBefore(this.endDate) : true;
+      const withinStart = this.startDate
+        ? createdDate.isSameOrAfter(this.startDate)
+        : true;
+      const withinEnd = this.endDate
+        ? createdDate.isSameOrBefore(this.endDate)
+        : true;
       return withinStart && withinEnd;
     };
     this.dataSource.filter = '' + Math.random(); // Trigger filtering
@@ -74,14 +80,21 @@ export class AreaAddComponent implements OnInit, OnDestroy {
   }
 
   private startPolling(): void {
-    this.pollingSubscription = this.areaService.getAreaCount()
-      .subscribe(
-        (count: number) => this.areaCount = count,
-        (error) => console.error('Error fetching area count:', error)
-      );
+    this.pollingSubscription = this.areaService.getAreaCount().subscribe(
+      (count: number) => (this.areaCount = count),
+      (error) => console.error('Error fetching area count:', error)
+    );
 
     setInterval(() => this.fetchUserCount(), 3000);
   }
+
+  getFormattedVisitDate(visitDate: string | undefined): string {
+    if (visitDate) {
+      return this.datePipe.transform(new Date(visitDate), 'short') || 'No Date';
+    }
+    return 'No Date';
+  }
+  
 
   private fetchUserCount(): void {
     this.areaService.getAreaCount().subscribe(
@@ -110,7 +123,7 @@ export class AreaAddComponent implements OnInit, OnDestroy {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.loadAreas();
       }
@@ -130,11 +143,11 @@ export class AreaAddComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ModalViewAreaComponent, {
       width: '500px',
       data: area,
-      disableClose: true,     // Prevents closing the dialog by clicking outside or pressing ESC
-      autoFocus: true,        // Automatically focuses the first focusable element in the dialog
-      restoreFocus: true,     // Restores focus to the element that triggered the dialog after it closes
+      disableClose: true, // Prevents closing the dialog by clicking outside or pressing ESC
+      autoFocus: true, // Automatically focuses the first focusable element in the dialog
+      restoreFocus: true, // Restores focus to the element that triggered the dialog after it closes
     });
-  
+
     dialogRef.afterClosed().subscribe(() => this.loadAreas());
   }
-}  
+}

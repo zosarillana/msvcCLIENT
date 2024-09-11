@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { IsrService } from '../../../../../services/isr.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCreateIsrComponent } from './modal/modal-create-isr/modal-create-isr.component';
-import { environment } from '../../../../../../environments/environment';  // <-- Import the environment
+import { environment } from '../../../../../../environments/environment'; // <-- Import the environment
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import moment from 'moment';
 import { ModalEditIsrComponent } from './modal/modal-edit-isr/modal-edit-isr.component';
@@ -14,11 +14,12 @@ import { initFlowbite } from 'flowbite';
 import { ModalViewIsrComponent } from './modal/modal-view-isr/modal-view-isr.component';
 import { ModalDeleteIsrComponent } from './modal/modal-delete-isr/modal-delete-isr.component';
 import { AfterViewInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-isr-add',
   templateUrl: './isr-add.component.html',
-  styleUrls: ['./isr-add.component.css']
+  styleUrls: ['./isr-add.component.css'],
 })
 export class IsrAddComponent {
   displayedColumns: string[] = [
@@ -39,10 +40,21 @@ export class IsrAddComponent {
   private pollingSubscription!: Subscription;
 
   // Construct the base API URL
-  public imageUrlBase = `${environment. apiUrl}/Isr/image/`;  // <-- Use the environment API URL
+  public imageUrlBase = `${environment.apiUrl}/Isr/image/`; // <-- Use the environment API URL
 
-  constructor(private isrService: IsrService, public dialog: MatDialog) {}
+  constructor(
+    private isrService: IsrService,
+    private datePipe: DatePipe,
+    public dialog: MatDialog
+  ) {}
 
+  getFormattedVisitDate(visitDate: string | undefined): string {
+    if (visitDate) {
+      return this.datePipe.transform(new Date(visitDate), 'short') || 'No Date';
+    }
+    return 'No Date';
+  }
+  
   ngOnInit(): void {
     this.loadIsrs();
     this.startPolling();
@@ -54,25 +66,28 @@ export class IsrAddComponent {
       this.pollingSubscription.unsubscribe();
     }
   }
-  
+
   applyDateFilter(type: string, event: MatDatepickerInputEvent<Date>): void {
     const date = event.value;
-  
+
     if (type === 'start') {
       this.startDate = date;
     } else {
       this.endDate = date;
     }
-  
+
     this.dataSource.filterPredicate = (data: Isr) => {
       const createdDate = moment(data.date_created);
-      const withinStart = this.startDate ? createdDate.isSameOrAfter(this.startDate) : true;
-      const withinEnd = this.endDate ? createdDate.isSameOrBefore(this.endDate) : true;
+      const withinStart = this.startDate
+        ? createdDate.isSameOrAfter(this.startDate)
+        : true;
+      const withinEnd = this.endDate
+        ? createdDate.isSameOrBefore(this.endDate)
+        : true;
       return withinStart && withinEnd;
     };
     this.dataSource.filter = '' + Math.random(); // Trigger filtering
   }
-  
 
   loadIsrs(): void {
     this.isrService.getIsrs().subscribe((result: Isr[]) => {
@@ -83,11 +98,10 @@ export class IsrAddComponent {
   }
 
   private startPolling(): void {
-    this.pollingSubscription = this.isrService.getIsrCount()
-      .subscribe(
-        (count: number) => this.isrCount = count,
-        (error) => console.error('Error fetching ISR count:', error)
-      );
+    this.pollingSubscription = this.isrService.getIsrCount().subscribe(
+      (count: number) => (this.isrCount = count),
+      (error) => console.error('Error fetching ISR count:', error)
+    );
 
     setInterval(() => this.fetchUserCount(), 3000);
   }
@@ -128,7 +142,7 @@ export class IsrAddComponent {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.loadIsrs();
       }
@@ -143,5 +157,4 @@ export class IsrAddComponent {
 
     dialogRef.afterClosed().subscribe(() => this.loadIsrs());
   }
-
 }

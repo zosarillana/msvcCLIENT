@@ -63,6 +63,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EditVisitsComponent } from './components/get-market-visits/views/edit-visits/edit-visits.component';
 import { ViewVisitsComponent } from './components/get-market-visits/views/view-visits/view-visits.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -130,9 +131,11 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
     MatStepperModule,
     MatProgressSpinnerModule,
     RouterModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+  
   ],
   providers: [
+    DatePipe,
     TokenService, // Add TokenService to providers
     AuthService, // Add AuthService to providers
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

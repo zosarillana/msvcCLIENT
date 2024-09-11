@@ -1,36 +1,233 @@
 <div>
-  <h2>Edit Visit</h2>
   <div *ngIf="visitId">
-    <p>Editing visit with ID: {{ visitId }}</p>
+    <div class="text-2xl font-semibold mb-1">View details of {{ visitId }}</div>
     <!-- Form for editing visit details -->
     <form (ngSubmit)="onSubmit()" *ngIf="mvisit">
-      <label for="visitArea">Visit Area:</label>
-      <div *ngIf="mvisit.areas.length">
-        <span *ngFor="let area of mvisit.areas; let last = last">
-          {{ area.area_name }}<span *ngIf="!last">, </span>
-        </span>
+      <!-- User ID input -->
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 mt-5 gap-2">
+        <div class="relative">
+          <label
+            for="user_id"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Submitted by</label
+          >
+          <input
+          id="user_id"
+          type="text"
+          [value]="mvisit.user.abfi_id"
+          readonly
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+        </div>
+
+        <!-- User Full Name input -->
+        <div class="relative">
+          <label
+            for="user_name"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Full Name</label
+          >
+          <input
+            id="user_name"
+            type="text"
+            [value]="
+              mvisit.user.fname+
+              ' ' +
+              mvisit.user.mname +
+              ' ' +
+              mvisit.user.lname
+            "
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
+
+        <!-- User Email input -->
+        <div class="relative">
+          <label
+            for="user_email"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Email Address</label
+          >
+          <input
+            id="user_email"
+            type="email"
+            [value]="mvisit.user.email_add"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
       </div>
-      <div *ngIf="!mvisit.areas.length">No Areas</div>
 
-      <label for="visitDate">Visit Date:</label>
-      <input
-        id="visitDate"
-        [(ngModel)]="mvisit.visit_date"
-        name="visitDate"
-        required
-      />
+      <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
+        <div class="relative">
+          <label
+            for="visit_date"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Visited Date</label
+          >
+          <input
+            id="visit_date"
+            type="text"
+            [value]="getFormattedVisitDate()"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
 
-      <label for="accountName">Account Name:</label>
-      <input
-        id="accountName"
-        [(ngModel)]="mvisit.visit_accountName"
-        name="visitAccountName"
-        required
-      />
+        <!-- User Full Name input -->
+        <div class="relative">
+          <label
+            for="visited_locations"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Visited Locations</label
+          >
+          <input
+            id="visited_locations"
+            type="text"
+            [value]="getAllAreaNames()"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
+      </div>
+    
+      <div class="text-2xl font-semibold mb-1 mt-5">
+        Submitted account details
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-4 mt-5 gap-2">
+        <div class="relative">
+          <label
+            for="accountName"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Account name</label
+          >
+          <input
+            id="accountName"
+            type="text"
+            [value]="mvisit.visit_accountName"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
 
-      <!-- Add other fields as needed -->
+        <!-- User Full Name input -->
+        <div class="relative">
+          <label
+            for="distributor"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Distributor</label
+          >
+          <input
+            id="distributor"
+            type="text"
+            [value]="mvisit.visit_distributor"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
 
-      <button type="submit">Save</button>
+        <!-- User Email input -->
+        <div class="relative">
+          <label
+            for="salesPersonnel"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Sales Personnel in Charge</label
+          >
+          <input
+            id="salesPersonnel"
+            type="text"
+            [value]="mvisit.visit_salesPersonnel"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
+        <!-- User Email input -->
+        <div class="relative">
+          <label
+            for="accountType"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >Account Types</label
+          >
+          <input
+            id="accountType"
+            type="text"
+            [value]="getAllAccountType()"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
+      </div>
+
+      <div class="text-2xl font-semibold mb-1 mt-5">
+       In store requirements checklist
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-2">
+        <div class="relative">
+          <label
+            for="allisrsreqs"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >In store requirements</label
+          >
+          <input
+            id="allisrsreqs"
+            type="text"
+            [value]="getAllIsrs('REQUIREMENTS')"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>
+
+        <!-- User Full Name input -->
+        <div class="relative">
+          <label
+            for="allisrsneeds"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+            >In store requirements needs</label
+          >
+          <input
+            id="allisrsneeds"
+            type="text"
+            [value]="getAllIsrs('NEEDS')"
+            readonly
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+        </div>     
+        <div class="relative">
+          <label
+            for="imageDisplay"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >
+            Display Requirement Image
+          </label>
+          <img
+            id="imageDisplay"
+            [src]="getImageUrl(mvisit.isr_req_ImgPath)" 
+            alt="Visit Image"
+            class="border rounded-lg text-sm h-80 w-1/2 cursor-pointer mt-2"
+          />
+        </div>
+             
+        <div class="relative">
+          <label
+            for="imageDisplay2"
+            class="block text-gray-700 text-md dark:text-gray-300 font-medium mb-2"
+          >
+            Display Needs Image
+          </label>
+          <img
+            id="imageDisplay2"
+            [src]="getImageUrl(mvisit.isr_needs_ImgPath)" 
+            alt="Visit Image"
+            class="border rounded-lg text-sm h-80 w-1/2 cursor-pointer mt-2"
+          />
+        </div>
+        
+        
+      </div>
+
     </form>
   </div>
   <div *ngIf="!visitId">

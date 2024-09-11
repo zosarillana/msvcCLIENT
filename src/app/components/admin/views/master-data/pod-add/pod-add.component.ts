@@ -20,10 +20,11 @@ import { ModalViewPodComponent } from './modal/modal-view-pod/modal-view-pod.com
 import { ModalDeletePodComponent } from './modal/modal-delete-pod/modal-delete-pod.component';
 import { ModalDeletePapComponent } from '../pap-add/modal/modal-delete-pap/modal-delete-pap.component';
 import { Pod } from '../../../../../models/pod';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-pod-add',
   templateUrl: './pod-add.component.html',
-  styleUrl: './pod-add.component.css'
+  styleUrl: './pod-add.component.css',
 })
 export class PodAddComponent {
   displayedColumns: string[] = [
@@ -44,10 +45,21 @@ export class PodAddComponent {
   private pollingSubscription!: Subscription;
 
   // Construct the base API URL
-  public imageUrlBase = `${environment.apiUrl}/Pod/image/`;  // <-- Use the environment API URL
+  public imageUrlBase = `${environment.apiUrl}/Pod/image/`; // <-- Use the environment API URL
 
-  constructor(private podService: PodService, public dialog: MatDialog) {}
+  constructor(
+    private podService: PodService,
+    public dialog: MatDialog,
+    private datePipe: DatePipe
+  ) {}
 
+  getFormattedVisitDate(visitDate: string | undefined): string {
+    if (visitDate) {
+      return this.datePipe.transform(new Date(visitDate), 'short') || 'No Date';
+    }
+    return 'No Date';
+  }
+  
   ngOnInit(): void {
     this.loadPods();
     this.startPolling();
@@ -59,25 +71,28 @@ export class PodAddComponent {
       this.pollingSubscription.unsubscribe();
     }
   }
-  
+
   applyDateFilter(type: string, event: MatDatepickerInputEvent<Date>): void {
     const date = event.value;
-  
+
     if (type === 'start') {
       this.startDate = date;
     } else {
       this.endDate = date;
     }
-  
+
     this.dataSource.filterPredicate = (data: Pod) => {
       const createdDate = moment(data.date_created);
-      const withinStart = this.startDate ? createdDate.isSameOrAfter(this.startDate) : true;
-      const withinEnd = this.endDate ? createdDate.isSameOrBefore(this.endDate) : true;
+      const withinStart = this.startDate
+        ? createdDate.isSameOrAfter(this.startDate)
+        : true;
+      const withinEnd = this.endDate
+        ? createdDate.isSameOrBefore(this.endDate)
+        : true;
       return withinStart && withinEnd;
     };
     this.dataSource.filter = '' + Math.random(); // Trigger filtering
   }
-  
 
   loadPods(): void {
     this.podService.getPods().subscribe((result: Pod[]) => {
@@ -88,11 +103,10 @@ export class PodAddComponent {
   }
 
   private startPolling(): void {
-    this.pollingSubscription = this.podService.getPodsCount()
-      .subscribe(
-        (count: number) => this.podCount = count,
-        (error) => console.error('Error fetching Pod count:', error)
-      );
+    this.pollingSubscription = this.podService.getPodsCount().subscribe(
+      (count: number) => (this.podCount = count),
+      (error) => console.error('Error fetching Pod count:', error)
+    );
 
     setInterval(() => this.fetchUserCount(), 3000);
   }
@@ -133,7 +147,7 @@ export class PodAddComponent {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.loadPods();
       }
@@ -148,5 +162,4 @@ export class PodAddComponent {
 
     dialogRef.afterClosed().subscribe(() => this.loadPods());
   }
-
 }

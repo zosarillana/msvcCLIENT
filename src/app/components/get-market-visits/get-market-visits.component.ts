@@ -16,6 +16,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import moment from 'moment';
 import { Pod } from '../../models/pod';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-get-market-visits',
@@ -56,6 +57,7 @@ export class GetMarketVisitsComponent implements AfterViewInit, OnInit {
   endDate: Date | null = null;
   visitCount: number = 0;
   constructor(
+    private datePipe: DatePipe,
     private marketVisitsService: MarketVisitsService,
     public dialog: MatDialog,
     private sharedService: SharedService // Inject SharedService
@@ -78,6 +80,14 @@ export class GetMarketVisitsComponent implements AfterViewInit, OnInit {
         this.dataSource.data = result;
       });
   }
+
+  getFormattedVisitDate(visitDate: string | undefined): string {
+    if (visitDate) {
+      return this.datePipe.transform(new Date(visitDate), 'short') || 'No Date';
+    }
+    return 'No Date';
+  }
+  
 
   private startPolling(): void {
     this.pollingSubscription = this.marketVisitsService

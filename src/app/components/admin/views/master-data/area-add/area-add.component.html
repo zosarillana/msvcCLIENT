@@ -91,7 +91,7 @@
               *matCellDef="let area"
               class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
             >
-              {{ area.area }} date : "short" 
+              {{ area.area }}
             </td>
           </ng-container>
           <ng-container matColumnDef="description">
@@ -123,7 +123,7 @@
               *matCellDef="let area"
               class="bg-white-imp border border-blueGray-100 px-6 py-3 text-sm whitespace-nowrap text-left text-blueGray-700"
             >
-              {{ area.date_created }}
+              {{ getFormattedVisitDate(area.date_created) }}
             </td>
           </ng-container>
           <ng-container matColumnDef="action">

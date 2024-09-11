@@ -1,38 +1,85 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MarketVisits } from '../../../../models/market-visits';
 import { MarketVisitsService } from '../../../../services/market-visits.service';
+import { DatePipe } from '@angular/common';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-view-visits',
   templateUrl: './view-visits.component.html',
-  styleUrl: './view-visits.component.css'
+  styleUrl: './view-visits.component.css',
 })
 export class ViewVisitsComponent {
   @Input() visitId: string | null = null;
   @Input() mvisit?: MarketVisits;
   @Output() marketVisitsUpdated = new EventEmitter<MarketVisits[]>();
 
-  constructor(private marketVisitsService: MarketVisitsService) {}
+  constructor(
+    private marketVisitsService: MarketVisitsService,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
+    console.log('Visit ID:', this.visitId); // Debugging
     if (this.visitId) {
-      // Fetch data based on visitId
       this.marketVisitsService.getVisitById(this.visitId).subscribe(
         (visit: MarketVisits) => {
           this.mvisit = visit;
+          console.log('Visit data:', this.mvisit); // Debugging
         },
         (error) => {
-          console.error('Error fetching visit details:', error);
+          console.error('Error fetching visit:', error); // Log any errors
         }
       );
     }
+  }
+  // Method to get all area names as a single string
+  getAllAreaNames(): string {
+    return (
+      this.mvisit?.areas.map((area) => area.area_name).join(', ') || 'No Areas'
+    );
+  }
+
+  getAllAccountType(): string {
+    return (
+      this.mvisit?.accountTypes.map((accountTypes) => accountTypes.accountType_name).join(', ') || 'No Account Types'
+    );
+  }
+
+  getAllIsrs(type: 'NEEDS' | 'REQUIREMENTS'): string {
+    return (
+      this.mvisit?.isrs
+        .filter((isr) => isr.isr_type === type)
+        .map((isr) => isr.isr_name)
+        .join(', ') || 'No ISR Names'
+    );
+  }
+  public imageUrlBase = `${environment.apiUrl}/MarketVisits/image/`;
+  
+  getImageUrl(imageName: string | undefined): string {
+    return imageName ? `${this.imageUrlBase}${imageName}` : 'assets/images/placeholder.png'; // Fallback to a placeholder image
+  }
+  
+
+  getFormattedVisitDate(): string {
+    if (this.mvisit && this.mvisit.visit_date) {
+      const date = new Date(this.mvisit.visit_date);
+      const options: Intl.DateTimeFormatOptions = { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit'
+      };
+      return date.toLocaleDateString('en-US', options).replace(',', '');
+    }
+    return 'No Date';
   }
   
   onSubmit(): void {
     // if (this.mvisit && this.visitId) {
     //   this.marketVisitsService.updateMarketVisits(this.visitId, this.mvisit).subscribe(
     //     (updatedVisit: MarketVisits) => {
-       
     //       this.marketVisitsUpdated.emit([updatedVisit]);
     //     },
     //     (error) => {

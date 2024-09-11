@@ -7,7 +7,7 @@ export class MarketVisits {
   visit_distributor = '';
   visit_salesPersonnel = '';
   visit_accountType = '';
-  visit_accountType_others ='';
+  visit_accountType_others = '';
   isr_id = '';
   isr_reqOthers = '';
   isr_req_ImgPath = '';
@@ -59,8 +59,28 @@ export class MarketVisits {
     accountType_name: string;
     accountType_description: string;
     accountType_dateCreated: string;
-    accountType_dateUpdated: string;  
+    accountType_dateUpdated: string;
   }> = [];
-
-
+  user: {  
+    user_id: number;
+    abfi_id: string;
+    role?: number;
+    fname: string; 
+    mname: string;  
+    lname: string; 
+    email_add: string;
+    contact_num: string;
+    username: string;    
+    date_created?: Date; 
+    date_updated?: Date; 
+  } = {  
+    user_id: 0,
+    abfi_id: '',
+    fname: '',
+    mname: '',
+    lname: '',
+    email_add: '',
+    contact_num: '',
+    username: ''
+  };
 }
